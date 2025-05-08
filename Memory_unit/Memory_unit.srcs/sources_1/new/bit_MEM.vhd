@@ -41,13 +41,13 @@ entity bit_MEM is
 end bit_MEM;
 
 architecture Behavioral of bit_MEM is
-  type mem_type is array (
+begin
+  process(w_en, addr, dataToMem)
+    type mem_type is array (
     bit, bit, bit, bit, bit, bit,
     bit, bit, bit, bit, bit, bit
   ) of bit_vector(11 downto 0);
   variable Mem : mem_type;
-begin
-  process(w_en, addr, dataToMem)
   begin
     if w_en = '1' then
       Mem(addr(11), addr(10), addr(9), addr(8),
