@@ -32,33 +32,17 @@ use IEEE.numeric_bit.all;
 --use UNISIM.VComponents.all;
 
 entity memory_unit_testbench is
+  port(
+    w_en     : out bit;
+    addr     : out bit_vector( 11 downto 0 );
+    dataToMem  : out bit_vector( 11 downto 0);
+    dataFromMem1 : in bit_vector( 11 downto 0 );
+    dataFromMem2 : in bit_vector( 11 downto 0 )
+);
 end memory_unit_testbench;
 
 architecture TB of memory_unit_testbench is
-  component bit_MEM
-  port(
-    w_en     : in bit;
-    addr     : in bit_vector( 11 downto 0 );
-    dataToMem  : in bit_vector( 11 downto 0);
-    dataFromMem1 : out bit_vector( 11 downto 0 )
-);
-end component;
-  component int_MEM
-  port(
-    w_en     : in bit;
-    addr     : in bit_vector( 11 downto 0 );
-    dataToMem  : in bit_vector( 11 downto 0);
-    dataFromMem2 : out bit_vector( 11 downto 0 )
-);
-end component;
-signal w_en: bit := '0';
-signal addr, dataToMem, dataFromMem2, dataFromMem1:
-                     bit_vector( 11 downto 0 );
 begin
-UUT1: bit_MEM
-    port map( w_en, addr,dataToMem,DataFromMem1);
-UUT: int_MEM
-    port map( w_en, addr,dataToMem,DataFromMem1);
 process
   begin
     for addr_v in 0 to 4095 loop
@@ -69,6 +53,7 @@ process
     end loop;
     for addr_r in 0 to 4095 loop
       addr <= bit_vector(TO_UNSIGNED(addr_r, 12));
+      w_en <= '0'; wait for 1 ns; 
       assert dataFromMem1 = dataFromMem2;
       assert dataFromMem1 = bit_vector(TO_UNSIGNED(addr_r, 12));
     end loop;
