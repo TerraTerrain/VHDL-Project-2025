@@ -1,0 +1,118 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_BIT.ALL;
+use WORK.defs_pack.all;
+use WORK.conversion_pack.all;
+use WORK.mem_pack.all;
+use STD.TEXTIO.all;
+
+
+
+package tracer_pack is
+    function to_hstring(val : bit_vector) return string;
+    procedure init_trace_files(register_file_name : in string; memory_file_name : in string);
+    procedure trace_registers(file_name : in string; Reg : in RegType);
+    procedure trace_memory(file_name : in string; Mem : in MemType);
+end tracer_pack;
+
+
+
+package body tracer_pack is
+    file register_file : text; -- File for register tracing
+    file memory_file   : text; -- File for memory tracing
+
+    -- Function to convert a 32-bit bit_vector to a string (hex format)
+    function to_hstring(val : bit_vector) return string is
+        -- Define a table (array) mapping 4-bit chunks to hexadecimal characters
+        type hex_table is array (0 to 15) of character;
+        constant hex_map : hex_table := (
+            '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F');
+
+        -- Variable to hold the resulting string
+        variable hex_str : string(1 to 8); -- 8 characters long for 32 bits (4 bits per character)
+        variable nibble : integer;  -- Temporary variable to hold the nibble (4 bits)
+    begin
+        -- Iterate over each 4-bit chunk (nibble) from the 32-bit bit_vector
+        for i in 0 to 7 loop
+            -- Extract the 4-bit chunk (nibble) and convert it to an integer
+            nibble := bv2int(val(4*i+3 downto 4*i));  -- Get 4 bits
+            -- Use the nibble as an index into the hex_map to get the corresponding hex character
+            hex_str(i+1) := hex_map(nibble);  -- Store the character in the string
+        end loop;
+
+        -- Return the concatenated string as a hexadecimal value
+        return hex_str;
+    end function;
+
+    -- Initialize trace files
+    procedure init_trace_files(register_file_name : in string; memory_file_name : in string) is
+        variable header_line : line;
+    begin
+        file_open(register_file, register_file_name, WRITE_MODE);
+        file_open(memory_file, memory_file_name, WRITE_MODE);
+        
+        -- Write headers
+        write(header_line, string'("Register File State:"));
+        writeline(register_file, header_line);
+        
+        write(header_line, string'("Register Address | Data"));
+        writeline(register_file, header_line);
+        
+        write(header_line, string'("Memory Content:"));
+        writeline(memory_file, header_line);
+        
+        write(header_line, string'("Address      | Data"));
+        writeline(memory_file, header_line);
+    end procedure;
+
+    -- Trace register file
+    procedure trace_registers(file_name : in string; Reg : in RegType) is
+        variable line_content : line;
+        variable reg_address  : string(1 to 4);
+        variable reg_data     : string(1 to 8); -- Hexadecimal string for register data
+        variable tens         : integer; -- Tens digit of the register index
+        variable ones         : integer; -- Ones digit of the register index
+    begin
+        for i in Reg'range loop
+            -- Calculate the tens and ones place for the index
+            tens := i / 10;
+            ones := i mod 10;
+        
+            -- Convert register index to string in x00 to x31 format, 48th ASCII character is '0'
+            reg_address := "x" & character'VAL(48 + tens) & character'VAL(48 + ones);
+            
+            -- Convert data to hexadecimal string
+            reg_data := to_hstring(Reg(i));
+            
+            -- Write to the register trace file
+            write(line_content, reg_address & " | " & reg_data);
+            writeline(register_file, line_content);
+        end loop;
+        writeline(register_file, line_content); -- Blank line
+    end procedure;
+
+    -- Trace memory content
+    procedure trace_memory(file_name : in string; Mem : in MemType) is
+        variable line_content : line;
+        variable mem_address  : string(1 to 6); -- Memory address in hexadecimal
+        variable mem_data     : string(1 to 8); -- 32-bit data in hexadecimal
+    begin
+        for addr in Mem'range loop
+            if addr mod 4 = 0 then -- Only aligned addresses
+                -- Format address as hexadecimal
+                mem_address := "0x" & to_hstring(int2bv(addr, 16));
+                
+                -- Convert data to hexadecimal string
+                mem_data := to_hstring(Mem(addr));
+                
+                -- Write to the memory trace file
+                write(line_content, mem_address & " | " & mem_data);
+                writeline(memory_file, line_content);
+            end if;
+        end loop;
+        writeline(memory_file, line_content); -- Blank line
+    end procedure;
+
+end tracer_pack;
