@@ -20,5 +20,11 @@ begin
     begin
     
         Instr := Mem(TO_INTEGER(unsigned(PC)));
+        OP := Instr (6 downto 0);
+        
+        case OP is
+        when OpBranch =>
+        
+        end case;
     end process;
 end Functional;

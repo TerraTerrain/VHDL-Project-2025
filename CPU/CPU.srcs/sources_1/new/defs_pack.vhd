@@ -35,4 +35,15 @@ package defs_pack is
     type RegType is array (integer range 2**RegAddrSize-1    downto 0) of RegDataType;
     type MemType is array (integer range 2**MemoryAddrSize-1 downto 0) of BusDataType;
     
+    
+    -- Op Codes
+    constant OpImm : OpType := "0010011";
+    constant OpReg : OpType := "0110011";
+    constant OpLoad   : OpType    := "0000011";
+    constant OpLUI    : OpType    := "0110111";
+    constant OpAUIPC  : OpType    := "0010111";
+    constant OpStore  : OpType    := "0100011";
+    constant OpBranch  : OpType    := "1100011";
+    constant OpJump    : OpType    := "1101111";
+    constant OpJumpReg : OpType    := "1100111";
 end package;
