@@ -10,7 +10,7 @@ architecture Functional of RISCV is
 begin
     process
         variable PC           : AddrType    := X"0000";
-        variable Instr      : InstrType :=(others=>'0');
+        variable Instr        : InstrType :=(others=>'0');
         variable OP           : OpType      := (others=>'0');
         variable func3        : Func3Type   := (others=>'0');
         variable func7        : Func7Type   := (others=>'0');
@@ -24,7 +24,7 @@ begin
         variable Mem          : MemType     := (others=>(others=>'0'));
         
 
-    begin
+        begin
     
         Instr := Mem(TO_INTEGER(unsigned(PC)));
         OP := Instr (6 downto 0);
@@ -38,6 +38,44 @@ begin
         bImm := Instr(31)&Instr(7)&Instr(30 downto 25)&Instr(11 downto  8);
         jimm20 := Instr (31)&Instr(19 downto 12)&Instr(20)&Instr(30 downto 21)&'0';
         case OP is
+        when OpLoad =>
+            case func3 is
+                when Func3Lb =>
+                    Reg(bv2natural(rd)) := sign_extend(to_integer(signed(Mem(to_integer(signed(imm12))))(7 downto 0)), RegDataSize);
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lbu =>
+                    Reg(bv2natural(rd)) := zero_extend(to_integer(unsigned(Mem(to_integer(signed(imm12)))(7 downto 0))), RegDataSize);
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lh =>
+                    Reg(bv2natural(rd)) := sign_extend(to_integer(signed(Mem(to_integer(signed(imm12)))(15 downto 0))), RegDataSize);
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lhu =>
+                    Reg(bv2natural(rd)) := zero_extend(to_integer(unsigned(Mem(to_integer(signed(imm12)))(15 downto 0))), RegDataSize);
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lw =>
+                    Reg(bv2natural(rd)) := Mem(to_integer(signed(imm12)));
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+            end case;
+
+        when OpStore => --- WIP not sure how to implement it yet
+            case func3 is
+                when Func3Sb =>
+                    Mem(to_integer(signed(imm12)))(7 downto 0) := Reg(bv2natural(rs2))(7 downto 0);
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Sh =>
+                    Mem(to_integer(signed(imm12)))(15 downto 0) := Reg(bv2natural(rs2))(15 downto 0);
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Sw =>
+                    Mem(to_integer(signed(imm12))) := Reg(bv2natural(rs2));
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>

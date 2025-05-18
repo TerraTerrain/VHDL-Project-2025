@@ -7,7 +7,8 @@ package defs_pack is
     constant AddrSize       : integer := 16;
     constant ByteAddrSize   : integer := 2;
     constant MemoryAddrSize : integer := AddrSize - ByteAddrSize;
-    
+  
+
     --instruction, opcode size
     constant InstrSize : integer := 32;
     constant OpSize    : integer := 7;
@@ -55,4 +56,17 @@ package defs_pack is
     constant Func3BGE  : Func3Type := "101";
     constant Func3BLTU : Func3Type := "110";
     constant Func3BGEU : Func3Type := "111";
+
+    constant Func3Lb    : Func3Type     := "000";
+    constant Func3Lh    : Func3Type     := "001";
+    constant Func3Lw    : Func3Type     := "010";
+    constant Func3Lbu   : Func3Type     := "100";
+    constant Func3Lhu   : Func3Type     := "101";
+
+    constant Func3Sb    : Func3Type      := "000";
+    constant Func3Sh    : Func3Type      := "001";
+    constant Func3Sw    : Func3Type      := "010";
+
+    --Reusable procedures
+
 end package;
