@@ -27,6 +27,7 @@ package defs_pack is
     subtype Func7Type is bit_vector (6 downto 0);
     subtype Imm12Type is bit_vector (11 downto 0);
     subtype Imm20Type is bit_vector (19 downto 0);
+    subtype BImmType is bit_vector (11 downto 0);
     
     subtype BusDataType is bit_vector (BusDataSize-1 downto 0);
     subtype RegDataType is bit_vector (RegDataSize-1 downto 0);
@@ -46,4 +47,12 @@ package defs_pack is
     constant OpBranch  : OpType    := "1100011";
     constant OpJump    : OpType    := "1101111";
     constant OpJumpReg : OpType    := "1100111";
+    
+        -- Branch instructions
+    constant Func3BEQ  : Func3Type := "000";
+    constant Func3BNE  : Func3Type := "001";
+    constant Func3BLT  : Func3Type := "100";
+    constant Func3BGE  : Func3Type := "101";
+    constant Func3BLTU : Func3Type := "110";
+    constant Func3BGEU : Func3Type := "111";
 end package;
