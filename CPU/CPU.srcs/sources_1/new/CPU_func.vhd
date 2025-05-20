@@ -38,6 +38,71 @@ begin
         bImm := Instr(31)&Instr(7)&Instr(30 downto 25)&Instr(11 downto  8);
         jimm20 := Instr (31)&Instr(19 downto 12)&Instr(20)&Instr(30 downto 21)&'0';
         case OP is
+        when OpImm =>
+            case func3 is
+                when Func3SLL =>
+                    case func7 is
+                        when Func7ShLog =>
+                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sll bv2natural(rs2);
+                        when others =>
+                           assert FALSE report "Illegal instruction" severity error;
+                    end case;
+                when Func3SRLorSRA =>
+                    case func7 is
+                        when Func7ShLog =>
+                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) srl bv2natural(rs2);
+                        when Func7ShArith =>
+                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sra bv2natural(rs2);
+                        when others =>
+                            assert FALSE report "Illegal instruction" severity error;
+                    end case;
+                when Func3SLT => --SLTI
+                    if signed(Reg(bv2natural(rs1))) < signed(sign_extend(imm12)) then
+                        Reg(bv2natural(rd)) := "1";
+                    else Reg(bv2natural(rd)) := "0";
+                    end if;
+                when Func3SLTU => --SLTIU
+                    if unsigned(Reg(bv2natural(rs1))) < unsigned(sign_extend(imm12)) then
+                        Reg(bv2natural(rd)) := "1";
+                    else Reg(bv2natural(rd)) := "0";
+                    end if;
+                when others =>
+                    assert FALSE report "Illegal instruction" severity error;
+            end case;
+                    
+                    
+        when OpReg =>
+            case func3 is
+                when Func3SLL =>
+                    case func7 is
+                        when Func7ShLog =>
+                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sll bv2natural(Reg(bv2natural(rs2)));
+                        when others =>
+                           assert FALSE report "Illegal instruction" severity error;
+                    end case;
+                when Func3SRLorSRA =>
+                    case func7 is
+                        when Func7ShLog =>
+                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) srl bv2natural(Reg(bv2natural(rs2)));
+                        when Func7ShArith =>
+                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sra bv2natural(Reg(bv2natural(rs2)));
+                        when others =>
+                            assert FALSE report "Illegal instruction" severity error;
+                    end case;
+                when Func3SLT => --SLT
+                    if signed(Reg(bv2natural(rs1))) < signed(Reg(bv2natural(rs2))) then
+                        Reg(bv2natural(rd)) := "1";
+                    else Reg(bv2natural(rd)) := "0";
+                    end if;
+                when Func3SLTU => --SLTU
+                    if unsigned(Reg(bv2natural(rs1))) < unsigned(Reg(bv2natural(rs2))) then
+                        Reg(bv2natural(rd)) := "1";
+                    else Reg(bv2natural(rd)) := "0";
+                    end if;
+                when others =>
+                    assert FALSE report "Illegal instruction" severity error;
+            end case;
+        
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>

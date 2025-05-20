@@ -4,7 +4,7 @@
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.                   -->
 <!-- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.   -->
 
-<Project Product="Vivado" Version="7" Minor="68" Path="C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.xpr">
+<Project Product="Vivado" Version="7" Minor="68" Path="D:/TUMEI6Semetser/Entwurf VHDL/Memory_unit/VHDL-Project-2025/CPU/CPU.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="caab017c7be04c188802e01d46314738"/>
