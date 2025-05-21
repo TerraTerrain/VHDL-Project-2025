@@ -90,15 +90,19 @@ begin
                             assert FALSE report "Illegal instruction" severity error;
                     end case;
                 when Func3SLT => --SLT
-                    if signed(Reg(bv2natural(rs1))) < signed(Reg(bv2natural(rs2))) then
-                        Reg(bv2natural(rd)) := "1";
-                    else Reg(bv2natural(rd)) := "0";
-                    end if;
+                    case func7 is
+                        when Func7Shift =>
+                            if signed(Reg(bv2natural(rs1))) < signed(Reg(bv2natural(rs2))) then
+                                Reg(bv2natural(rd)) := "1";
+                            else Reg(bv2natural(rd)) := "0";
+                            end if;
                 when Func3SLTU => --SLTU
-                    if unsigned(Reg(bv2natural(rs1))) < unsigned(Reg(bv2natural(rs2))) then
-                        Reg(bv2natural(rd)) := "1";
-                    else Reg(bv2natural(rd)) := "0";
-                    end if;
+                    case func7 is
+                        when Func7Shift =>
+                            if unsigned(Reg(bv2natural(rs1))) < unsigned(Reg(bv2natural(rs2))) then
+                                Reg(bv2natural(rd)) := "1";
+                            else Reg(bv2natural(rd)) := "0";
+                            end if;
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
             end case;
