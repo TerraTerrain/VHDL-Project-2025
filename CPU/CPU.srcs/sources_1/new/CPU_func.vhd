@@ -57,6 +57,7 @@ begin
                     when Func3AND       =>
                         Reg(int_rd) := Reg(int_rs1) and sign_extend(imm12); -- ANDI
                 end case;
+                    
             when OpReg    => 
                 case func3 is
                     when Func3Arthm => 
@@ -90,6 +91,12 @@ begin
                                 assert FALSE report "Illegal instruction" severity error;
                         end case;
                 end case;
+                    
+        when OpLUI    =>  -- LUI        
+                 Reg(int_rd) := imm20 & X"000";
+        when OpAUIPC  =>  -- AUIPC
+                 Reg(int_rd) := int2bv(bv2int(PC) + bv2int(imm20 & X"000"), RegDataSize);
+
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>
