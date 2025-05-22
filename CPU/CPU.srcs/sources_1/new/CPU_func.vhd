@@ -40,16 +40,16 @@ begin
         bImm := Instr(31)&Instr(7)&Instr(30 downto 25)&Instr(11 downto  8);
         jimm20 := Instr (31)&Instr(19 downto 12)&Instr(20)&Instr(30 downto 21)&'0';
 
-        int_rs1   := to_integer(rs1);
-        int_rs2   := to_integer(rs2);
-        int_rd    := to_integer(rd);
-        int_imm12 := to_integer(imm12);
+        -- Reg is indexed with integers
+        int_rs1   := to_integer(unsigned(rs1));
+        int_rs2   := to_integer(unsigned(rs2));
+        int_rd    := to_integer(unsigned(rd));
 
         case OP is
             when OpImm    => 
                 case func3 is
                     when Func3Arthm     =>
-                        Reg(int_rd) := natural2bv( bv2natural(Reg(int_rs1)) + int_imm12, RegDataSize ); -- ADDI
+                        Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(sign_extend(imm12)) ); -- ADDI
                     when Func3XOR       =>
                         Reg(int_rd) := Reg(int_rs1) xor sign_extend(imm12); -- XORI
                     when Func3OR        =>
@@ -63,9 +63,9 @@ begin
                     when Func3Arthm => 
                         case func7 is
                             when Func7ADD =>
-                                Reg(int_rd) := natural2bv( bv2natural(Reg(int_rs1)) + bv2natural(Reg(int_rs2)), RegDataSize ); -- ADD
+                                Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(Reg(int_rs2)) ); -- ADD
                             when Func7SUB =>
-                                Reg(int_rd) := natural2bv( bv2natural(Reg(int_rs1)) - bv2natural(Reg(int_rs2)), RegDataSize ); -- SUB
+                                Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) - signed(Reg(int_rs2)) ); -- SUB
                             when others   =>
                                 assert FALSE report "Illegal instruction" severity error;
                         end case;
@@ -95,7 +95,7 @@ begin
         when OpLUI    =>  -- LUI        
                  Reg(int_rd) := imm20 & X"000";
         when OpAUIPC  =>  -- AUIPC
-                 Reg(int_rd) := int2bv(bv2int(PC) + bv2int(imm20 & X"000"), RegDataSize);
+                 -- Reg(int_rd) := (others => '0'); PROBLEM: [16 bit PC] + [32 bit imm20&X"000"]
 
         when OpBranch =>
             case func3 is
