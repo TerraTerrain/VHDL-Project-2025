@@ -38,6 +38,50 @@ begin
         bImm := Instr(31)&Instr(7)&Instr(30 downto 25)&Instr(11 downto  8);
         jimm20 := Instr (31)&Instr(19 downto 12)&Instr(20)&Instr(30 downto 21)&'0';
         case OP is
+            when OpImm    => 
+                case func3 is
+                    when Func3Arthm     =>
+                        Reg(bv2natural(rd)) := to_integer( bv2natural(Reg(bv2natural(rs1))) + bv2natural(imm12), RegDataSize ); -- ADDI
+                    when Func3XOR       =>
+                        Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) xor sign_extend(imm12); -- XORI
+                    when Func3OR        =>
+                        Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) or sign_extend(imm12); -- ORI
+                    when Func3AND       =>
+                        Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) and sign_extend(imm12); -- ANDI
+                end case;
+            when OpReg    => 
+                case func3 is
+                    when Func3Arthm => 
+                        case func7 is
+                            when Func7ADD =>
+                                Reg(bv2natural(rd)) := to_integer( bv2natural(Reg(bv2natural(rs1))) + bv2natural(Reg(bv2natural(rs2))), RegDataSize ); -- ADD
+                            when Func7SUB =>
+                                Reg(bv2natural(rd)) := to_integer( bv2natural(Reg(bv2natural(rs1))) - bv2natural(Reg(bv2natural(rs2))), RegDataSize ); -- SUB
+                            when others   =>
+                                assert FALSE report "Illegal instruction" severity error;
+                        end case;
+                    when Func3XOR  => 
+                        case func7 is
+                            when Func7Log =>
+                                Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) xor Reg(bv2natural(rs2)); -- XOR
+                            when others   =>
+                                assert FALSE report "Illegal instruction" severity error;
+                        end case;
+                    when Func3OR   => 
+                        case func7 is
+                            when Func7Log =>
+                                Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) or Reg(bv2natural(rs2)) -- OR
+                            when others   =>
+                                assert FALSE report "Illegal instruction" severity error;
+                        end case;
+                    when Func3AND  => 
+                        case func7 is
+                            when Func7Log =>
+                                Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) and Reg(bv2natural(rs2)) -- AND
+                            when others   =>
+                                assert FALSE report "Illegal instruction" severity error;
+                        end case;
+                end case;
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>
