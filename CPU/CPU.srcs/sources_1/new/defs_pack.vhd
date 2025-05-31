@@ -56,6 +56,21 @@ package defs_pack is
     constant Func3BLTU : Func3Type := "110";
     constant Func3BGEU : Func3Type := "111";
 
+    
+        --shift instructions
+    constant Func3SLL : Func3Type := "001";
+    constant Func3SRLorSRA : Func3Type := "101";
+    constant Func7ShLog : Func7Type := "0000000";
+    constant Func7ShArith : Func7Type := "0100000";
+    
+        --compare instructions
+    constant Func3SLT : Func3Type := "010";
+    constant Func3SLTU : Func3Type := "011";
+    constant Func7Shift : Func7Type := "0000000";   
+    
+end package;
+
+
     -- Arithmetic instructions
     constant Func7ADD   : Func7Type := "0000000";
     constant Func7SUB   : Func7Type := "0100000";
