@@ -26,7 +26,7 @@ begin
         variable Mem          : MemType     := (others=>(others=>'0'));
         
 
-    begin
+        begin
     
         Instr := Mem(TO_INTEGER(unsigned(PC)));
         OP := Instr (6 downto 0);
@@ -46,6 +46,80 @@ begin
         int_rd    := to_integer(unsigned(rd));
 
         case OP is
+        when OpLoad =>
+            case func3 is
+                when Func3Lb =>
+                    Reg(bv2natural(rd)) := sign_extend(to_integer(signed(Mem(to_integer(signed(imm12))))(7 downto 0)));
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lbu =>
+                    Reg(bv2natural(rd)) := zero_extend(to_integer(unsigned(Mem(to_integer(signed(imm12)))(7 downto 0))));
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lh =>
+                    Reg(bv2natural(rd)) := sign_extend(to_integer(signed(Mem(to_integer(signed(imm12)))(15 downto 0))));
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lhu =>
+                    Reg(bv2natural(rd)) := zero_extend(to_integer(unsigned(Mem(to_integer(signed(imm12)))(15 downto 0))));
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+
+                when Func3Lw =>
+                    Reg(bv2natural(rd)) := Mem(to_integer(signed(imm12)));
+                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+            end case;
+
+        when OpStore =>
+            case Instr(14 downto 12) is
+                when Func3Sb =>  -- Store Byte
+                    case (to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) mod 4 is
+
+                        when 0 =>
+                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(7 downto 0)
+                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
+
+                        when 1 =>
+                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(15 downto 8)
+                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
+
+                        when 2 =>
+                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(23 downto 16)
+                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
+
+                        when others =>
+                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(31 downto 24)
+                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
+                    end case;
+
+                when Func3Sh =>  -- Store Half-word
+                    if (to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) mod 4 = 0 then
+
+                        Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                            + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(15 downto 0)
+                            := RF(to_integer(unsigned(Instr(24 downto 20))))(15 downto 0);
+
+                    elsif (to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) mod 4 = 2 then
+
+                        Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                            + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(31 downto 16)
+                            := RF(to_integer(unsigned(Instr(24 downto 20))))(15 downto 0);
+                    end if;
+
+                when Func3Sw =>  -- Store Word
+                    Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
+                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)
+                        := RF(to_integer(unsigned(Instr(24 downto 20))));
+            end case;
+
+
+
         when OpImm =>
             case func3 is
                 when Func3SLL =>
@@ -165,6 +239,7 @@ begin
                  Reg(int_rd) := imm20 & X"000";
         when OpAUIPC  =>  -- AUIPC
                  -- Reg(int_rd) := (others => '0'); PROBLEM: [16 bit PC] + [32 bit imm20&X"000"]
+
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>

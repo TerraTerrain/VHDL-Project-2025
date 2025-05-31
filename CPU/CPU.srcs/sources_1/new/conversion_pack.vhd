@@ -5,10 +5,12 @@ use WORK.defs_pack.all;
 package conversion_pack is
     function bv2natural(input: bit_vector) return natural;
     function natural2bv(value: natural; length: natural) return bit_vector;
+
     function sign_extend(imm12 : bit_vector) return bit_vector; --transfer 12 bits to 32 bits for comparison
 
     function sign_extend(imm : bit_vector) return bit_vector;
     function zero_extend(imm : bit_vector) return bit_vector;
+
 
 end conversion_pack;
 
@@ -49,7 +51,5 @@ package body conversion_pack is
         
         return extended;
     end function;
-    
-    
-    
+
 end conversion_pack;
