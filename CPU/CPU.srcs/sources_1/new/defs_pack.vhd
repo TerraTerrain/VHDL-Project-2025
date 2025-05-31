@@ -38,12 +38,12 @@ package defs_pack is
     
     
     -- Op Codes
-    constant OpImm : OpType := "0010011";
-    constant OpReg : OpType := "0110011";
-    constant OpLoad   : OpType    := "0000011";
-    constant OpLUI    : OpType    := "0110111";
-    constant OpAUIPC  : OpType    := "0010111";
-    constant OpStore  : OpType    := "0100011";
+    constant OpImm     : OpType    := "0010011";
+    constant OpReg     : OpType    := "0110011";
+    constant OpLoad    : OpType    := "0000011";
+    constant OpLUI     : OpType    := "0110111";
+    constant OpAUIPC   : OpType    := "0010111";
+    constant OpStore   : OpType    := "0100011";
     constant OpBranch  : OpType    := "1100011";
     constant OpJump    : OpType    := "1101111";
     constant OpJumpReg : OpType    := "1100111";
@@ -55,6 +55,7 @@ package defs_pack is
     constant Func3BGE  : Func3Type := "101";
     constant Func3BLTU : Func3Type := "110";
     constant Func3BGEU : Func3Type := "111";
+
     
         --shift instructions
     constant Func3SLL : Func3Type := "001";
@@ -67,4 +68,17 @@ package defs_pack is
     constant Func3SLTU : Func3Type := "011";
     constant Func7Shift : Func7Type := "0000000";   
     
+end package;
+
+
+    -- Arithmetic instructions
+    constant Func7ADD   : Func7Type := "0000000";
+    constant Func7SUB   : Func7Type := "0100000";
+    constant Func3Arthm : Func3Type := "000";
+    
+    -- Logical instructions
+    constant Func3XOR : Func3Type := "100";
+    constant Func3OR  : Func3Type := "110";
+    constant Func3AND : Func3Type := "111";
+    constant Func7Log : Func7Type := "0000000";
 end package;
