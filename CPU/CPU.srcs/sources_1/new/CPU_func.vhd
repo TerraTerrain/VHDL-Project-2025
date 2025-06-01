@@ -3,6 +3,7 @@ use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
 
+
 entity RISCV is
 end RISCV;
 
@@ -21,6 +22,7 @@ begin
         variable imm20        : Imm20Type   := (others=>'0');
         variable jimm20       : Imm20Type   := (others=>'0');
         variable bImm         : BImmType    := (others=>'0');
+        variable sImm         : Imm12Type   := (others=>'0');
         variable branch_temp  : bit_vector(12 downto 0);
         variable Reg          : RegType     := (others=>(others=>'0'));
         variable Mem          : MemType     := (others=>(others=>'0'));
@@ -38,6 +40,7 @@ begin
         imm12 := Instr (31 downto 20);
         imm20 := Instr (31 downto 12);
         bImm := Instr(31)&Instr(7)&Instr(30 downto 25)&Instr(11 downto  8);
+        sImm := Instr(31 downto 25)&Instr(11 downto 7);
         jimm20 := Instr (31)&Instr(19 downto 12)&Instr(20)&Instr(30 downto 21)&'0';
 
         -- Reg is indexed with integers
@@ -46,77 +49,56 @@ begin
         int_rd    := to_integer(unsigned(rd));
 
         case OP is
-        when OpLoad =>
-            case func3 is
-                when Func3Lb =>
-                    Reg(bv2natural(rd)) := sign_extend(to_integer(signed(Mem(to_integer(signed(imm12))))(7 downto 0)));
-                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-
-                when Func3Lbu =>
-                    Reg(bv2natural(rd)) := zero_extend(to_integer(unsigned(Mem(to_integer(signed(imm12)))(7 downto 0))));
-                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-
-                when Func3Lh =>
-                    Reg(bv2natural(rd)) := sign_extend(to_integer(signed(Mem(to_integer(signed(imm12)))(15 downto 0))));
-                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-
-                when Func3Lhu =>
-                    Reg(bv2natural(rd)) := zero_extend(to_integer(unsigned(Mem(to_integer(signed(imm12)))(15 downto 0))));
-                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-
-                when Func3Lw =>
-                    Reg(bv2natural(rd)) := Mem(to_integer(signed(imm12)));
-                    PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-            end case;
-
-        when OpStore =>
-            case Instr(14 downto 12) is
-                when Func3Sb =>  -- Store Byte
-                    case (to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) mod 4 is
-
-                        when 0 =>
-                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(7 downto 0)
-                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
-
-                        when 1 =>
-                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(15 downto 8)
-                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
-
-                        when 2 =>
-                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(23 downto 16)
-                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
-
-                        when others =>
-                            Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                                + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(31 downto 24)
-                                := RF(to_integer(unsigned(Instr(24 downto 20))))(7 downto 0);
-                    end case;
-
-                when Func3Sh =>  -- Store Half-word
-                    if (to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) mod 4 = 0 then
-
-                        Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                            + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(15 downto 0)
-                            := RF(to_integer(unsigned(Instr(24 downto 20))))(15 downto 0);
-
-                    elsif (to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) mod 4 = 2 then
-
-                        Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                            + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)(31 downto 16)
-                            := RF(to_integer(unsigned(Instr(24 downto 20))))(15 downto 0);
-                    end if;
-
-                when Func3Sw =>  -- Store Word
-                    Mem((to_integer(unsigned(RF(to_integer(unsigned(Instr(19 downto 15))))))
-                        + to_integer(signed(sign_extend(Instr(31 downto 25) & Instr(11 downto 7))))) / 4)
-                        := RF(to_integer(unsigned(Instr(24 downto 20))));
-            end case;
+         when OpLoad   =>
+case func3 is
+                    when Func3LB  => -- LB
+                        Reg(bv2natural(rd)) := sign_extend(Mem8( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
+                    when Func3LH  => -- LH
+                        Reg(bv2natural(rd)) := sign_extend(Mem16( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
+                    when Func3LW  => -- LW
+                        Reg(bv2natural(rd)) := Mem32( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize));
+                    when Func3LBU => -- LBU
+                        Reg(bv2natural(rd)) := zero_extend(Mem8( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
+                    when Func3LHU => -- LHU
+                        Reg(bv2natural(rd)) := zero_extend(Mem16( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
+                    when others   =>
+                        assert FALSE report "Illegal instruction" severity error;
+                end case;
+        when OpStore  => 
+                
+                case func3 is
+                    when Func3SB => -- SB
+                        case regAddImm(Reg,rs1,sImm) mod 4 is -- check the last 2 bits of address
+                            when 0 => -- Lower half-word (aligned)
+                                Mem( regAddImm(Reg,rs1,sImm) )(7 downto 0) := Reg(bv2natural(rs2))(7 downto 0);
+                            when 1 => -- Upper half-word
+                                Mem( regAddImm(Reg,rs1,sImm) )(15 downto 8) := Reg(bv2natural(rs2))(7 downto 0);
+                            when 2 => -- Lower half-word (aligned)
+                                Mem( regAddImm(Reg,rs1,sImm) )(23 downto 16) := Reg(bv2natural(rs2))(7 downto 0);
+                            when 3 => -- Upper half-word
+                                Mem( regAddImm(Reg,rs1,sImm) )(31 downto 24) := Reg(bv2natural(rs2))(7 downto 0);
+                            when others =>
+                                assert FALSE report "Unaligned address for SB" severity error;
+                        end case;
+                    when Func3SH => -- SH
+                        case regAddImm(Reg,rs1,sImm) mod 4 is -- check the last 2 bits of address
+                            when 0 => -- Lower half-word (aligned)
+                                Mem( regAddImm(Reg,rs1,sImm) )(15 downto 0) := Reg(bv2natural(rs2))(15 downto 0);
+                            when 2 => -- Upper half-word
+                                Mem( regAddImm(Reg,rs1,sImm) )(31 downto 16) := Reg(bv2natural(rs2))(15 downto 0);
+                            when others =>
+                                assert FALSE report "Unaligned address for SH" severity error;
+                        end case;
+                    when Func3SW => -- SW
+                        case regAddImm(Reg,rs1,sImm) mod 4 is -- check the last 2 bits of address
+                            when 0 =>
+                                Mem( regAddImm(Reg,rs1,sImm) ) := Reg(bv2natural(rs2));
+                            when others =>
+                                assert FALSE report "Unaligned address for SW" severity error;
+                        end case;
+                    when others  =>
+                        assert FALSE report "Illegal instruction" severity error;
+                end case;
 
 
 
@@ -178,6 +160,7 @@ begin
                                 Reg(bv2natural(rd)) := "1";
                             else Reg(bv2natural(rd)) := "0";
                             end if;
+                    end case;
                 when Func3SLTU => --SLTU
                     case func7 is
                         when Func7Shift =>
@@ -187,6 +170,7 @@ begin
                             end if;
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
+                    end case;
             end case;
        
             when OpImm    => 

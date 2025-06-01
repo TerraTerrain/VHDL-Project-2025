@@ -70,8 +70,6 @@ package defs_pack is
 
     --Reusable procedures
 
-end package;
-
     
         --shift instructions
     constant Func3SLL : Func3Type := "001";
@@ -83,8 +81,6 @@ end package;
     constant Func3SLT : Func3Type := "010";
     constant Func3SLTU : Func3Type := "011";
     constant Func7Shift : Func7Type := "0000000";   
-    
-end package;
 
 
     -- Arithmetic instructions
