@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
-
+use work.cpu_funcs_pack.all;
 
 entity RISCV is
 end RISCV;
@@ -50,7 +50,7 @@ begin
 
         case OP is
          when OpLoad   =>
-case func3 is
+            case func3 is
                     when Func3LB  => -- LB
                         Reg(bv2natural(rd)) := sign_extend(Mem8( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
                     when Func3LH  => -- LH
@@ -130,6 +130,14 @@ case func3 is
                         Reg(bv2natural(rd)) := "1";
                     else Reg(bv2natural(rd)) := "0";
                     end if;
+                when Func3Arthm     =>
+                    Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(sign_extend(imm12)) ); -- ADDI
+                when Func3XOR       =>
+                    Reg(int_rd) := Reg(int_rs1) xor sign_extend(imm12); -- XORI
+                when Func3OR        =>
+                    Reg(int_rd) := Reg(int_rs1) or sign_extend(imm12); -- ORI
+                when Func3AND       =>
+                    Reg(int_rd) := Reg(int_rs1) and sign_extend(imm12); -- ANDI
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
             end case;
@@ -171,53 +179,38 @@ case func3 is
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
                     end case;
+                when Func3Arthm => 
+                    case func7 is
+                        when Func7ADD =>
+                            Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(Reg(int_rs2)) ); -- ADD
+                        when Func7SUB =>
+                            Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) - signed(Reg(int_rs2)) ); -- SUB
+                        when others   =>
+                            assert FALSE report "Illegal instruction" severity error;
+                    end case;
+                when Func3XOR  => 
+                    case func7 is
+                        when Func7Log =>
+                            Reg(int_rd) := Reg(int_rs1) xor Reg(int_rs2); -- XOR
+                        when others   =>
+                            assert FALSE report "Illegal instruction" severity error;
+                    end case;
+                when Func3OR   => 
+                    case func7 is
+                        when Func7Log =>
+                            Reg(int_rd) := Reg(int_rs1) or Reg(int_rs2); -- OR
+                        when others   =>
+                            assert FALSE report "Illegal instruction" severity error;
+                    end case;
+                when Func3AND  => 
+                    case func7 is
+                        when Func7Log =>
+                            Reg(int_rd) := Reg(int_rs1) and Reg(int_rs2); -- AND
+                        when others   =>
+                            assert FALSE report "Illegal instruction" severity error;
+                    end case;
             end case;
-       
-            when OpImm    => 
-                case func3 is
-                    when Func3Arthm     =>
-                        Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(sign_extend(imm12)) ); -- ADDI
-                    when Func3XOR       =>
-                        Reg(int_rd) := Reg(int_rs1) xor sign_extend(imm12); -- XORI
-                    when Func3OR        =>
-                        Reg(int_rd) := Reg(int_rs1) or sign_extend(imm12); -- ORI
-                    when Func3AND       =>
-                        Reg(int_rd) := Reg(int_rs1) and sign_extend(imm12); -- ANDI
-                end case;
-                    
-            when OpReg    => 
-                case func3 is
-                    when Func3Arthm => 
-                        case func7 is
-                            when Func7ADD =>
-                                Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(Reg(int_rs2)) ); -- ADD
-                            when Func7SUB =>
-                                Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) - signed(Reg(int_rs2)) ); -- SUB
-                            when others   =>
-                                assert FALSE report "Illegal instruction" severity error;
-                        end case;
-                    when Func3XOR  => 
-                        case func7 is
-                            when Func7Log =>
-                                Reg(int_rd) := Reg(int_rs1) xor Reg(int_rs2); -- XOR
-                            when others   =>
-                                assert FALSE report "Illegal instruction" severity error;
-                        end case;
-                    when Func3OR   => 
-                        case func7 is
-                            when Func7Log =>
-                                Reg(int_rd) := Reg(int_rs1) or Reg(int_rs2); -- OR
-                            when others   =>
-                                assert FALSE report "Illegal instruction" severity error;
-                        end case;
-                    when Func3AND  => 
-                        case func7 is
-                            when Func7Log =>
-                                Reg(int_rd) := Reg(int_rs1) and Reg(int_rs2); -- AND
-                            when others   =>
-                                assert FALSE report "Illegal instruction" severity error;
-                        end case;
-                end case;
+                           
                     
         when OpLUI    =>  -- LUI        
                  Reg(int_rd) := imm20 & X"000";
