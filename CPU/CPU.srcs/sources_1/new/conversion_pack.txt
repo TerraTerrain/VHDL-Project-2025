@@ -51,8 +51,9 @@ end loop;
         extended_imm := (extend_length - 1 downto 0 => '0') & imm;
         return extended_imm;
     end function;
-        function Mem32(Mem: MemType; address: bit_vector) return BusDataType is
-        variable word_addr : integer := bv2natural(address(15 downto 2)); -- Word address
+    
+    function Mem32(Mem: MemType; address: bit_vector) return BusDataType is
+        variable word_addr : integer     := to_integer(unsigned( address(15 downto 2) )); -- Word address
         variable result    : BusDataType := (others => '0');
     begin
         result := Mem(word_addr); -- Directly load the 32-bit word
@@ -60,8 +61,8 @@ end loop;
     end function;
     
     function Mem16(Mem: MemType; address: bit_vector) return bit_vector is
-        variable word_addr : integer     := bv2natural(address(15 downto 2)); -- Word address
-        variable offset    : integer     := bv2natural(address(1 downto 0)); -- Byte offset
+        variable word_addr : integer     := to_integer(unsigned( address(15 downto 2) )); -- Word address
+        variable offset    : integer     := to_integer(unsigned( address(1 downto 0) )); -- Byte offset
         variable word      : BusDataType := Mem(word_addr);
         variable result    : bit_vector(15 downto 0);
     begin
@@ -77,8 +78,8 @@ end loop;
     end function;
     
     function Mem8(Mem: MemType; address: bit_vector) return bit_vector is
-        variable word_addr : integer     := bv2natural(address(15 downto 2)); -- Word address
-        variable offset    : integer     := bv2natural(address(1 downto 0)); -- Byte offset
+        variable word_addr : integer     := to_integer(unsigned( address(15 downto 2) )); -- Word address
+        variable offset    : integer     := to_integer(unsigned( address(1 downto 0) )); -- Byte offset
         variable word      : BusDataType := Mem(word_addr);
         variable result    : bit_vector(7 downto 0);
     begin
