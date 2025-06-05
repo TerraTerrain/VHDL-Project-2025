@@ -1,4 +1,5 @@
 library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
@@ -21,14 +22,13 @@ begin
         variable imm12        : Imm12Type   := (others=>'0');
         variable imm20        : Imm20Type   := (others=>'0');
         variable jimm20       : Imm20Type   := (others=>'0');
-        variable bImm         : BImmType    := (others=>'0');
+        variable bImm         : Imm12Type   := (others=>'0');
         variable sImm         : Imm12Type   := (others=>'0');
-        variable branch_temp  : bit_vector(12 downto 0);
         variable Reg          : RegType     := (others=>(others=>'0'));
         variable Mem          : MemType     := (others=>(others=>'0'));
 
-        variable store_check  : natural     := 0;
-        variable load_address : natural     := 0;
+        variable store_address: natural     := 0;
+        variable load_address : AddrType    := (others=>'0');
         
     begin
         Instr  := Mem(TO_INTEGER(unsigned(PC)));
@@ -111,28 +111,28 @@ begin
                 when Func3SLL =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sll bv2natural(rs2);
+                            Reg(int_rd) := Reg(int_rs1) sll Reg(int_rs2);
                         when others =>
                            assert FALSE report "Illegal instruction" severity error;
                     end case;
                 when Func3SRLorSRA =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) srl bv2natural(rs2);
+                            Reg(int_rd) := Reg(int_rs1) srl Reg(int_rs2);
                         when Func7ShArith =>
-                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sra bv2natural(rs2);
+                            Reg(int_rd) := Reg(int_rs1) sra Reg(int_rs2);
                         when others =>
                             assert FALSE report "Illegal instruction" severity error;
                     end case;
                 when Func3SLT => --SLTI
-                    if signed(Reg(bv2natural(rs1))) < signed(sign_extend(imm12)) then
-                        Reg(bv2natural(rd)) := "1";
-                    else Reg(bv2natural(rd)) := "0";
+                    if signed(Reg(int_rs1)) < signed(sign_extend(imm12)) then
+                        Reg(int_rd) := "1";
+                    else Reg(int_rd) := "0";
                     end if;
                 when Func3SLTU => --SLTIU
-                    if unsigned(Reg(bv2natural(rs1))) < unsigned(sign_extend(imm12)) then
-                        Reg(bv2natural(rd)) := "1";
-                    else Reg(bv2natural(rd)) := "0";
+                    if unsigned(Reg(int_rs1)) < unsigned(sign_extend(imm12)) then
+                        Reg(int_rd) := "1";
+                    else Reg(int_rd) := "0";
                     end if;
                 when Func3Arthm     =>
                     Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(sign_extend(imm12)) ); -- ADDI
@@ -151,33 +151,33 @@ begin
                 when Func3SLL =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sll bv2natural(Reg(bv2natural(rs2)));
+                            Reg(int_rd) := Reg(int_rs1) sll Reg(int_rs2);
                         when others =>
                            assert FALSE report "Illegal instruction" severity error;
                     end case;
                 when Func3SRLorSRA =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) srl bv2natural(Reg(bv2natural(rs2)));
+                            Reg(int_rd) := Reg(int_rs1) srl Reg(int_rs2);
                         when Func7ShArith =>
-                            Reg(bv2natural(rd)) := Reg(bv2natural(rs1)) sra bv2natural(Reg(bv2natural(rs2)));
+                            Reg(int_rd) := Reg(int_rs1) sra Reg(int_rs2);
                         when others =>
                             assert FALSE report "Illegal instruction" severity error;
                     end case;
                 when Func3SLT => --SLT
                     case func7 is
                         when Func7Shift =>
-                            if signed(Reg(bv2natural(rs1))) < signed(Reg(bv2natural(rs2))) then
-                                Reg(bv2natural(rd)) := "1";
-                            else Reg(bv2natural(rd)) := "0";
+                            if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
+                                Reg(int_rd) := "1";
+                            else Reg(int_rd) := "0";
                             end if;
                     end case;
                 when Func3SLTU => --SLTU
                     case func7 is
                         when Func7Shift =>
-                            if unsigned(Reg(bv2natural(rs1))) < unsigned(Reg(bv2natural(rs2))) then
-                                Reg(bv2natural(rd)) := "1";
-                            else Reg(bv2natural(rd)) := "0";
+                            if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
+                                Reg(int_rd) := "1";
+                            else Reg(int_rd) := "0";
                             end if;
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
@@ -223,46 +223,40 @@ begin
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>
-                    if Reg(bv2natural(rs1)) = Reg(bv2natural(rs2)) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
+                    if Reg(int_rs1) = Reg(int_rs2) then                       
+                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+                        PC := bit_vector(unsigned(PC) + 4);
                     end if;
                 when Func3BNE =>
-                    if Reg(bv2natural(rs1)) /= Reg(bv2natural(rs2)) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
+                    if Reg(int_rs1) /= Reg(int_rs2) then
+                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+                        PC := bit_vector(unsigned(PC) + 4);
                     end if;
                 when Func3BLT =>
-                    if signed(Reg(bv2natural(rs1))) < signed(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
+                    if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
+                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+                        PC := bit_vector(unsigned(PC) + 4);
                     end if;
                 when Func3BLTU =>
-                    if unsigned(Reg(bv2natural(rs1))) < unsigned(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
+                    if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
+                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+                        PC := bit_vector(unsigned(PC) + 4);
                     end if;
-                                when Func3BGE =>
-                    if signed(Reg(bv2natural(rs1))) > signed(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
+                when Func3BGE =>
+                    if signed(Reg(int_rs1)) >= signed(Reg(int_rs2)) then
+                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+                        PC := bit_vector(unsigned(PC) + 4);
                     end if;
                 when Func3BGEU =>
-                    if unsigned(Reg(bv2natural(rs1))) > unsigned(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
+                    if unsigned(Reg(int_rs1)) >= unsigned(Reg(int_rs2)) then
+                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
+                        PC := bit_vector(unsigned(PC) + 4);
                     end if;
             end case;
         when OpJump =>
