@@ -4,36 +4,17 @@ use WORK.defs_pack.all;
 use IEEE.numeric_bit.ALL;
 
 package conversion_pack is
-    function bv2natural(input: bit_vector) return natural;
-    function natural2bv(value: natural; length: natural) return bit_vector;
     function sign_extend(imm : bit_vector) return bit_vector;
     function zero_extend(imm : bit_vector) return bit_vector;
     function Mem32(Mem: MemType; address: bit_vector) return BusDataType;
     function Mem16(Mem: MemType; address: bit_vector) return bit_vector;
     function Mem8(Mem: MemType; address: bit_vector) return bit_vector;
-    function regAddImm(Reg: RegType; RegAddress: RegAddrType; Imm: bit_vector) return integer;
 end conversion_pack;
 
 
 
 package body conversion_pack is
-    function bv2natural(input: bit_vector) return natural is
-    begin
-        return TO_INTEGER(unsigned(input));
-    end function;
-    
-    function natural2bv(value: natural; length: natural) return bit_vector is
-        variable result : bit_vector(length-1 downto 0) := (others => '0');
-        variable tmp : natural := value;
-    begin
-        for i in 0 to length-1 loop
-     result(i) := bit'val(tmp mod 2);
-tmp := tmp / 2;
-end loop;
 
-        return result;
-    end function;
-    
     function sign_extend(imm : bit_vector) return bit_vector is
         constant extend_length : integer := 32 - imm'length;
         variable extended_imm : bit_vector(31 downto 0);
@@ -52,17 +33,17 @@ end loop;
         return extended_imm;
     end function;
     
-    function Mem32(Mem: MemType; address: bit_vector) return BusDataType is
-        variable word_addr : integer     := to_integer(unsigned( address(15 downto 2) )); -- Word address
+    function Mem32(Mem: MemType; address: unsigned) return BusDataType is
+        variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
         variable result    : BusDataType := (others => '0');
     begin
         result := Mem(word_addr); -- Directly load the 32-bit word
         return result;
     end function;
     
-    function Mem16(Mem: MemType; address: bit_vector) return bit_vector is
-        variable word_addr : integer     := to_integer(unsigned( address(15 downto 2) )); -- Word address
-        variable offset    : integer     := to_integer(unsigned( address(1 downto 0) )); -- Byte offset
+    function Mem16(Mem: MemType; address: unsigned) return bit_vector is
+        variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
+        variable offset    : integer     := to_integer( address(1 downto 0) );  -- Byte offset
         variable word      : BusDataType := Mem(word_addr);
         variable result    : bit_vector(15 downto 0);
     begin
@@ -77,9 +58,9 @@ end loop;
         return result;
     end function;
     
-    function Mem8(Mem: MemType; address: bit_vector) return bit_vector is
-        variable word_addr : integer     := to_integer(unsigned( address(15 downto 2) )); -- Word address
-        variable offset    : integer     := to_integer(unsigned( address(1 downto 0) )); -- Byte offset
+    function Mem8(Mem: MemType; address: unsigned) return bit_vector is
+        variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
+        variable offset    : integer     := to_integer( address(1 downto 0) );  -- Byte offset
         variable word      : BusDataType := Mem(word_addr);
         variable result    : bit_vector(7 downto 0);
     begin
@@ -97,8 +78,5 @@ end loop;
         end case;
         return result;
     end function;
-    function regAddImm(Reg: RegType; RegAddress: RegAddrType; Imm: bit_vector) return integer is
-    begin
-        return (bv2natural(Reg(bv2natural(RegAddress))) + to_integer(signed(Imm))) mod (2**RegDataSize);
-    end function;
+
 end conversion_pack;
