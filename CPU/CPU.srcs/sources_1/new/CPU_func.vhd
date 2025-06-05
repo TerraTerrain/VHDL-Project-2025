@@ -260,11 +260,11 @@ begin
                     end if;
             end case;
         when OpJump =>
-            Reg(bv2natural(rd)) := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize); 
-            PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(jimm20))) mod (2**AddrSize),AddrSize);   
+            Reg(int_rd) := bit_vector(unsigned(PC) + 4); 
+            PC := bit_vector(to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(jimm20(15 downto 0))), AddrSize ));   
         when OpJumpReg =>
-            Reg(bv2natural(rd)) := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-            PC := natural2bv((to_integer(unsigned(Reg(bv2natural(rs1)))) + to_integer(signed(imm12))) mod (2**AddrSize),AddrSize);
+            Reg(int_rd) := bit_vector(unsigned(PC) + 4);
+            PC := bit_vector(to_unsigned( to_integer(unsigned(Reg(int_rs1)(15 downto 0))) + to_integer(signed(jimm20(15 downto 0))), AddrSize ));
             PC(0) := '0';
         end case;
     end process;
