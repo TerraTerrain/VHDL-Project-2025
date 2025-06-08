@@ -4,6 +4,7 @@ use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
 use work.cpu_funcs_pack.all;
+use work.trace_pack.all;
 
 entity RISCV is
 end RISCV;
@@ -11,6 +12,11 @@ end RISCV;
 architecture Functional of RISCV is
 begin
     process
+        --for trace
+        use std.textio.all;
+        file TraceFile : Text is out "Trace";
+        variable l : line;
+        -- cpu objects
         variable PC           : AddrType    := X"0000";
         variable Instr        : InstrType   :=(others=>'0');
         variable OP           : OpType      := (others=>'0');
@@ -31,6 +37,9 @@ begin
         variable load_address : AddrType    := (others=>'0');
         
     begin
+        print_header( TraceFile );
+        loop
+        --cmd fetch
         Instr  := Mem(TO_INTEGER(unsigned(PC)));
         OP     := Instr(6 downto 0);
         func3  := Instr(14 downto 12);
@@ -49,6 +58,8 @@ begin
         int_rs2 := to_integer(unsigned(rs2));
         int_rd  := to_integer(unsigned(rd));
 
+        write_pc_cmd(l , PC , OP , func3 , func7 , rd , rs1 , rs2);
+        
         case OP is
             
             when OpLoad   =>
@@ -56,16 +67,27 @@ begin
                 case func3 is
                     when Func3LB  => -- LB
                         Reg(int_rd) := sign_extend(Mem8( Mem, load_address ));
+                        write_param(l,imm12);
+                        write_no_param1(l);
                     when Func3LH  => -- LH
                         Reg(int_rd) := sign_extend(Mem16( Mem, load_address ));
+                        write_param(l,imm12);
+                        write_no_param1(l);
                     when Func3LW  => -- LW
                         Reg(int_rd) :=             Mem32( Mem, load_address );
+                        write_param(l,imm12);
+                        write_no_param1(l);
                     when Func3LBU => -- LBU
                         Reg(int_rd) := zero_extend(Mem8( Mem, load_address ));
+                        write_param(l,imm12);
+                        write_no_param1(l);
                     when Func3LHU => -- LHU
                         Reg(int_rd) := zero_extend(Mem16( Mem, load_address ));
+                        write_param(l,imm12);
+                        write_no_param1(l);
                     when others   =>
                         assert FALSE report "Illegal instruction" severity error;
+                        write_no_param2(l);
                 end case;
                     
             when OpStore  =>
@@ -75,33 +97,51 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 => -- Lower half-word (aligned)
                                 Mem(store_address)(7 downto 0)   := Reg(int_rs2)(7 downto 0);
+                                write_param(l,func7);
+                                write_param(l,rd);
                             when 1 => -- Upper half-word
                                 Mem(store_address)(15 downto 8)  := Reg(int_rs2)(7 downto 0);
+                                write_param(l,func7);
+                                write_param(l,rd);
                             when 2 => -- Lower half-word (aligned)
                                 Mem(store_address)(23 downto 16) := Reg(int_rs2)(7 downto 0);
+                                write_param(l,func7);
+                                write_param(l,rd);
                             when 3 => -- Upper half-word
                                 Mem(store_address)(31 downto 24) := Reg(int_rs2)(7 downto 0);
+                                write_param(l,func7);
+                                write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SB" severity error;
+                                write_no_param2(l);
                         end case;
                     when Func3SH => -- SH
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 => -- Lower half-word (aligned)
                                 Mem(store_address)(15 downto 0)  := Reg(int_rs2)(15 downto 0);
+                                write_param(l,func7);
+                                write_param(l,rd);
                             when 2 => -- Upper half-word
                                 Mem(store_address)(31 downto 16) := Reg(int_rs2)(15 downto 0);
+                                write_param(l,func7);
+                                write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SH" severity error;
+                                write_no_param2(l);
                         end case;
                     when Func3SW => -- SW
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 =>
                                 Mem(store_address) := Reg(int_rs2);
+                                write_param(l,func7);
+                                write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SW" severity error;
+                                write_no_param2(l);
                         end case;
                     when others  =>
                         assert FALSE report "Illegal instruction" severity error;
+                        write_no_param2(l);
                 end case;
 
 
@@ -111,39 +151,60 @@ begin
                 when Func3SLL =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(int_rd) := Reg(int_rs1) sll Reg(int_rs2);
+                            Reg(int_rd) := Reg(int_rs1) sll int_rs2;
+                            write_param(l,rs2);
+                            write_no_param1(l);
                         when others =>
                            assert FALSE report "Illegal instruction" severity error;
+                           write_no_param2(l);
                     end case;
-                when Func3SRLorSRA =>
+                when Func3SRL_SRA =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(int_rd) := Reg(int_rs1) srl Reg(int_rs2);
-                        when Func7ShArith =>
-                            Reg(int_rd) := Reg(int_rs1) sra Reg(int_rs2);
+                            Reg(int_rd) := Reg(int_rs1) srl int_rs2;
+                            write_param(l,rs2);
+                            write_no_param1(l);
+                        when Func7ShArthm =>
+                            Reg(int_rd) := Reg(int_rs1) sra int_rs2;
+                            write_param(l,rs2);
+                            write_no_param1(l);
                         when others =>
                             assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
                 when Func3SLT => --SLTI
                     if signed(Reg(int_rs1)) < signed(sign_extend(imm12)) then
                         Reg(int_rd) := "1";
                     else Reg(int_rd) := "0";
                     end if;
+                    write_param(l,rs2);
+                    write_no_param1(l);
                 when Func3SLTU => --SLTIU
                     if unsigned(Reg(int_rs1)) < unsigned(sign_extend(imm12)) then
                         Reg(int_rd) := "1";
                     else Reg(int_rd) := "0";
                     end if;
+                    write_param(l,rs2);
+                    write_no_param1(l);
                 when Func3Arthm     =>
                     Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(sign_extend(imm12)) ); -- ADDI
+                    write_param(l,imm12);
+                    write_no_param1(l);
                 when Func3XOR       =>
                     Reg(int_rd) := Reg(int_rs1) xor sign_extend(imm12); -- XORI
+                    write_param(l,imm12);
+                    write_no_param1(l);
                 when Func3OR        =>
                     Reg(int_rd) := Reg(int_rs1) or sign_extend(imm12); -- ORI
+                    write_param(l,imm12);
+                    write_no_param1(l);
                 when Func3AND       =>
                     Reg(int_rd) := Reg(int_rs1) and sign_extend(imm12); -- ANDI
+                    write_param(l,imm12);
+                    write_no_param1(l);
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
+                    write_no_param2(l);
             end case;
                     
         when OpReg =>
@@ -151,22 +212,22 @@ begin
                 when Func3SLL =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(int_rd) := Reg(int_rs1) sll Reg(int_rs2);
+                            Reg(int_rd) := Reg(int_rs1) sll bv2int(Reg(int_rs2));
                         when others =>
                            assert FALSE report "Illegal instruction" severity error;
                     end case;
-                when Func3SRLorSRA =>
+                when Func3SRL_SRA =>
                     case func7 is
                         when Func7ShLog =>
-                            Reg(int_rd) := Reg(int_rs1) srl Reg(int_rs2);
-                        when Func7ShArith =>
-                            Reg(int_rd) := Reg(int_rs1) sra Reg(int_rs2);
+                            Reg(int_rd) := Reg(int_rs1) srl bv2int(Reg(int_rs2));
+                        when Func7ShArthm =>
+                            Reg(int_rd) := Reg(int_rs1) sra bv2int(Reg(int_rs2));
                         when others =>
                             assert FALSE report "Illegal instruction" severity error;
                     end case;
                 when Func3SLT => --SLT
                     case func7 is
-                        when Func7Shift =>
+                        when Func7Set =>
                             if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
                                 Reg(int_rd) := "1";
                             else Reg(int_rd) := "0";
@@ -174,7 +235,7 @@ begin
                     end case;
                 when Func3SLTU => --SLTU
                     case func7 is
-                        when Func7Shift =>
+                        when Func7Set =>
                             if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
                                 Reg(int_rd) := "1";
                             else Reg(int_rd) := "0";
@@ -213,12 +274,17 @@ begin
                             assert FALSE report "Illegal instruction" severity error;
                     end case;
             end case;
+            write_no_param2(l);
                            
                     
         when OpLUI    =>  -- LUI        
                  Reg(int_rd) := imm20 & X"000";
+                 write_param(l,imm20);
+                 write_no_param1(l);
         when OpAUIPC  =>  -- AUIPC
                  Reg(int_rd) := bit_vector( unsigned(PC) + unsigned( (imm20 & X"000")(15 downto 0) ) );
+                 write_param(l,imm20);
+                 write_no_param1(l);
 
         when OpBranch =>
             case func3 is
@@ -228,44 +294,60 @@ begin
                     else
                         PC := bit_vector(unsigned(PC) + 4);
                     end if;
+                    write_param(l,func7);
+                    write_param(l,rd);
                 when Func3BNE =>
                     if Reg(int_rs1) /= Reg(int_rs2) then
                         PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
                         PC := bit_vector(unsigned(PC) + 4);
                     end if;
+                    write_param(l,func7);
+                    write_param(l,rd);
                 when Func3BLT =>
                     if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
                         PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
                         PC := bit_vector(unsigned(PC) + 4);
                     end if;
+                    write_param(l,func7);
+                    write_param(l,rd);
                 when Func3BLTU =>
                     if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
                         PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
                         PC := bit_vector(unsigned(PC) + 4);
                     end if;
+                    write_param(l,func7);
+                    write_param(l,rd);
                 when Func3BGE =>
                     if signed(Reg(int_rs1)) >= signed(Reg(int_rs2)) then
                         PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
                         PC := bit_vector(unsigned(PC) + 4);
                     end if;
+                    write_param(l,func7);
+                    write_param(l,rd);
                 when Func3BGEU =>
                     if unsigned(Reg(int_rs1)) >= unsigned(Reg(int_rs2)) then
                         PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
                     else
                         PC := bit_vector(unsigned(PC) + 4);
                     end if;
+                    write_param(l,func7);
+                    write_param(l,rd);
             end case;
         when OpJump =>
             Reg(int_rd) := bit_vector(unsigned(PC) + 4); 
-            PC := bit_vector(to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(jimm20(15 downto 0))), AddrSize ));   
+            PC := bit_vector(to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(jimm20(15 downto 0))), AddrSize ));  
+            write_param(l,jimm20); 
+            write_no_param1(l);
         when OpJumpReg =>
             Reg(int_rd) := bit_vector(unsigned(PC) + 4);
             PC := bit_vector(to_unsigned( to_integer(unsigned(Reg(int_rs1)(15 downto 0))) + to_integer(signed(jimm20(15 downto 0))), AddrSize ));
             PC(0) := '0';
+            write_no_param2(l);
         end case;
+        end loop;
     end process;
 end Functional;
