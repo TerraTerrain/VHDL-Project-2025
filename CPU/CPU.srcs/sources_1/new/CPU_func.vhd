@@ -50,22 +50,10 @@ begin
 
         case OP is
          when OpLoad   =>
-            case func3 is
-                    when Func3LB  => -- LB
-                        Reg(bv2natural(rd)) := sign_extend(Mem8( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
-                    when Func3LH  => -- LH
-                        Reg(bv2natural(rd)) := sign_extend(Mem16( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
-                    when Func3LW  => -- LW
-                        Reg(bv2natural(rd)) := Mem32( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize));
-                    when Func3LBU => -- LBU
-                        Reg(bv2natural(rd)) := zero_extend(Mem8( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
-                    when Func3LHU => -- LHU
-                        Reg(bv2natural(rd)) := zero_extend(Mem16( Mem, natural2bv( regAddImm(Reg,rs1,imm12), AddrSize)));
-                    when others   =>
-                        assert FALSE report "Illegal instruction" severity error;
-                end case;
+            EXEC_OP_LOAD(Mem=>Mem, func3=>func3, imm12=>imm12,
+            rs1=>rs1, rd=>rd, RegIn=>Reg, RegOut=>Reg);
+            
         when OpStore  => 
-                
                 case func3 is
                     when Func3SB => -- SB
                         case regAddImm(Reg,rs1,sImm) mod 4 is -- check the last 2 bits of address
@@ -99,8 +87,6 @@ begin
                     when others  =>
                         assert FALSE report "Illegal instruction" severity error;
                 end case;
-
-
 
         when OpImm =>
             case func3 is
@@ -141,8 +127,7 @@ begin
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
             end case;
-                    
-                    
+                                  
         when OpReg =>
             case func3 is
                 when Func3SLL =>
@@ -220,55 +205,22 @@ begin
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>
-                    if Reg(bv2natural(rs1)) = Reg(bv2natural(rs2)) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
-                    else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-                    end if;
+                    EXEC_BEQ(Reg=>Reg, bImm=>bImm, rs1=>rs1, rs2=>rs2, PCIn=>PC, PCOut=>PC);
                 when Func3BNE =>
-                    if Reg(bv2natural(rs1)) /= Reg(bv2natural(rs2)) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
-                    else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-                    end if;
+                    EXEC_BNE(Reg=>Reg, bImm=>bImm, rs1=>rs1, rs2=>rs2, PCIn=>PC, PCOut=>PC);
                 when Func3BLT =>
-                    if signed(Reg(bv2natural(rs1))) < signed(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
-                    else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-                    end if;
+                    EXEC_BLT(Reg=>Reg, bImm=>bImm, rs1=>rs1, rs2=>rs2, PCIn=>PC, PCOut=>PC);
                 when Func3BLTU =>
-                    if unsigned(Reg(bv2natural(rs1))) < unsigned(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
-                    else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-                    end if;
-                                when Func3BGE =>
-                    if signed(Reg(bv2natural(rs1))) > signed(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
-                    else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-                    end if;
+                    EXEC_BLTU(Reg=>Reg, bImm=>bImm, rs1=>rs1, rs2=>rs2, PCIn=>PC, PCOut=>PC);
+                when Func3BGE =>
+                    EXEC_BLT(Reg=>Reg, bImm=>bImm, rs1=>rs2, rs2=>rs1, PCIn=>PC, PCOut=>PC);
                 when Func3BGEU =>
-                    if unsigned(Reg(bv2natural(rs1))) > unsigned(Reg(bv2natural(rs2))) then
-                        branch_temp := bImm & '0';                        
-                        PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(branch_temp))) mod (2**AddrSize),AddrSize);
-                    else
-                        PC := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-                    end if;
+                    EXEC_BLTU(Reg=>Reg, bImm=>bImm, rs1=>rs2, rs2=>rs1, PCIn=>PC, PCOut=>PC);
             end case;
         when OpJump =>
-            Reg(bv2natural(rd)) := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize); 
-            PC := natural2bv((to_integer(unsigned(PC)) + to_integer(signed(jimm20))) mod (2**AddrSize),AddrSize);   
+            EXEC_JAL(jimm20=>jimm20, rd=>rd, RegIn=>Reg, RegOut=>Reg, PCIn=>PC, PCOut=>PC);
         when OpJumpReg =>
-            Reg(bv2natural(rd)) := natural2bv((to_integer(unsigned(PC)) + 4) mod (2**AddrSize), AddrSize);
-            PC := natural2bv((to_integer(unsigned(Reg(bv2natural(rs1)))) + to_integer(signed(imm12))) mod (2**AddrSize),AddrSize);
-            PC(0) := '0';
+            EXEC_JALR(imm12=>imm12, rs1=>rs1, rd=>rd, RegIn=>Reg, RegOut=>Reg, PCIn=>PC, PCOut=>PC);
         end case;
     end process;
 end Functional;
