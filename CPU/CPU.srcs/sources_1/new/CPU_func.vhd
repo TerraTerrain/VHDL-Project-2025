@@ -3,7 +3,6 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
-use work.cpu_funcs_pack.all;
 use work.trace_pack.all;
 
 entity RISCV is
@@ -35,6 +34,8 @@ begin
 
         variable store_address: natural     := 0;
         variable load_address : AddrType    := (others=>'0');
+        
+        variable temp_imm : bit_vector(31 downto 0); -- Temporary variable for concatenation
         
     begin
         print_header( TraceFile );
@@ -282,7 +283,8 @@ begin
                  write_param(l,imm20);
                  write_no_param1(l);
         when OpAUIPC  =>  -- AUIPC
-                 Reg(int_rd) := bit_vector( unsigned(PC) + unsigned( (imm20 & X"000")(15 downto 0) ) );
+                 temp_imm := imm20 & X"000"; -- Perform concatenation
+                 Reg(int_rd) := bit_vector( unsigned(PC) + unsigned( temp_imm(15 downto 0) ) );
                  write_param(l,imm20);
                  write_no_param1(l);
 
