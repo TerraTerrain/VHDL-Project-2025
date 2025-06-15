@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_bit.all;
 
 package defs_pack is
 -- Basic constants and types
@@ -20,7 +21,7 @@ package defs_pack is
     constant RegDataSize: integer := 32;
     constant RegAddrSize: integer := 5;
     
-    subtype AddrType  is bit_vector (AddrSize-1 downto 0); 
+    subtype AddrType  is unsigned   (AddrSize-1 downto 0); 
     subtype InstrType is bit_vector (InstrSize-1 downto 0);
     
     subtype OpType    is bit_vector (OpSize-1 downto 0);
@@ -35,6 +36,12 @@ package defs_pack is
 
     type RegType is array (integer range 2**RegAddrSize-1    downto 0) of RegDataType;
     type MemType is array (integer range 2**MemoryAddrSize-1 downto 0) of BusDataType;
+    
+    type MnemonicType is (LB, LBU, LH, LHU, LW, SB, SH, SW, LUI, AUIPC,
+                          ADD, SUB, ADDI, XORr, ORr, ANDr, XORI, ORI, ANDI,
+                          SLLr, SRLr, SRAr, SLLI, SRLI, SRAI,
+                          SLT, SLTU, SLTI, SLTIU, JAL, JALR,
+                          BEQ, BNE, BLT, BLTU, BGE, BGEU);
 
 -- Instruction constants
     -- Imm/Reg Opcode
@@ -95,4 +102,3 @@ package defs_pack is
     constant Func3JALR : Func3Type := "000";
 
 end package;
-
