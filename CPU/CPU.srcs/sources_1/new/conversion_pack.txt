@@ -6,9 +6,12 @@ use IEEE.numeric_bit.ALL;
 package conversion_pack is
     function sign_extend(imm : bit_vector) return bit_vector;
     function zero_extend(imm : bit_vector) return bit_vector;
-    function Mem32(Mem: MemType; address: bit_vector) return BusDataType;
-    function Mem16(Mem: MemType; address: bit_vector) return bit_vector;
-    function Mem8(Mem: MemType; address: bit_vector) return bit_vector;
+    function loadMem32(Mem: MemType; address: unsigned) return BusDataType;
+    function loadMem16(Mem: MemType; address: unsigned) return bit_vector;
+    function loadMem8 (Mem: MemType; address: unsigned) return bit_vector;
+    procedure storeMem32(Mem: out MemType; address: integer; Reg: RegType; rs2: integer);
+    procedure storeMem16(Mem: out MemType; address: integer; Reg: RegType; rs2: integer);
+    procedure storeMem8 (Mem: out MemType; address: integer; Reg: RegType; rs2: integer);
 end conversion_pack;
 
 
@@ -33,7 +36,7 @@ package body conversion_pack is
         return extended_imm;
     end function;
     
-    function Mem32(Mem: MemType; address: unsigned) return BusDataType is
+    function loadMem32(Mem: MemType; address: unsigned) return BusDataType is
         variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
         variable result    : BusDataType := (others => '0');
     begin
@@ -41,7 +44,7 @@ package body conversion_pack is
         return result;
     end function;
     
-    function Mem16(Mem: MemType; address: unsigned) return bit_vector is
+    function loadMem16(Mem: MemType; address: unsigned) return bit_vector is
         variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
         variable offset    : integer     := to_integer( address(1 downto 0) );  -- Byte offset
         variable word      : BusDataType := Mem(word_addr);
@@ -58,7 +61,7 @@ package body conversion_pack is
         return result;
     end function;
     
-    function Mem8(Mem: MemType; address: unsigned) return bit_vector is
+    function loadMem8(Mem: MemType; address: unsigned) return bit_vector is
         variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
         variable offset    : integer     := to_integer( address(1 downto 0) );  -- Byte offset
         variable word      : BusDataType := Mem(word_addr);
@@ -78,5 +81,42 @@ package body conversion_pack is
         end case;
         return result;
     end function;
+    
+    procedure storeMem32(Mem: out MemType; address: integer; Reg: RegType; rs2: integer) is
+    begin
+        case address mod 4 is -- check the last 2 bits of address
+            when 0 =>
+                Mem(address) := Reg(rs2);
+            when others =>
+                assert FALSE report "Unaligned address for SW" severity error;
+        end case;
+    end procedure;
+    
+    procedure storeMem16(Mem: out MemType; address: integer; Reg: RegType; rs2: integer) is
+    begin
+        case address mod 4 is -- check the last 2 bits of address
+            when 0 => -- Lower half-word
+                Mem(address)(15 downto 0)  := Reg(rs2)(15 downto 0);
+            when 2 => -- Upper half-word
+                Mem(address)(31 downto 16) := Reg(rs2)(15 downto 0);
+            when others =>
+                assert FALSE report "Unaligned address for SH" severity error;
+        end case;
+    end procedure;
 
+    procedure storeMem8 (Mem: out MemType; address: integer; Reg: RegType; rs2: integer) is
+    begin
+        case address mod 4 is -- check the last 2 bits of address
+            when 0 => -- Lower byte
+                Mem(address)(7 downto 0)   := Reg(rs2)(7 downto 0);
+            when 1 => -- Lower middle byte
+                Mem(address)(15 downto 8)  := Reg(rs2)(7 downto 0);
+            when 2 => -- Upper middle byte
+                Mem(address)(23 downto 16) := Reg(rs2)(7 downto 0);
+            when 3 => -- Upper byte
+                Mem(address)(31 downto 24) := Reg(rs2)(7 downto 0);
+            when others =>
+                assert FALSE report "Unaligned address for SB" severity error;
+        end case;
+    end procedure;
 end conversion_pack;
