@@ -1,9 +1,9 @@
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
-use work.cpu_funcs_pack.all;
 use work.trace_pack.all;
 
 entity RISCV is
@@ -12,13 +12,13 @@ end RISCV;
 architecture Functional of RISCV is
 begin
     process
-        --for trace
+        -- for tracing
         use std.textio.all;
         file TraceFile : Text is out "Trace";
         variable l : line;
         -- cpu objects
         variable PC           : AddrType    := X"0000";
-        variable Instr        : InstrType   :=(others=>'0');
+        variable Instr        : InstrType   := (others=>'0');
         variable OP           : OpType      := (others=>'0');
         variable func3        : Func3Type   := (others=>'0');
         variable func7        : Func7Type   := (others=>'0');
@@ -27,6 +27,7 @@ begin
                               : natural     := 0;
         variable imm12        : Imm12Type   := (others=>'0');
         variable imm20        : Imm20Type   := (others=>'0');
+        variable aImm         : bit_vector  := (others=>'0');
         variable jimm20       : Imm20Type   := (others=>'0');
         variable bImm         : Imm12Type   := (others=>'0');
         variable sImm         : Imm12Type   := (others=>'0');
@@ -49,40 +50,45 @@ begin
         rd     := Instr(11 downto 7);
         imm12  := Instr(31 downto 20);
         imm20  := Instr(31 downto 12);
+        
+        aImm   := imm20(3 downto 0) & X"000"; -- imm for AUIPC
         bImm   := Instr(31) & Instr(7) & Instr(30 downto 25) & Instr(11 downto  8);
-        sImm   := Instr(31 downto 25) & Instr(11 downto 7);
+                                                                 -- imm for branch
+        sImm   := Instr(31 downto 25) & Instr(11 downto 7); -- imm for store
         jimm20 := Instr(31) & Instr(19 downto 12) & Instr(20) & Instr(30 downto 21) & '0';
+                                                                          -- imm for jump
 
         -- Reg is indexed with integers
-        int_rs1 := to_integer(unsigned(rs1));
-        int_rs2 := to_integer(unsigned(rs2));
-        int_rd  := to_integer(unsigned(rd));
+        int_rs1 := TO_INTEGER(unsigned(rs1));
+        int_rs2 := TO_INTEGER(unsigned(rs2));
+        int_rd  := TO_INTEGER(unsigned(rd));
 
         write_pc_cmd(l , PC , OP , func3 , func7 , rd , rs1 , rs2);
         
         case OP is
             
             when OpLoad   =>
-                load_address := bit_vector( signed(Reg(int_rs1)) + signed(sign_extend(imm12)) );
+                load_address := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) 
+                                           + TO_INTEGER(signed(imm12)), AddrSize );
                 case func3 is
                     when Func3LB  => -- LB
-                        Reg(int_rd) := sign_extend(Mem8( Mem, load_address ));
+                        Reg(int_rd) := sign_extend(loadMem8( Mem, load_address ));
                         write_param(l,imm12);
                         write_no_param1(l);
                     when Func3LH  => -- LH
-                        Reg(int_rd) := sign_extend(Mem16( Mem, load_address ));
+                        Reg(int_rd) := sign_extend(loadMem16( Mem, load_address ));
                         write_param(l,imm12);
                         write_no_param1(l);
                     when Func3LW  => -- LW
-                        Reg(int_rd) :=             Mem32( Mem, load_address );
+                        Reg(int_rd) :=             loadMem32( Mem, load_address );
                         write_param(l,imm12);
                         write_no_param1(l);
                     when Func3LBU => -- LBU
-                        Reg(int_rd) := zero_extend(Mem8( Mem, load_address ));
+                        Reg(int_rd) := zero_extend(loadMem8( Mem, load_address ));
                         write_param(l,imm12);
                         write_no_param1(l);
                     when Func3LHU => -- LHU
-                        Reg(int_rd) := zero_extend(Mem16( Mem, load_address ));
+                        Reg(int_rd) := zero_extend(loadMem16( Mem, load_address ));
                         write_param(l,imm12);
                         write_no_param1(l);
                     when others   =>
@@ -91,23 +97,24 @@ begin
                 end case;
                     
             when OpStore  =>
-                store_address := to_integer( signed(Reg(int_rs1)) + signed(sign_extend(sImm)) );
+                store_address := TO_INTEGER( unsigned(Reg(int_rs1)(15 downto 0))) 
+                               + TO_INTEGER( signed(sign_extend(sImm)));
                 case func3 is
                     when Func3SB => -- SB
                         case store_address mod 4 is -- check the last 2 bits of address
-                            when 0 => -- Lower half-word (aligned)
+                            when 0 => -- Lower byte
                                 Mem(store_address)(7 downto 0)   := Reg(int_rs2)(7 downto 0);
                                 write_param(l,func7);
                                 write_param(l,rd);
-                            when 1 => -- Upper half-word
+                            when 1 => -- Lower middle byte
                                 Mem(store_address)(15 downto 8)  := Reg(int_rs2)(7 downto 0);
                                 write_param(l,func7);
                                 write_param(l,rd);
-                            when 2 => -- Lower half-word (aligned)
+                            when 2 => -- Upper middle byte 
                                 Mem(store_address)(23 downto 16) := Reg(int_rs2)(7 downto 0);
                                 write_param(l,func7);
                                 write_param(l,rd);
-                            when 3 => -- Upper half-word
+                            when 3 => -- Upper byte
                                 Mem(store_address)(31 downto 24) := Reg(int_rs2)(7 downto 0);
                                 write_param(l,func7);
                                 write_param(l,rd);
@@ -117,7 +124,7 @@ begin
                         end case;
                     when Func3SH => -- SH
                         case store_address mod 4 is -- check the last 2 bits of address
-                            when 0 => -- Lower half-word (aligned)
+                            when 0 => -- Lower half-word
                                 Mem(store_address)(15 downto 0)  := Reg(int_rs2)(15 downto 0);
                                 write_param(l,func7);
                                 write_param(l,rd);
@@ -214,7 +221,7 @@ begin
                         when Func7ShLog =>
                             Reg(int_rd) := Reg(int_rs1) sll bv2int(Reg(int_rs2));
                         when others =>
-                           assert FALSE report "Illegal instruction" severity error;
+                            assert FALSE report "Illegal instruction" severity error;
                     end case;
                 when Func3SRL_SRA =>
                     case func7 is
@@ -281,70 +288,70 @@ begin
                  Reg(int_rd) := imm20 & X"000";
                  write_param(l,imm20);
                  write_no_param1(l);
-        when OpAUIPC  =>  -- AUIPC
-                 Reg(int_rd) := bit_vector( unsigned(PC) + unsigned( (imm20 & X"000")(15 downto 0) ) );
-                 write_param(l,imm20);
+        when OpAUIPC  =>  -- AUIPC, R[rd] := PC + imm20 & X"000"
+                 Reg(int_rd) := bit_vector( PC + unsigned(aImm) );
+                 write_param(l,imm20); -- do we need to see all 20 bits?
                  write_no_param1(l);
 
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>
                     if Reg(int_rs1) = Reg(int_rs2) then                       
-                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
+                        PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(bImm & '0')), AddrSize);
                     else
-                        PC := bit_vector(unsigned(PC) + 4);
+                        PC := PC + 4;
                     end if;
                     write_param(l,func7);
                     write_param(l,rd);
                 when Func3BNE =>
                     if Reg(int_rs1) /= Reg(int_rs2) then
-                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
+                        PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(bImm & '0')), AddrSize);
                     else
-                        PC := bit_vector(unsigned(PC) + 4);
+                        PC := PC + 4;
                     end if;
                     write_param(l,func7);
                     write_param(l,rd);
                 when Func3BLT =>
                     if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
-                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
+                        PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(bImm & '0')), AddrSize);
                     else
-                        PC := bit_vector(unsigned(PC) + 4);
+                        PC := PC + 4;
                     end if;
                     write_param(l,func7);
                     write_param(l,rd);
                 when Func3BLTU =>
                     if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
-                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
+                        PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(bImm & '0')), AddrSize);
                     else
-                        PC := bit_vector(unsigned(PC) + 4);
+                        PC := PC + 4;
                     end if;
                     write_param(l,func7);
                     write_param(l,rd);
                 when Func3BGE =>
                     if signed(Reg(int_rs1)) >= signed(Reg(int_rs2)) then
-                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
+                        PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(bImm & '0')), AddrSize);
                     else
-                        PC := bit_vector(unsigned(PC) + 4);
+                        PC := PC + 4;
                     end if;
                     write_param(l,func7);
                     write_param(l,rd);
                 when Func3BGEU =>
                     if unsigned(Reg(int_rs1)) >= unsigned(Reg(int_rs2)) then
-                        PC := bit_vector( to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(bImm & '0')), AddrSize) );
+                        PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(bImm & '0')), AddrSize);
                     else
-                        PC := bit_vector(unsigned(PC) + 4);
+                        PC := PC + 4;
                     end if;
                     write_param(l,func7);
                     write_param(l,rd);
             end case;
         when OpJump =>
-            Reg(int_rd) := bit_vector(unsigned(PC) + 4); 
-            PC := bit_vector(to_unsigned( to_integer(unsigned(PC)) + to_integer(signed(jimm20(15 downto 0))), AddrSize ));  
+            Reg(int_rd) := bit_vector(PC + 4); 
+            PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );  
             write_param(l,jimm20); 
             write_no_param1(l);
         when OpJumpReg =>
             Reg(int_rd) := bit_vector(unsigned(PC) + 4);
-            PC := bit_vector(to_unsigned( to_integer(unsigned(Reg(int_rs1)(15 downto 0))) + to_integer(signed(jimm20(15 downto 0))), AddrSize ));
+            PC := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );
             PC(0) := '0';
             write_no_param2(l);
         end case;
