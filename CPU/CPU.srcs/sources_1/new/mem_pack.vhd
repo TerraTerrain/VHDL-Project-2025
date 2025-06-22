@@ -19,7 +19,7 @@ package mem_pack is
     function toMnemonic(mnemonic_str: string)   return MnemonicType;
     function toMemEntry (mn : MnemonicType; r1: RegAddrType; r2: RegAddrType; r3: RegAddrType; imm: integer)
         return BusDataType;
-    impure function init_memory (filename: string) return MemType;
+    procedure init_memory (filename: in string; Mem : out MemType);
 end mem_pack;
 
 
@@ -137,43 +137,43 @@ package body mem_pack is
     function toMnemonic(mnemonic_str: string) return MnemonicType is
     begin
     case mnemonic_str is
-        when "LB" => return LB;
-        when "LBU" => return LBU;
-        when "LH" => return LH;
-        when "LHU" => return LHU;
-        when "LW" => return LW;
-        when "SB" => return SB;
-        when "SH" => return SH;
-        when "SW" => return SW;
-        when "ADD" => return ADD;
-        when "SUB" => return SUB;
-        when "ADDI" => return ADDI;
-        when "LUI" => return LUI;
+        when "LB   " => return LB;
+        when "LBU  " => return LBU;
+        when "LH   " => return LH;
+        when "LHU  " => return LHU;
+        when "LW   " => return LW;
+        when "SB   " => return SB;
+        when "SH   " => return SH;
+        when "SW   " => return SW;
+        when "ADD  " => return ADD;
+        when "SUB  " => return SUB;
+        when "ADDI " => return ADDI;
+        when "LUI  " => return LUI;
         when "AUIPC" => return AUIPC;
-        when "XOR" => return XORr;
-        when "OR" => return ORr;
-        when "AND" => return ANDr;
-        when "XORI" => return XORI;
-        when "ORI" => return ORI;
-        when "ANDI" => return ANDI;
-        when "SLL" => return SLLr;
-        when "SRL" => return SRLr;
-        when "SRA" => return SRAr;
-        when "SLLI" => return SLLI;
-        when "SRLI" => return SRLI;
-        when "SRAI" => return SRAI;
-        when "SLT" => return SLT;
-        when "SLTU" => return SLTU;
-        when "SLTI" => return SLTI;
+        when "XOR  " => return XORr;
+        when "OR   " => return ORr;
+        when "AND  " => return ANDr;
+        when "XORI " => return XORI;
+        when "ORI  " => return ORI;
+        when "ANDI " => return ANDI;
+        when "SLL  " => return SLLr;
+        when "SRL  " => return SRLr;
+        when "SRA  " => return SRAr;
+        when "SLLI " => return SLLI;
+        when "SRLI " => return SRLI;
+        when "SRAI " => return SRAI;
+        when "SLT  " => return SLT;
+        when "SLTU " => return SLTU;
+        when "SLTI " => return SLTI;
         when "SLTIU" => return SLTIU;
-        when "JAL" => return JAL;
-        when "JALR" => return JALR;
-        when "BEQ" => return BEQ;
-        when "BNE" => return BNE;
-        when "BLT" => return BLT;
-        when "BLTU" => return BLTU;
-        when "BGE" => return BGE;
-        when "BGEU" => return BGEU;
+        when "JAL  " => return JAL;
+        when "JALR " => return JALR;
+        when "BEQ  " => return BEQ;
+        when "BNE  " => return BNE;
+        when "BLT  " => return BLT;
+        when "BLTU " => return BLTU;
+        when "BGE  " => return BGE;
+        when "BGEU " => return BGEU;
         when others => assert false report "Invalid mnemonic: " & mnemonic_str severity failure;
     end case;
     end function;
@@ -279,26 +279,21 @@ package body mem_pack is
 
 
 
-    impure function init_memory (filename: string) return MemType is
+    procedure init_memory (filename: string; Mem : out MemType) is
         file     f        : text is in filename;
         variable l        : line;
-        variable mem      : MemType;
-        variable success  : boolean;
         variable addr     : AddrType := (others => '0');
-        variable v        : string(1 to 6);
-        --variable w        :
+        variable v        : string(1 to 25) := (others => ' ');
         variable r1,r2,r3 : RegAddrType := (others => '0');
         variable mnemonic : MnemonicType;
-        variable imm      : integer;
+        variable imm      : integer = 0;
         
         variable r1_set, r2_set : boolean := FALSE;
         variable addr_ptr : boolean := FALSE; -- check if the current line in file is of @-type
         
     begin
-        line_loop: loop --read line by line
-        exit when endfile (f);
+    line_loop: while not endfile(f) loop
         readline (f, l);
-        
         if l'length = 0 then
             next; -- empty line
         end if;
@@ -307,28 +302,25 @@ package body mem_pack is
                 next; -- comment line
             end if;
         end if;
-        
-        success := TRUE;--read values in each line
-        word_loop: while success loop
-            read(l, v, success);                
-            if v(1) = '@' then
-                addr := toAddrType(v(2 to v'right));
-                addr_ptr := TRUE;
-            elsif v(1) = '#' then
-                imm := toConstant(v(2 to v'right));
-            elsif v(1) = 'X' or v(1) = 'x' then
-                if r1_set = true then
-                    if r2_set = true then
-                        r3 := toRegAddrType(v(2 to v'right));
-                    else r2 := toRegAddrType(v(2 to v'right));
-                    end if;
-                else
-                    r1 := toRegAddrType(v(2 to v'right));
-                    r1_set := true;
+              
+        v(1 to l'length) := l.all(1 to l'length);
+        if v(1) = '@' then
+            addr := toAddrType(v(2 to 7));
+            addr_ptr := TRUE;
+        elsif v(1) = '#' then
+            imm := toConstant(v(2 to v'right));
+        elsif v(1) = 'X' or v(1) = 'x' then
+            if r1_set = true then
+                if r2_set = true then
+                    r3 := toRegAddrType(v(2 to v'right));
+                else r2 := toRegAddrType(v(2 to v'right));
                 end if;
-            else mnemonic := toMnemonic(v(1 to v'right));
+            else
+                r1 := toRegAddrType(v(2 to v'right));
+                r1_set := true;
             end if;
-        end loop word_loop;
+        else mnemonic := toMnemonic(v(1 to v'right));
+        end if;
         
         -- check if the line is a CPU command
         if not(addr_ptr) then
@@ -340,8 +332,7 @@ package body mem_pack is
         end if;
         addr_ptr := TRUE; -- reset the flag for the next line of file
         
-        end loop line_loop;
-    return mem;
+    end loop line_loop;
     end init_memory;
 end mem_pack;
 
