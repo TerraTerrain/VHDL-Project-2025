@@ -104,4 +104,6 @@ package defs_pack is
     constant OpJumpReg : OpType    := "1100111";
     constant Func3JALR : Func3Type := "000";
 
+    constant NOP : OpType := "0000000";
+
 end package;
