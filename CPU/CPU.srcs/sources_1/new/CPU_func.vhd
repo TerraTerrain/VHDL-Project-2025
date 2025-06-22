@@ -66,6 +66,9 @@ begin
         write_pc_cmd(l , PC , OP , func3 , func7 , rd , rs1 , rs2);
         
         case OP is
+            when OpEBREAK =>
+                print_tail( TraceFile );
+                wait;
             
             when OpLoad   =>
                 load_address := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) 
