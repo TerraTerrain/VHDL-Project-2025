@@ -44,6 +44,9 @@ package defs_pack is
                           BEQ, BNE, BLT, BLTU, BGE, BGEU);
 
 -- Instruction constants
+    -- EBREAK
+    constant OpEBREAK : OpType := "0000000";
+
     -- Imm/Reg Opcode
     constant OpImm : OpType := "0010011";
     constant OpReg : OpType := "0110011";
