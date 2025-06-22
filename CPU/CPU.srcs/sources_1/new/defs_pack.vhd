@@ -45,7 +45,7 @@ package defs_pack is
 
 -- Instruction constants
     -- EBREAK
-    constant OpEBREAK : OpType := "0000000";
+    constant OpEBREAK : OpType := "1111111";
 
     -- Imm/Reg Opcode
     constant OpImm : OpType := "0010011";
