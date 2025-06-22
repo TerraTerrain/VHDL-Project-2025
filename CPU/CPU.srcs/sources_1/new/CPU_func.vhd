@@ -295,7 +295,7 @@ begin
                  PC := PC +4;
         when OpAUIPC  =>  -- AUIPC, R[rd] := PC + imm20 & X"000"
                  Reg(int_rd) := bit_vector( PC + unsigned(aImm) );
-                 write_param(l,imm20); -- do we need to see all 20 bits?
+                 write_param(l,aImm); -- do we need to see all 20 bits?
                  write_no_param1(l);
                  PC := PC +4;
         when OpBranch =>
