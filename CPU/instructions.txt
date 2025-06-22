@@ -180,19 +180,13 @@ SLTIU X19 X16 #0
 SLTIU X20 X16 #1
 SLTIU X21 X16 #2
 
-BEQ x16, x16, label_eq   
-NOP
-label_eq:
-BEQ x16, x14, label_skip1      
-label_skip1:
-BNE x16, x14, label_ne   
-NOP
-label_ne:
-BNE x16, x16, skip2      
-label_skip2:
-BLT x16, x14, label_lt   
-NOP
-label_lt:
-BGE x14, x16, label_ge   
-NOP
-label_ge:
+BEQ X16 X16 #2
+ADDI X00 X00 #0
+BEQ X16 X14 #2
+BNE X16 X14 #2
+ADDI X00 X00 #0
+BNE X16 X16 #2
+BLT X16 X14 #2
+ADDI X00 X00 #0
+BGE X14 X16 #2
+ADDI X00 X00 #0
