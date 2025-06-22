@@ -37,7 +37,7 @@ package defs_pack is
     type RegType is array (integer range 2**RegAddrSize-1    downto 0) of RegDataType;
     type MemType is array (integer range 2**MemoryAddrSize-1 downto 0) of BusDataType;
     
-    type MnemonicType is (LB, LBU, LH, LHU, LW, SB, SH, SW, LUI, AUIPC,
+    type MnemonicType is (EBREAK, LB, LBU, LH, LHU, LW, SB, SH, SW, LUI, AUIPC,
                           ADD, SUB, ADDI, XORr, ORr, ANDr, XORI, ORI, ANDI,
                           SLLr, SRLr, SRAr, SLLI, SRLI, SRAI,
                           SLT, SLTU, SLTI, SLTIU, JAL, JALR,
