@@ -17,7 +17,7 @@ package mem_pack is
     function toConstant  (hex_str: string)      return integer;
     function toRegAddrType(decimal_str: string) return RegAddrType;
     function toMnemonic(mnemonic_str: string)   return MnemonicType;
-    function toMemEntry (mn : MnemonicType; rs1: RegAddrType; rs2: RegAddrType; rd: RegAddrType; imm: integer)
+    function toMemEntry (mn : MnemonicType; r1: RegAddrType; r2: RegAddrType; r3: RegAddrType; imm: integer)
         return BusDataType;
     impure function init_memory (filename: string) return MemType;
 end mem_pack;
@@ -178,7 +178,7 @@ package body mem_pack is
     end case;
     end function;
     
-    function toMemEntry (mn : MnemonicType; rs1: RegAddrType; rs2: RegAddrType; rd: RegAddrType; imm: integer)
+    function toMemEntry (mn : MnemonicType; r1: RegAddrType; r2: RegAddrType; r3: RegAddrType; imm: integer)
         return BusDataType is
         variable result    : BusDataType := (others => '0');
         variable imm12     : bit_vector  := (others => '0');
@@ -189,80 +189,89 @@ package body mem_pack is
         imm20 := bit_vector(TO_UNSIGNED(imm,20));
         shamt := bit_vector(TO_UNSIGNED(imm,5));
         case mn is
+            -- LOADs
             when LB => 
-                return imm12 & rs1 & Func3LB & rd & OpLoad;
+                return imm12 & r2 & Func3LB  & r1 & OpLoad;
             when LBU =>
-                return imm12 & rs1 & Func3LBU & rd & OpLoad;
+                return imm12 & r2 & Func3LBU & r1 & OpLoad;
             when LH   =>
-                return imm12 & rs1 & Func3LH & rd & OpLoad;
+                return imm12 & r2 & Func3LH  & r1 & OpLoad;
             when LHU => 
-                return imm12 & rs1 & Func3LHU & rd & OpLoad;
+                return imm12 & r2 & Func3LHU & r1 & OpLoad;
             when LW =>
-                return imm12 & rs1 & Func3LW & rd & OpLoad;
+                return imm12 & r2 & Func3LW  & r1 & OpLoad;
+            -- STOREs
             when SB =>
-                return imm12(11 downto 5) & rs2 & rs1 & Func3SB & imm12(4 downto 0) & OpStore;
+                return imm12(11 downto 5) & r2 & r1 & Func3SB & imm12(4 downto 0) & OpStore;
             when SH =>
-                return imm12(11 downto 5) & rs2 & rs1 & Func3SH & imm12(4 downto 0) & OpStore;
+                return imm12(11 downto 5) & r2 & r1 & Func3SH & imm12(4 downto 0) & OpStore;
             when SW =>
-                return imm12(11 downto 5) & rs2 & rs1 & Func3SW & imm12(4 downto 0) & OpStore;
+                return imm12(11 downto 5) & r2 & r1 & Func3SW & imm12(4 downto 0) & OpStore;
+            -- ARITHMETICAL
             when ADD => 
-                return Func7ADD & rs2 & rs1 & Func3Arthm & rd & OpReg;
+                return Func7ADD & r3 & r2 & Func3Arthm & r1 & OpReg;
             when SUB => 
-                return Func7SUB & rs2 & rs1 & Func3Arthm & rd & OpReg;
+                return Func7SUB & r3 & r2 & Func3Arthm & r1 & OpReg;
             when ADDI => 
-                return imm12 & rs1 & Func3Arthm & rd & OpImm;
+                return         imm12 & r2 & Func3Arthm & r1 & OpImm;
+            -- UPPER IMMEDIATE
             when LUI => 
-                return imm20 & rd & OpLUI;
+                return imm20 & r1 & OpLUI;
             when AUIPC => 
-                return imm20 & rd & OpAUIPC;
+                return imm20 & r1 & OpAUIPC;
+            -- LOGICAL
             when XORr => 
-                return Func7Log & rs2 & rs1 & Func3XOR & rd & OpReg;
+                return Func7Log & r3 & r2 & Func3XOR & r1 & OpReg;
             when ORr => 
-                return Func7Log & rs2 & rs1 & Func3OR & rd & OpReg;
-            when ANDr => 
-                return Func7Log & rs2 & rs1 & Func3AND & rd & OpReg;
+                return Func7Log & r3 & r2 & Func3OR  & r1 & OpReg;
+            when ANDr =>    
+                return Func7Log & r3 & r2 & Func3AND & r1 & OpReg;
             when XORI => 
-                return imm12 & rs1 & Func3XOR & rd & OpImm;
+                return imm12 & r2 & Func3XOR & r1 & OpImm;
             when ORI => 
-                return imm12 & rs1 & Func3OR & rd & OpImm;
+                return imm12 & r2 & Func3OR  & r1 & OpImm;
             when ANDI => 
-                return imm12 & rs1 & Func3AND & rd & OpImm;
+                return imm12 & r2 & Func3AND & r1 & OpImm;
+            -- SHIFTs
             when SLLr => 
-                return Func7ShLog & rs2 & rs1 & Func3SLL & rd & OpReg;
+                return Func7ShLog   & r3 & r2 & Func3SLL     & r1 & OpReg;
             when SRLr => 
-                return Func7ShLog & rs2 & rs1 & Func3SRL_SRA & rd & OpReg;            
+                return Func7ShLog   & r3 & r2 & Func3SRL_SRA & r1 & OpReg;            
             when SRAr => 
-                return Func7ShArthm & rs2 & rs1 & Func3SRL_SRA & rd & OpReg;            
+                return Func7ShArthm & r3 & r2 & Func3SRL_SRA & r1 & OpReg;            
             when SLLI => 
-                return Func7ShLog & shamt & rs1 & Func3SLL & rd & OpImm;
+                return Func7ShLog   & shamt & r2 & Func3SLL     & r1 & OpImm;
             when SRLI => 
-                return Func7ShLog & shamt & rs1 & Func3SRL_SRA & rd & OpImm;
+                return Func7ShLog   & shamt & r2 & Func3SRL_SRA & r1 & OpImm;
             when SRAI => 
-                return Func7ShArthm & shamt & rs1 & Func3SRL_SRA & rd & OpImm;
+                return Func7ShArthm & shamt & r2 & Func3SRL_SRA & r1 & OpImm;
+            -- COMPAREs
             when SLT => 
-                return Func7Set & rs2 & rs1 & Func3SLT & rd & OpReg;
+                return Func7Set & r3 & r2 & Func3SLT  & r1 & OpReg;
             when SLTU => 
-                return Func7Set & rs2 & rs1 & Func3SLTU & rd & OpReg;
+                return Func7Set & r3 & r2 & Func3SLTU & r1 & OpReg;
             when SLTI => 
-                return imm12 & rs1 & Func3SLT & rd & OpImm;
+                return         imm12 & r2 & Func3SLT  & r1 & OpImm;
             when SLTIU => 
-                return imm12 & rs1 & Func3SLTU & rd & OpImm;
+                return         imm12 & r2 & Func3SLTU & r1 & OpImm;
+            -- BRANCHes
             when BEQ =>
-                return imm12(12) & imm12(10 downto 5) & rs2 & rs1 & Func3BEQ & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BEQ & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BNE => 
-                return imm12(12) & imm12(10 downto 5) & rs2 & rs1 & Func3BNE & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BNE & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BLT => 
-                return imm12(12) & imm12(10 downto 5) & rs2 & rs1 & Func3BLT & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BLT & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BGE => 
-                return imm12(12) & imm12(10 downto 5) & rs2 & rs1 & Func3BGE & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BGE & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BLTU => 
-                return imm12(12) & imm12(10 downto 5) & rs2 & rs1 & Func3BLTU & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BLTU & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BGEU => 
-                return imm12(12) & imm12(10 downto 5) & rs2 & rs1 & Func3BGEU & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BGEU & imm12(4 downto 1) & imm12(11) & OpBranch;
+            -- JUMPs
             when JAL => 
-                return imm20 & rd & OpJump;
+                return imm20 & r1 & OpJump;
             when JALR => 
-                return imm12 & rs1 & Func3JALR & rd & OpJumpReg;
+                return imm12 & r2 & Func3JALR & r1 & OpJumpReg;
         end case;    
     end toMemEntry;        
 
@@ -273,51 +282,63 @@ package body mem_pack is
         variable l        : line;
         variable mem      : MemType;
         variable success  : boolean;
-        variable i        : AddrType := (others => '0');
-        variable v        : string;
-        variable r1,r2,rd : RegAddrType := (others => '0');
+        variable addr     : AddrType := (others => '0');
+        variable v        : string(1 to 6);
+        --variable w        :
+        variable r1,r2,r3 : RegAddrType := (others => '0');
         variable mnemonic : MnemonicType;
         variable imm      : integer;
-        variable rd_set, r1_set : boolean := FALSE;
         
+        variable r1_set, r2_set : boolean := FALSE;
         variable addr_ptr : boolean := FALSE; -- check if the current line in file is of @-type
         
     begin
         line_loop: loop --read line by line
         exit when endfile (f);
         readline (f, l);
+        
+        if l'length = 0 then
+            next; -- empty line
+        end if;
+        if l'length >= 2 then
+            if l.all(1) = '-' and l.all(2) = '-' then
+                next; -- comment line
+            end if;
+        end if;
+        
         success := TRUE;--read values in each line
         word_loop: while success loop
-            read(l, v, success);
-            
+            read(l, v, success);                
             if v(1) = '@' then
-                i := toAddrType(v(2 to v'right));
+                addr := toAddrType(v(2 to v'right));
                 addr_ptr := TRUE;
             elsif v(1) = '#' then
                 imm := toConstant(v(2 to v'right));
             elsif v(1) = 'X' or v(1) = 'x' then
-                if rd_set = true then
-                    if r1_set = true then
-                        r2 := toRegAddrType(v(2 to v'right));
-                    else r1 := toRegAddrType(v(2 to v'right));
+                if r1_set = true then
+                    if r2_set = true then
+                        r3 := toRegAddrType(v(2 to v'right));
+                    else r2 := toRegAddrType(v(2 to v'right));
                     end if;
                 else
-                    rd := toRegAddrType(v(2 to v'right));
-                    rd_set := true;
+                    r1 := toRegAddrType(v(2 to v'right));
+                    r1_set := true;
                 end if;
             else mnemonic := toMnemonic(v(1 to v'right));
             end if;
-        end loop; --word_loop
+        end loop word_loop;
+        
         -- check if the line is a CPU command
         if not(addr_ptr) then
-            mem (to_integer(i)):= toMemEntry(mnemonic, r1, r2, rd, imm);
-            exit line_loop when to_integer(unsigned(i)) = 2**MemoryAddrSize-1;
-            i := i + 4;
-            rd_set := false;
-            r1_set := false;
+            mem (to_integer(addr)):= toMemEntry(mnemonic, r1, r2, r3, imm);
+            exit line_loop when to_integer(unsigned(addr)) = 2**MemoryAddrSize-1;
+            addr := addr + 4;
+            r1_set := FALSE;
+            r2_set := FALSE;
         end if;
-        addr_ptr := FALSE; -- reset the flag for the next line of file
-    end loop; --line_loop
+        addr_ptr := TRUE; -- reset the flag for the next line of file
+        
+        end loop; --line_loop
     return mem;
     end init_memory;
 end mem_pack;
