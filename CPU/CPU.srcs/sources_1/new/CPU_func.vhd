@@ -362,6 +362,11 @@ begin
             PC := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );
             PC(0) := '0';
             write_no_param2(l);
+        when NOP =>
+            write_no_param2(l);
+            wait;
+        when others   =>
+            assert FALSE report "Illegal instruction" severity error;
         end case;
         end loop;
     end process;
