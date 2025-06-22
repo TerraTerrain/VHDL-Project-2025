@@ -189,6 +189,8 @@ package body mem_pack is
         imm20 := bit_vector(TO_UNSIGNED(imm,20));
         shamt := bit_vector(TO_UNSIGNED(imm,5));
         case mn is
+            when EBREAK =>
+                return X"000000" & '0' & OpEBREAK; -- 25 zeros and 7 bit opcode
             -- LOADs
             when LB => 
                 return imm12 & r2 & Func3LB  & r1 & OpLoad;
