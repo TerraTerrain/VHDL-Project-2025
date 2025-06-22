@@ -311,7 +311,7 @@ package body mem_pack is
                 null; -- r1 r2
             elsif mn_num >= 34 or mn_num <= 36 then -- U+J-Type
                 null; -- r1 imm
-            elsif mn_num >= 37 then -- EBREAK
+            elsif mn_num = 37 then -- EBREAK
                 null; -- nothing???
             else
                 assert FALSE report "Illegal mnemonic" severity failure;
