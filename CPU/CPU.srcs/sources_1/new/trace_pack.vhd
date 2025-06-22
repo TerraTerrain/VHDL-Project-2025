@@ -1,7 +1,6 @@
-library IEEE; 
+library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
---use ieee.numeric_bit.all;
-use ieee.numeric_std.all;
+use ieee.numeric_bit.all;
 use std.textio.all;
 use ieee.std_logic_textio.all;
 use work.defs_pack.all;
@@ -12,7 +11,7 @@ package trace_pack is
     procedure print_header(variable f : out text);
     procedure print_tail(variable f : out text);
     procedure write_pc_cmd(variable l : inout line;
-                            constant PC : in AddrType;
+                            constant PC : in Addrtype;
                             constant OP : in OpType;
                             constant func3 : in Func3Type;
                             constant func7 : in Func7Type;
@@ -27,9 +26,10 @@ package trace_pack is
     procedure write_regs(variable l : inout line;
                             constant reg : in regtype);--stored value in registers
     
-    --conversion functions for tracing
+    --conversion functions for tracing 
     function bv2int(input: bit_vector) return integer;
     function bv2hex(bv : bit_vector) return string; --from bit_vector to hex
+    function unsigned2hex(un : unsigned) return string;
     function bool_character(b : boolean) return character;
     function cmd_image(op : optype; func3 : Func3Type; func7 : Func7Type) return string; --op = cmd
     
@@ -49,7 +49,7 @@ package body trace_pack is
         end loop;
     return result;
     end function;
-    --from bv to string
+    --for registers: from bv to string(hex)
     function bv2hex(bv : bit_vector) return string is
         constant hex_table : string := "0123456789ABCDEF";
         variable length_hex : integer := (bv'length+3)/4; --calculate how many hex do we need
@@ -61,6 +61,20 @@ package body trace_pack is
         bv_4(bv_4'length-1 downto 0) := bv;
         for i in 0 to length_hex -1 loop
             result(i+1) := hex_table(bv2int(bv_4(4*i+3 downto 4*i))+1);
+        end loop;
+        return result;
+    end;
+    
+    --for PC: from unsigned to string(hex)
+    function unsigned2hex(un : unsigned) return string is
+        constant hex_table : string := "0123456789ABCDEF";
+
+        variable result : string(1 to 4);
+        variable nibble : unsigned(3 downto 0);
+    begin
+        for i in 0 to 3 loop 
+            nibble := un(i*4+3 downto i*4);
+            result(4-i) := hex_table(to_integer(nibble)+1); 
         end loop;
         return result;
     end;
@@ -241,7 +255,7 @@ package body trace_pack is
     procedure print_header(variable f : out text) is
         variable l : line;
     begin
-        write(l,string'("PC "),left,3);
+        write(l,string'("PC "),left,4);
         write(l,string'("|"));
         write(l,string'("CMD"),left,5);
         write(l,string'("|"));
@@ -276,13 +290,14 @@ package body trace_pack is
     
     --procedure write_pc_cmd
     procedure write_pc_cmd(variable l : inout line;
-                            constant PC : in AddrType;
+                            constant PC : in Addrtype;
                             constant OP : in OpType;
                             constant func3 : in Func3Type;
                             constant func7 : in Func7Type;
                             constant rd,rs1,rs2 : in RegAddrType) is
     begin
-        write(l, bv2hex(PC), left, 3);--PC
+        --write(l, bv2hex(PC), left, 3);--PC
+        write(l, unsigned2hex(PC), left, 3);
         write(l, string'("|"));
         write(l, cmd_image(op,func3, func7), left, 5);--CMD
         write(l, string'("|"));
