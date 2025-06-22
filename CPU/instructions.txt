@@ -1,200 +1,184 @@
-LUI x10, 0x20000 
-ADDI x1, x0, 0x7F
-SB x1, 0(x10)
-ADDI x1, x0, 0x80
-SB x1, 1(x10)
-ADDI x1, x0, 0x00
-SB x1, 2(x10)
-ADDI x1, x0, 0xFF
-SB x1, 3(x10)
+@2000
+LUI  X10 #20000
 
-ADDI x1, x0, 0x01
-SB x1, 4(x10)
+ADDI X01 X00 #7F
+SB   X01 X10 #0
+ADDI X01 X00 #80
+SB   X01 X10 #1
+ADDI X01 X00 #0
+SB   X01 X10 #2
+ADDI X01 X00 #FF
+SB   X01 X10 #3
 
-ADDI x1, x0, 0x00
-SB x1, 5(x10)
+ADDI X01 X00 #01
+SB   X01 X10 #4
 
-ADDI x1, x0, 0xFF
-SB x1, 6(x10)
-ADDI x1, x0, 0x7F
-SB x1, 7(x10)
+ADDI X01 X00 #00
+SB   X01 X10 #5
 
-ADDI x1, x0, 0x00
-SB x1, 8(x10)
-ADDI x1, x0, 0x80
-SB x1, 9(x10)
+ADDI X01 X00 #FF
+SB   X01 X10 #6
+ADDI X01 X00 #7F
+SB   X01 X10 #7
 
-ADDI x1, x0, 0x00
-SB x1, 10(x10)
-SB x1, 11(x10)
+ADDI X01 X00 #00
+SB   X01 X10 #8
+ADDI X01 X00 #80
+SB   X01 X10 #9
 
-ADDI x1, x0, 0xFF
-SB x1, 12(x10)
-SB x1, 13(x10)
+ADDI X01 X00 #00
+SB   X01 X10 #10
+SB   X01 X10 #11
 
-ADDI x1, x0, 0x01
-SB x1, 14(x10)
-ADDI x1, x0, 0x00
-SB x1, 15(x10)
+ADDI X01 X00 #FF
+SB   X01 X10 #12
+SB   X01 X10 #13
 
-ADDI x1, x0, 0x00
-SB x1, 16(x10)
-SB x1, 17(x10)
+ADDI X01 X00 #01
+SB   X01 X10 #14
+ADDI X01 X00 #00
+SB   X01 X10 #15
 
-ADDI x1, x0, 0x78
-SB x1, 18(x10)
-ADDI x1, x0, 0x56
-SB x1, 19(x10)
-ADDI x1, x0, 0x34
-SB x1, 20(x10)
-ADDI x1, x0, 0x12
-SB x1, 21(x10)
+ADDI X01 X00 #00
+SB   X01 X10 #16
+SB   X01 X10 #17
 
-ADDI x1, x0, 0xFF
-SB x1, 22(x10)
-SB x1, 23(x10)
-SB x1, 24(x10)
-SB x1, 25(x10)
+ADDI X01 X00 #78
+SB   X01 X10 #18
+ADDI X01 X00 #56
+SB   X01 X10 #19
+ADDI X01 X00 #34
+SB   X01 X10 #20
+ADDI X01 X00 #12
+SB   X01 X10 #21
 
-ADDI x1, x0, 0x00
-SB x1, 26(x10)
-SB x1, 27(x10)
-SB x1, 28(x10)
-SB x1, 29(x10)
+ADDI X01 X00 #FF
+SB   X01 X10 #22
+SB   X01 X10 #23
+SB   X01 X10 #24
+SB   X01 X10 #25
 
-ADDI x1, x0, 0x00
-SB x1, 30(x10)
-SB x1, 31(x10)
-SB x1, 32(x10)
-SB x1, 33(x10)
-SB x1, 34(x10)
-SB x1, 35(x10)
-SB x1, 36(x10)
-SB x1, 37(x10)
-SB x1, 38(x10)
-SB x1, 39(x10)
-SB x1, 40(x10)
-SB x1, 41(x10)
-SB x1, 42(x10)
-SB x1, 43(x10)
-SB x1, 44(x10)
-SB x1, 45(x10)
-SB x1, 46(x10)
-SB x1, 47(x10)
-SB x1, 48(x10)
-SB x1, 49(x10)
-SB x1, 50(x10)
-SB x1, 51(x10)
-SB x1, 52(x10)
-SB x1, 53(x10)
-SB x1, 54(x10)
-SB x1, 55(x10)
-SB x1, 56(x10)
-SB x1, 57(x10)
-SB x1, 58(x10)
+ADDI X01 X00 #00
+SB   X01 X10 #26
+SB   X01 X10 #27
+SB   X01 X10 #28
+SB   X01 X10 #29
 
-LB x1, 0(x10)       
-LB x2, 1(x10)       
-LB x3, 2(x10)       
+LB   X01 X10 #0
+LB   X02 X10 #1
+LB   X03 X10 #2
 
-LBU x4, 3(x10)      
-LBU x5, 4(x10)      
-LBU x6, 5(x10)      
+LBU  X04 X10 #3
+LBU  X05 X10 #4
+LBU  X06 X10 #5
 
-LH x7, 6(x10)       
-LH x8, 8(x10)       
-LH x9, 10(x10)      
+LH   X07 X10 #6
+LH   X08 X10 #8
+LH   X09 X10 #10
 
-LHU x11, 12(x10)    
-LHU x12, 14(x10)    
-LHU x13, 16(x10)    
+LHU  X11 X10 #12
+LHU  X12 X10 #14
+LHU  X13 X10 #16
 
-LW x14, 18(x10)     
-LW x15, 22(x10)     
-LW x16, 26(x10)     
+LW   X14 X10 #18
+LW   X15 X10 #22
+LW   X16 X10 #26
 
-SB x1, 30(x10)      
-SB x2, 31(x10)      
-SB x3, 32(x10)      
+SB   X01 X10 #30
+SB   X02 X10 #31
+SB   X03 X10 #32
 
-SH x4, 34(x10)      
-SH x5, 36(x10)      
-SH x6, 38(x10)      
+SH   X04 X10 #34
+SH   X05 X10 #36
+SH   X06 X10 #38
 
-SW x7, 40(x10)      
-SW x8, 44(x10)      
-SW x9, 48(x10)      
+SW   X07 X10 #40
+SW   X08 X10 #44
+SW   X09 X10 #48
 
-ADD x17, x14, x15   
-ADD x18, x14, x16   
-ADD x19, x15, x15   
+ADD  X17 X14 X15
+ADD  X18 X14 X16
+ADD  X19 X15 X15
 
-SUB x20, x14, x15   
-SUB x21, x16, x16   
-SUB x22, x15, x14   
+SUB  X20 X14 X15
+SUB  X21 X16 X16
+SUB  X22 X15 X14
 
-ADDI x23, x16, -1   
-ADDI x24, x16, 1    
-ADDI x25, x16, 0    
+ADDI X23 X16 #-1
+ADDI X24 X16 #1
+ADDI X25 X16 #0
 
-LUI x26, 0x12345    
-LUI x27, 0xFFFFF    
-LUI x28, 0x00000    
+LUI  X26 #12345
+LUI  X27 #FFFFF
+LUI  X28 #00000
 
-AUIPC x29, 0x10     
-AUIPC x30, 0x0      
-AUIPC x31, 0xFFFFF  
+AUIPC X29 #10
+AUIPC X30 #0
+AUIPC X31 #FFFFF
 
-XOR x1, x14, x15    
-XOR x2, x14, x16    
-XOR x3, x15, x15    
+XOR  X01 X14 X15
+XOR  X02 X14 X16
+XOR  X03 X15 X15
 
-OR x4, x14, x15     
-OR x5, x14, x16     
-OR x6, x16, x16     
+OR   X04 X14 X15
+OR   X05 X14 X16
+OR   X06 X16 X16
 
-AND x7, x14, x15    
-AND x8, x14, x16    
-AND x9, x16, x16    
-XORI x10, x14, 0xFF 
-XORI x11, x14, 0x00 
-XORI x12, x14, 0xFFFFFFFF 
-ORI x13, x14, 0x0F  
-ORI x14, x16, 0x01  
-ORI x15, x15, 0x00  
-ANDI x16, x14, 0xF0 
-ANDI x17, x14, 0xFF 
-ANDI x18, x16, 0x0F 
-SLL x19, x14, x16   
-SLL x20, x14, x15   
-SLL x21, x14, x14   
-SRL x22, x14, x16   
-SRL x23, x14, x15   
-SRL x24, x14, x14   
-SRA x25, x14, x16   
-SRA x26, x15, x15   
-SRA x27, x15, x16   
-SLLI x1, x14, 1     
-SLLI x2, x14, 4     
-SLLI x3, x14, 31    
-SRLI x4, x14, 1     
-SRLI x5, x14, 4     
-SRLI x6, x14, 31    
-SRAI x7, x15, 1     
-SRAI x8, x15, 31    
-SRAI x9, x14, 1     
-SLT x10, x16, x14   
-SLT x11, x14, x15   
-SLT x12, x14, x14   
-SLTU x13, x14, x16  
-SLTU x14, x16, x14  
-SLTU x15, x14, x14  
-SLTI x16, x16, 1    
-SLTI x17, x16, 0    
-SLTI x18, x16, -1   
-SLTIU x19, x16, 0   
-SLTIU x20, x16, 1   
-SLTIU x21, x16, 2 
+AND  X07 X14 X15
+AND  X08 X14 X16
+AND  X09 X16 X16
+
+XORI X10 X14 #FF
+XORI X11 X14 #00
+XORI X12 X14 #FFFFFFFF
+
+ORI  X13 X14 #0F
+ORI  X14 X16 #01
+ORI  X15 X15 #00
+
+ANDI X16 X14 #F0
+ANDI X17 X14 #FF
+ANDI X18 X16 #0F
+
+SLL  X19 X14 X16
+SLL  X20 X14 X15
+SLL  X21 X14 X14
+
+SRL  X22 X14 X16
+SRL  X23 X14 X15
+SRL  X24 X14 X14
+
+SRA  X25 X14 X16
+SRA  X26 X15 X15
+SRA  X27 X15 X16
+
+SLLI X01 X14 #1
+SLLI X02 X14 #4
+SLLI X03 X14 #31
+
+SRLI X04 X14 #1
+SRLI X05 X14 #4
+SRLI X06 X14 #31
+
+SRAI X07 X15 #1
+SRAI X08 X15 #31
+SRAI X09 X14 #1
+
+SLT  X10 X16 X14
+SLT  X11 X14 X15
+SLT  X12 X14 X14
+
+SLTU X13 X14 X16
+SLTU X14 X16 X14
+SLTU X15 X14 X14
+
+SLTI  X16 X16 #1
+SLTI  X17 X16 #0
+SLTI  X18 X16 #-1
+
+SLTIU X19 X16 #0
+SLTIU X20 X16 #1
+SLTIU X21 X16 #2
 
 BEQ x16, x16, label_eq   
 NOP
