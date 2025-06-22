@@ -19,7 +19,7 @@ package trace_pack is
                             constant rd,rs1,rs2 : in RegAddrType);--X:rd;Y:rs1;Z:rs2
                             
     procedure write_param(variable l : inout line;
-                            constant param : in RegAddrType);
+                            constant param : in bit_vector);
                             
     procedure write_no_param1(variable l : inout line);
                             
@@ -282,7 +282,7 @@ package body trace_pack is
                             constant func7 : in Func7Type;
                             constant rd,rs1,rs2 : in RegAddrType) is
     begin
-        write(l, bv2hex(PC), left, 3);--PC
+        write(l, bv2hex(bit_vector(PC)), left, 3);--PC
         write(l, string'("|"));
         write(l, cmd_image(op,func3, func7), left, 5);--CMD
         write(l, string'("|"));
@@ -296,7 +296,7 @@ package body trace_pack is
     
     --procedure write_param
     procedure write_param(variable l : inout line;
-                          constant param : in RegAddrType) is
+                          constant param : bit_vector) is
     begin
         write(l, bv2hex(param), left, 3);
         write(l, string'("|"));

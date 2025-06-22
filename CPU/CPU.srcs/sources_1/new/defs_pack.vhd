@@ -32,7 +32,7 @@ package defs_pack is
     
     subtype BusDataType is bit_vector (BusDataSize-1 downto 0);
     subtype RegDataType is bit_vector (RegDataSize-1 downto 0);
-    subtype RegAddrType is bit_vector (0 to 2**RegAddrSize-1);
+    subtype RegAddrType is bit_vector (0 to RegAddrSize-1);
 
     type RegType is array (integer range 2**RegAddrSize-1    downto 0) of RegDataType;
     type MemType is array (integer range 2**MemoryAddrSize-1 downto 0) of BusDataType;
@@ -100,5 +100,7 @@ package defs_pack is
     constant OpJump    : OpType    := "1101111";
     constant OpJumpReg : OpType    := "1100111";
     constant Func3JALR : Func3Type := "000";
+    
+    constant NOP : OpType := "0000000";
 
 end package;

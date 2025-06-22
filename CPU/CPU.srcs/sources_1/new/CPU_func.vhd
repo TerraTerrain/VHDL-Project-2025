@@ -5,6 +5,7 @@ use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
 use work.trace_pack.all;
+use work.mem_pack.all;
 
 entity RISCV is
 end RISCV;
@@ -27,8 +28,8 @@ begin
                               : natural     := 0;
         variable imm12        : Imm12Type   := (others=>'0');
         variable imm20        : Imm20Type   := (others=>'0');
-        variable aImm         : bit_vector  := (others=>'0');
-        variable jimm20       : Imm20Type   := (others=>'0');
+        variable aImm         : bit_vector (31 downto 0)  := (others=>'0');
+        variable jimm20       : bit_vector (20 downto 0)   := (others=>'0');
         variable bImm         : Imm12Type   := (others=>'0');
         variable sImm         : Imm12Type   := (others=>'0');
         variable Reg          : RegType     := (others=>(others=>'0'));
@@ -39,6 +40,7 @@ begin
         
     begin
         print_header( TraceFile );
+        Mem := init_memory("test.txt");
         loop
         --cmd fetch
         Instr  := Mem(TO_INTEGER(unsigned(PC)));
@@ -51,7 +53,7 @@ begin
         imm12  := Instr(31 downto 20);
         imm20  := Instr(31 downto 12);
         
-        aImm   := imm20(3 downto 0) & X"000"; -- imm for AUIPC
+        aImm   := imm20 & X"000"; -- imm for AUIPC
         bImm   := Instr(31) & Instr(7) & Instr(30 downto 25) & Instr(11 downto  8);
                                                                  -- imm for branch
         sImm   := Instr(31 downto 25) & Instr(11 downto 7); -- imm for store
@@ -359,6 +361,11 @@ begin
             PC := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );
             PC(0) := '0';
             write_no_param2(l);
+        
+        when NOP =>
+            wait;
+        when others   =>
+            assert FALSE report "Illegal instruction" severity error;
         end case;
         end loop;
     end process;

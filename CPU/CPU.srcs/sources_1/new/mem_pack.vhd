@@ -274,7 +274,7 @@ package body mem_pack is
         variable mem      : MemType;
         variable success  : boolean;
         variable i        : AddrType := (others => '0');
-        variable v        : string;
+        variable v        : string(1 to 16);
         variable r1,r2,rd : RegAddrType := (others => '0');
         variable mnemonic : MnemonicType;
         variable imm      : integer;
