@@ -331,7 +331,7 @@ package body mem_pack is
         -- check if the line is a CPU command
         if not(addr_ptr) then
             mem (to_integer(addr)):= toMemEntry(mnemonic, r1, r2, r3, imm);
-            exit line_loop when to_integer(unsigned(addr)) = 2**MemoryAddrSize-1;
+            exit line_loop when addr = 2**MemoryAddrSize-1;
             addr := addr + 4;
             r1_set := FALSE;
             r2_set := FALSE;
