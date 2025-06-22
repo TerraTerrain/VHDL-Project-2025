@@ -95,6 +95,7 @@ begin
                         assert FALSE report "Illegal instruction" severity error;
                         write_no_param2(l);
                 end case;
+                PC := PC +4;
                     
             when OpStore  =>
                 store_address := TO_INTEGER( unsigned(Reg(int_rs1)(15 downto 0))) 
@@ -148,8 +149,9 @@ begin
                         end case;
                     when others  =>
                         assert FALSE report "Illegal instruction" severity error;
-                        write_no_param2(l);
+                        write_no_param2(l);               
                 end case;
+                PC := PC +4;
 
 
 
@@ -211,8 +213,9 @@ begin
                     write_no_param1(l);
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
-                    write_no_param2(l);
+                    write_no_param2(l);                   
             end case;
+            PC := PC +4;
                     
         when OpReg =>
             case func3 is
@@ -279,20 +282,22 @@ begin
                             Reg(int_rd) := Reg(int_rs1) and Reg(int_rs2); -- AND
                         when others   =>
                             assert FALSE report "Illegal instruction" severity error;
-                    end case;
+                    end case;                   
             end case;
+            PC := PC +4;
             write_no_param2(l);
                            
                     
         when OpLUI    =>  -- LUI        
                  Reg(int_rd) := imm20 & X"000";
                  write_param(l,imm20);
-                 write_no_param1(l);
+                 write_no_param1(l);                
+                 PC := PC +4;
         when OpAUIPC  =>  -- AUIPC, R[rd] := PC + imm20 & X"000"
                  Reg(int_rd) := bit_vector( PC + unsigned(aImm) );
                  write_param(l,imm20); -- do we need to see all 20 bits?
                  write_no_param1(l);
-
+                 PC := PC +4;
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>
