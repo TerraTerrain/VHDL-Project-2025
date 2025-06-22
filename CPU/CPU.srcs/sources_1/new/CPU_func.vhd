@@ -108,19 +108,19 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 => -- Lower byte
                                 Mem(store_address)(7 downto 0)   := Reg(int_rs2)(7 downto 0);
-                                write_param(l,func7);
+                                write_param(l,sImm);
                                 write_param(l,rd);
                             when 1 => -- Lower middle byte
                                 Mem(store_address)(15 downto 8)  := Reg(int_rs2)(7 downto 0);
-                                write_param(l,func7);
+                                write_param(l,sImm);
                                 write_param(l,rd);
                             when 2 => -- Upper middle byte 
                                 Mem(store_address)(23 downto 16) := Reg(int_rs2)(7 downto 0);
-                                write_param(l,func7);
+                                write_param(l,sImm);
                                 write_param(l,rd);
                             when 3 => -- Upper byte
                                 Mem(store_address)(31 downto 24) := Reg(int_rs2)(7 downto 0);
-                                write_param(l,func7);
+                                write_param(l,sImm);
                                 write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SB" severity error;
@@ -130,11 +130,11 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 => -- Lower half-word
                                 Mem(store_address)(15 downto 0)  := Reg(int_rs2)(15 downto 0);
-                                write_param(l,func7);
+                                write_param(l,sImm);
                                 write_param(l,rd);
                             when 2 => -- Upper half-word
                                 Mem(store_address)(31 downto 16) := Reg(int_rs2)(15 downto 0);
-                                write_param(l,func7);
+                                write_param(l,sImm);
                                 write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SH" severity error;
@@ -144,7 +144,7 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 =>
                                 Mem(store_address) := Reg(int_rs2);
-                                write_param(l,func7);
+                                write_param(l,sImm);
                                 write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SW" severity error;
@@ -309,7 +309,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,func7);
+                    write_param(l,bImm);
                     write_param(l,rd);
                 when Func3BNE =>
                     if Reg(int_rs1) /= Reg(int_rs2) then
@@ -317,7 +317,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,func7);
+                    write_param(l,bImm);
                     write_param(l,rd);
                 when Func3BLT =>
                     if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
@@ -325,7 +325,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,func7);
+                    write_param(l,bImm);
                     write_param(l,rd);
                 when Func3BLTU =>
                     if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
@@ -333,7 +333,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,func7);
+                    write_param(l,bImm);
                     write_param(l,rd);
                 when Func3BGE =>
                     if signed(Reg(int_rs1)) >= signed(Reg(int_rs2)) then
@@ -341,7 +341,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,func7);
+                    write_param(l,bImm);
                     write_param(l,rd);
                 when Func3BGEU =>
                     if unsigned(Reg(int_rs1)) >= unsigned(Reg(int_rs2)) then
@@ -349,7 +349,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,func7);
+                    write_param(l,bImm);
                     write_param(l,rd);
             end case;
         when OpJump =>
