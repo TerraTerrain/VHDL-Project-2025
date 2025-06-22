@@ -5,12 +5,7 @@ use WORK.defs_pack.all;
 use WORK.conversion_pack.all;
 use STD.TEXTIO.all;
 
---@0x0ff0
---ADD   X01 X02 X03
---SUB   X04 X05 X06
---ANDI  X07 X08 #12
---LB    X03 X04 #1F
---SLTIU X10 X11 X12
+
 
 package mem_pack is
     function toAddrType  (hex_str: string)      return AddrType;
@@ -137,43 +132,44 @@ package body mem_pack is
     function toMnemonic(mnemonic_str: string) return MnemonicType is
     begin
     case mnemonic_str is
-        when "LB   " => return LB;
-        when "LBU  " => return LBU;
-        when "LH   " => return LH;
-        when "LHU  " => return LHU;
-        when "LW   " => return LW;
-        when "SB   " => return SB;
-        when "SH   " => return SH;
-        when "SW   " => return SW;
-        when "ADD  " => return ADD;
-        when "SUB  " => return SUB;
-        when "ADDI " => return ADDI;
-        when "LUI  " => return LUI;
-        when "AUIPC" => return AUIPC;
-        when "XOR  " => return XORr;
-        when "OR   " => return ORr;
-        when "AND  " => return ANDr;
-        when "XORI " => return XORI;
-        when "ORI  " => return ORI;
-        when "ANDI " => return ANDI;
-        when "SLL  " => return SLLr;
-        when "SRL  " => return SRLr;
-        when "SRA  " => return SRAr;
-        when "SLLI " => return SLLI;
-        when "SRLI " => return SRLI;
-        when "SRAI " => return SRAI;
-        when "SLT  " => return SLT;
-        when "SLTU " => return SLTU;
-        when "SLTI " => return SLTI;
-        when "SLTIU" => return SLTIU;
-        when "JAL  " => return JAL;
-        when "JALR " => return JALR;
-        when "BEQ  " => return BEQ;
-        when "BNE  " => return BNE;
-        when "BLT  " => return BLT;
-        when "BLTU " => return BLTU;
-        when "BGE  " => return BGE;
-        when "BGEU " => return BGEU;
+        when "LB    " => return LB;
+        when "LBU   " => return LBU;
+        when "LH    " => return LH;
+        when "LHU   " => return LHU;
+        when "LW    " => return LW;
+        when "SB    " => return SB;
+        when "SH    " => return SH;
+        when "SW    " => return SW;
+        when "ADD   " => return ADD;
+        when "SUB   " => return SUB;
+        when "ADDI  " => return ADDI;
+        when "LUI   " => return LUI;
+        when "AUIPC " => return AUIPC;
+        when "XOR   " => return XORr;
+        when "OR    " => return ORr;
+        when "AND   " => return ANDr;
+        when "XORI  " => return XORI;
+        when "ORI   " => return ORI;
+        when "ANDI  " => return ANDI;
+        when "SLL   " => return SLLr;
+        when "SRL   " => return SRLr;
+        when "SRA   " => return SRAr;
+        when "SLLI  " => return SLLI;
+        when "SRLI  " => return SRLI;
+        when "SRAI  " => return SRAI;
+        when "SLT   " => return SLT;
+        when "SLTU  " => return SLTU;
+        when "SLTI  " => return SLTI;
+        when "SLTIU " => return SLTIU;
+        when "JAL   " => return JAL;
+        when "JALR  " => return JALR;
+        when "BEQ   " => return BEQ;
+        when "BNE   " => return BNE;
+        when "BLT   " => return BLT;
+        when "BLTU  " => return BLTU;
+        when "BGE   " => return BGE;
+        when "BGEU  " => return BGEU;
+        when "EBREAK" => return EBREAK;
         when others => assert false report "Invalid mnemonic: " & mnemonic_str severity failure;
     end case;
     end function;
@@ -229,18 +225,18 @@ package body mem_pack is
             when ANDr =>    
                 return Func7Log & r3 & r2 & Func3AND & r1 & OpReg;
             when XORI => 
-                return imm12 & r2 & Func3XOR & r1 & OpImm;
+                return         imm12 & r2 & Func3XOR & r1 & OpImm;
             when ORI => 
-                return imm12 & r2 & Func3OR  & r1 & OpImm;
+                return         imm12 & r2 & Func3OR  & r1 & OpImm;
             when ANDI => 
-                return imm12 & r2 & Func3AND & r1 & OpImm;
+                return         imm12 & r2 & Func3AND & r1 & OpImm;
             -- SHIFTs
             when SLLr => 
-                return Func7ShLog   & r3 & r2 & Func3SLL     & r1 & OpReg;
+                return Func7ShLog   & r3    & r2 & Func3SLL     & r1 & OpReg;
             when SRLr => 
-                return Func7ShLog   & r3 & r2 & Func3SRL_SRA & r1 & OpReg;            
+                return Func7ShLog   & r3    & r2 & Func3SRL_SRA & r1 & OpReg;            
             when SRAr => 
-                return Func7ShArthm & r3 & r2 & Func3SRL_SRA & r1 & OpReg;            
+                return Func7ShArthm & r3    & r2 & Func3SRL_SRA & r1 & OpReg;            
             when SLLI => 
                 return Func7ShLog   & shamt & r2 & Func3SLL     & r1 & OpImm;
             when SRLI => 
@@ -258,20 +254,20 @@ package body mem_pack is
                 return         imm12 & r2 & Func3SLTU & r1 & OpImm;
             -- BRANCHes
             when BEQ =>
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BEQ & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BEQ  & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BNE => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BNE & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BNE  & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BLT => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BLT & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BLT  & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BGE => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BGE & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BGE  & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BLTU => 
                 return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BLTU & imm12(4 downto 1) & imm12(11) & OpBranch;
             when BGEU => 
                 return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BGEU & imm12(4 downto 1) & imm12(11) & OpBranch;
             -- JUMPs
             when JAL => 
-                return imm20 & r1 & OpJump;
+                return                  imm20 & r1 & OpJump;
             when JALR => 
                 return imm12 & r2 & Func3JALR & r1 & OpJumpReg;
         end case;    
@@ -280,19 +276,17 @@ package body mem_pack is
 
 
     procedure init_memory (filename: string; Mem : out MemType) is
-        file     f        : text is in filename;
-        variable l        : line;
-        variable addr     : AddrType := (others => '0');
-        variable v        : string(1 to 25) := (others => ' ');
-        variable r1,r2,r3 : RegAddrType := (others => '0');
-        variable mnemonic : MnemonicType;
-        variable imm      : integer = 0;
-        
-        variable r1_set, r2_set : boolean := FALSE;
-        variable addr_ptr : boolean := FALSE; -- check if the current line in file is of @-type
+        file     f         : text is in filename;
+        variable l         : line;
+        variable addr      : AddrType := (others => '0');
+        variable v         : string(1 to 25) := (others => ' ');
+        variable r1,r2,r3  : RegAddrType := (others => '0');
+        variable mnemonic  : MnemonicType;
+        variable mn_num    : integer range 0 to 37;
+        variable imm       : integer := 0;
         
     begin
-    line_loop: while not endfile(f) loop
+    line_loop : while not endfile(f) loop
         readline (f, l);
         if l'length = 0 then
             next; -- empty line
@@ -303,37 +297,32 @@ package body mem_pack is
             end if;
         end if;
               
-        v(1 to l'length) := l.all(1 to l'length);
+        v(1 to l'length) := l.all(1 to l'length); -- copy line to string
         if v(1) = '@' then
-            addr := toAddrType(v(2 to 7));
-            addr_ptr := TRUE;
-        elsif v(1) = '#' then
-            imm := toConstant(v(2 to v'right));
-        elsif v(1) = 'X' or v(1) = 'x' then
-            if r1_set = true then
-                if r2_set = true then
-                    r3 := toRegAddrType(v(2 to v'right));
-                else r2 := toRegAddrType(v(2 to v'right));
-                end if;
+            addr := toAddrType(v(2 to 7)); -- 0x0000 to 0xFFFF
+        else 
+            mnemonic := toMnemonic(v(1 to 6));
+            mn_num   := MnemonicType'pos(mnemonic); -- position in type definition 
+            if mn_num >= 0 or mn_num <= 9 then -- R-Type
+                null; -- r1 r2 r3 
+            elsif mn_num >= 10 or mn_num <= 27 then -- I+S-Type
+                null; -- r1 r2 imm
+            elsif mn_num >= 28 or mn_num <= 33 then -- B-Type
+                null; -- r1 r2
+            elsif mn_num >= 34 or mn_num <= 36 then -- U+J-Type
+                null; -- r1 imm
+            elsif mn_num >= 37 then -- EBREAK
+                null; -- nothing???
             else
-                r1 := toRegAddrType(v(2 to v'right));
-                r1_set := true;
+                assert FALSE report "Illegal mnemonic" severity failure;
             end if;
-        else mnemonic := toMnemonic(v(1 to v'right));
+            Mem (to_integer(addr)):= toMemEntry(mnemonic, r1, r2, r3, imm);
+            exit line_loop when addr = 2**MemoryAddrSize - 4; -- last address, word-aligned
+            addr := addr + 4; -- next address
         end if;
-        
-        -- check if the line is a CPU command
-        if not(addr_ptr) then
-            mem (to_integer(addr)):= toMemEntry(mnemonic, r1, r2, r3, imm);
-            exit line_loop when addr = 2**MemoryAddrSize-1;
-            addr := addr + 4;
-            r1_set := FALSE;
-            r2_set := FALSE;
-        end if;
-        addr_ptr := TRUE; -- reset the flag for the next line of file
-        
     end loop line_loop;
     end init_memory;
+    
 end mem_pack;
 
 
