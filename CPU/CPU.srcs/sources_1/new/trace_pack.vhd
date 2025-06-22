@@ -234,6 +234,8 @@ package body trace_pack is
             return "JAL  ";
         when OpJumpReg =>
             return "JALR ";
+        when NOP =>
+            return "NULL ";
         end case;
     end;
     
@@ -251,7 +253,7 @@ package body trace_pack is
         write(l,string'("|"));
         write(l,string'("rs2"),left,3);
         write(l,string'("|"));
-        write(l,string'("P1"),left,3);--first imm.part for branches and stores or imm.part for shift
+        write(l,string'("P1"),left,5);--first imm.part for branches and stores or imm.part for shift
         write(l,string'("|"));
         write(l,string'("P2"),left,3);--second imm.part for branches and stores
         write(l,string'("|"));
@@ -270,7 +272,7 @@ package body trace_pack is
     procedure print_tail(variable f : out text) is
         variable l : line;
     begin
-        write(l,string'("-----------------------------------------"));
+        write(l,string'("-------------------------------------------"));
         writeline(f,l);
     end;
     
@@ -298,7 +300,7 @@ package body trace_pack is
     procedure write_param(variable l : inout line;
                           constant param : bit_vector) is
     begin
-        write(l, bv2hex(param), left, 3);
+        write(l, bv2hex(param), left, 5);
         write(l, string'("|"));
     end;
     
@@ -310,7 +312,7 @@ package body trace_pack is
     --procedure write_no_param2
     procedure write_no_param2(variable l : inout line) is
     begin
-        write(l, string'("---|---|"));
+        write(l, string'("-----|---|"));
     end;
     
     --procedure write_regs
