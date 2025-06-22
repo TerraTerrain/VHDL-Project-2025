@@ -338,7 +338,7 @@ package body mem_pack is
         end if;
         addr_ptr := TRUE; -- reset the flag for the next line of file
         
-        end loop; --line_loop
+        end loop line_loop;
     return mem;
     end init_memory;
 end mem_pack;
