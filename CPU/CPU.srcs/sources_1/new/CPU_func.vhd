@@ -355,7 +355,7 @@ begin
             write_param(l,jimm20); 
             write_no_param1(l);
         when OpJumpReg =>
-            Reg(int_rd) := bit_vector(unsigned(PC) + 4);
+            Reg(int_rd) := bit_vector(PC + 4);
             PC := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );
             PC(0) := '0';
             write_no_param2(l);
