@@ -234,8 +234,8 @@ package body trace_pack is
             return "JAL  ";
         when OpJumpReg =>
             return "JALR ";
-        when NOP =>
-            return "NULL ";
+        when OpEBREAK =>
+            return "STOP ";
         end case;
     end;
     
