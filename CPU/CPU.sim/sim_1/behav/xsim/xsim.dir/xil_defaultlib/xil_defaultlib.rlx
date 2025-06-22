@@ -2,8 +2,8 @@
 2020.2
 Nov  8 2024
 22:36:57
-C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd,1750588365,vhdl,,,,riscv,,,,,,,,
-C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/conversion_pack.txt,1750408954,vhdl,C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd;C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/mem_pack.vhd;C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/trace_pack.vhd,,,conversion_pack,,,,,,,,
+C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd,1750590247,vhdl,,,,riscv,,,,,,,,
+C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/conversion_pack.txt,1750591542,vhdl,C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd;C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/mem_pack.vhd;C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/trace_pack.vhd,,,conversion_pack,,,,,,,,
 C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/defs_pack.vhd,1750587868,vhdl,C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd;C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/conversion_pack.txt;C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/mem_pack.vhd;C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/trace_pack.vhd,,,defs_pack,,,,,,,,
-C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/mem_pack.vhd,1750587546,vhdl,C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd,,,mem_pack,,,,,,,,
-C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/trace_pack.vhd,1750589271,vhdl,C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd,,,trace_pack,,,,,,,,
+C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/mem_pack.vhd,1750592731,vhdl,C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd,,,mem_pack,,,,,,,,
+C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/trace_pack.vhd,1750592546,vhdl,C:/Users/sverr/vivado_projects/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd,,,trace_pack,,,,,,,,

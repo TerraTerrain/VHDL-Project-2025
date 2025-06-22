@@ -40,8 +40,9 @@ package body trace_pack is
     --conversion functions
     function bv2int(input: bit_vector) return integer is
         variable result : integer := 0;
-        variable bit_length : integer := input'length;
+        variable bit_length : integer;
     begin
+     bit_length:= input'length;
         for i in input'range loop
             if input(i) = '1' then
                 result := result + (2 ** (bit_length - 1 - i));
@@ -52,17 +53,18 @@ package body trace_pack is
     --from bv to string
     function bv2hex(bv : bit_vector) return string is
         constant hex_table : string := "0123456789ABCDEF";
-        variable length_hex : integer := (bv'length+3)/4; --calculate how many hex do we need
-        variable result : string(1 to length_hex);
-        variable bv_4 : bit_vector(length_hex * 4 - 1 downto 0);        
+        variable length_hex : integer; --calculate how many hex do we need
+        variable result : string(1 to 20);
+        variable bv_4 : bit_vector(32 downto 0);        
        
     begin
+    length_hex:= (bv'length+3)/4;
         bv_4 := (others => '0');
-        bv_4(bv_4'length-1 downto 0) := bv;
+        bv_4(length_hex * 4 - 1 downto 0) := bv;
         for i in 0 to length_hex -1 loop
             result(i+1) := hex_table(bv2int(bv_4(4*i+3 downto 4*i))+1);
         end loop;
-        return result;
+        return result(1 to length_hex);
     end;
     
     function bool_character(b : boolean) return character is

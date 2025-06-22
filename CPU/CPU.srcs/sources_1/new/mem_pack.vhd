@@ -29,7 +29,7 @@ package body mem_pack is
     -- Function to convert a hex string to AddrType (16 bits)
     function toAddrType(hex_str: string) return AddrType is
         constant HEX_DIGITS: integer := 4; -- Expected number of hex digits
-        variable clean_str: string(hex_str'range);
+        variable clean_str: string(1 to 4);
         variable addr_result: AddrType := (others => '0'); -- Initialize as 16 bits of '0'
         variable idx: integer := 0;
     begin

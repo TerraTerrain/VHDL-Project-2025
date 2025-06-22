@@ -19,37 +19,43 @@ end conversion_pack;
 package body conversion_pack is
 
     function sign_extend(imm : bit_vector) return bit_vector is
-        constant extend_length : integer := 32 - imm'length;
+        variable extend_length : integer := 32;
         variable extended_imm : bit_vector(31 downto 0);
     begin
+        extend_length := extend_length - imm'length;
         -- Extend with the MSB of the input
         extended_imm := (extend_length - 1 downto 0 => imm(imm'length - 1)) & imm;
         return extended_imm;
     end function;
     
     function zero_extend(imm : bit_vector) return bit_vector is
-        constant extend_length : integer := 32 - imm'length;
+        variable extend_length : integer := 32;
         variable extended_imm : bit_vector(31 downto 0);
     begin
+        extend_length := extend_length - imm'length;
         -- Extend input with '0' bits
         extended_imm := (extend_length - 1 downto 0 => '0') & imm;
         return extended_imm;
     end function;
     
     function loadMem32(Mem: MemType; address: unsigned) return BusDataType is
-        variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
+        variable word_addr : integer    ; -- Word address
         variable result    : BusDataType := (others => '0');
     begin
+        word_addr:= to_integer( address(15 downto 2));
         result := Mem(word_addr); -- Directly load the 32-bit word
         return result;
     end function;
     
     function loadMem16(Mem: MemType; address: unsigned) return bit_vector is
-        variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
-        variable offset    : integer     := to_integer( address(1 downto 0) );  -- Byte offset
-        variable word      : BusDataType := Mem(word_addr);
+        variable word_addr : integer; -- Word address
+        variable offset    : integer ;  -- Byte offset
+        variable word      : BusDataType;
         variable result    : bit_vector(15 downto 0);
     begin
+        word_addr := to_integer( address(15 downto 2) ); -- Word address
+        offset  := to_integer( address(1 downto 0) );  -- Byte offset
+        word:= Mem(word_addr);
         case offset is
             when 0 => -- Lower half word
                 result := word(15 downto 0);
@@ -62,11 +68,14 @@ package body conversion_pack is
     end function;
     
     function loadMem8(Mem: MemType; address: unsigned) return bit_vector is
-        variable word_addr : integer     := to_integer( address(15 downto 2) ); -- Word address
-        variable offset    : integer     := to_integer( address(1 downto 0) );  -- Byte offset
-        variable word      : BusDataType := Mem(word_addr);
+        variable word_addr : integer; -- Word address
+        variable offset    : integer;  -- Byte offset
+        variable word      : BusDataType;
         variable result    : bit_vector(7 downto 0);
     begin
+        word_addr := to_integer( address(15 downto 2) ); -- Word address
+        offset  := to_integer( address(1 downto 0) );  -- Byte offset
+        word:= Mem(word_addr);
         case offset is
             when 0 => -- Byte 0 (least significant byte)
                 result := word(7 downto 0);
