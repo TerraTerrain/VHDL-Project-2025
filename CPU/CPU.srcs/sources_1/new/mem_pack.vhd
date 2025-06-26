@@ -28,11 +28,11 @@ package body mem_pack is
         variable idx: integer := 0;
     begin
         -- Format check      
-        assert not(hex_str'length /= ADDR_LENGTH or hex_str(1) /= '0' or hex_str(2) = 'x')
+        assert not(hex_str'length /= ADDR_LENGTH or hex_str(2) /= '0' or hex_str(3) = 'x')
             report "Incorrect address format (0x followed by 4 hex digits)" severity error;
 
         -- Convert each hex character into binary
-        for i in 3 to hex_str'right loop
+        for i in hex_str'left+2 to hex_str'right loop
             case hex_str(i) is
                 when '0'       => addr_result(idx + 3 downto idx) := "0000";
                 when '1'       => addr_result(idx + 3 downto idx) := "0001";
@@ -68,10 +68,11 @@ package body mem_pack is
         variable hex_value: integer;
     begin
         -- Format check
-        assert not(hex_str(1) /= '#') report "Incorrect immediate format" severity error;
+        assert not(hex_str(hex_str'left) /= '#')
+            report "Incorrect immediate format" severity error;
         
         -- Iterate through each character in the string
-        for i in 2 to hex_str'right loop
+        for i in hex_str'left+1 to hex_str'right loop
             case hex_str(i) is
                 when '0' | ' ' => hex_value := 0;
                 when '1'       => hex_value := 1;
@@ -108,11 +109,11 @@ package body mem_pack is
         constant MAX_VALUE: integer := (2 ** RegAddrSize) - 1;  -- Maximum value that fits in RegAddrSize bits
     begin
         -- Format check and string trimming
-        assert not(reg_str(1) /= 'X' or reg_str(1) /= 'x')
+        assert not(reg_str(reg_str'left) /= 'X' or reg_str(reg_str'left) /= 'x')
             report "Incorrect register format" severity error;
         
         -- Convert the trimmed string to integer
-        decimal_value := integer'VALUE(reg_str(2 to reg_str'right));
+        decimal_value := integer'VALUE(reg_str(reg_str'left+1 to reg_str'right));
 
         -- Check if the decimal value is within the valid range (0 to 2^RegAddrSize - 1)
         if decimal_value < 0 or decimal_value > MAX_VALUE then
@@ -183,91 +184,92 @@ package body mem_pack is
         shamt := bit_vector(TO_UNSIGNED(imm,5));
         case mn is
             when EBREAK =>
-                return zero_extend(OpEBREAK);
+                result := zero_extend(OpEBREAK);
             -- LOADs
             when LB => 
-                return imm12 & r2 & Func3LB  & r1 & OpLoad;
+                result := imm12 & r2 & Func3LB  & r1 & OpLoad;
             when LBU =>
-                return imm12 & r2 & Func3LBU & r1 & OpLoad;
+                result := imm12 & r2 & Func3LBU & r1 & OpLoad;
             when LH   =>
-                return imm12 & r2 & Func3LH  & r1 & OpLoad;
+                result := imm12 & r2 & Func3LH  & r1 & OpLoad;
             when LHU => 
-                return imm12 & r2 & Func3LHU & r1 & OpLoad;
+                result := imm12 & r2 & Func3LHU & r1 & OpLoad;
             when LW =>
-                return imm12 & r2 & Func3LW  & r1 & OpLoad;
+                result := imm12 & r2 & Func3LW  & r1 & OpLoad;
             -- STOREs
             when SB =>
-                return imm12(11 downto 5) & r2 & r1 & Func3SB & imm12(4 downto 0) & OpStore;
+                result := imm12(11 downto 5) & r2 & r1 & Func3SB & imm12(4 downto 0) & OpStore;
             when SH =>
-                return imm12(11 downto 5) & r2 & r1 & Func3SH & imm12(4 downto 0) & OpStore;
+                result := imm12(11 downto 5) & r2 & r1 & Func3SH & imm12(4 downto 0) & OpStore;
             when SW =>
-                return imm12(11 downto 5) & r2 & r1 & Func3SW & imm12(4 downto 0) & OpStore;
+                result := imm12(11 downto 5) & r2 & r1 & Func3SW & imm12(4 downto 0) & OpStore;
             -- ARITHMETICAL
             when ADD => 
-                return Func7ADD & r3 & r2 & Func3Arthm & r1 & OpReg;
+                result := Func7ADD & r3 & r2 & Func3Arthm & r1 & OpReg;
             when SUB => 
-                return Func7SUB & r3 & r2 & Func3Arthm & r1 & OpReg;
+                result := Func7SUB & r3 & r2 & Func3Arthm & r1 & OpReg;
             when ADDI => 
-                return         imm12 & r2 & Func3Arthm & r1 & OpImm;
+                result :=         imm12 & r2 & Func3Arthm & r1 & OpImm;
             -- UPPER IMMEDIATE
             when LUI => 
-                return imm20 & r1 & OpLUI;
+                result := imm20 & r1 & OpLUI;
             when AUIPC => 
-                return imm20 & r1 & OpAUIPC;
+                result := imm20 & r1 & OpAUIPC;
             -- LOGICAL
             when XORr => 
-                return Func7Log & r3 & r2 & Func3XOR & r1 & OpReg;
+                result := Func7Log & r3 & r2 & Func3XOR & r1 & OpReg;
             when ORr => 
-                return Func7Log & r3 & r2 & Func3OR  & r1 & OpReg;
-            when ANDr =>    
-                return Func7Log & r3 & r2 & Func3AND & r1 & OpReg;
+                result := Func7Log & r3 & r2 & Func3OR  & r1 & OpReg;
+            when ANDr =>
+                result := Func7Log & r3 & r2 & Func3AND & r1 & OpReg;
             when XORI => 
-                return         imm12 & r2 & Func3XOR & r1 & OpImm;
+                result :=         imm12 & r2 & Func3XOR & r1 & OpImm;
             when ORI => 
-                return         imm12 & r2 & Func3OR  & r1 & OpImm;
+                result :=         imm12 & r2 & Func3OR  & r1 & OpImm;
             when ANDI => 
-                return         imm12 & r2 & Func3AND & r1 & OpImm;
+                result :=         imm12 & r2 & Func3AND & r1 & OpImm;
             -- SHIFTs
             when SLLr => 
-                return Func7ShLog   & r3    & r2 & Func3SLL     & r1 & OpReg;
+                result := Func7ShLog   & r3    & r2 & Func3SLL     & r1 & OpReg;
             when SRLr => 
-                return Func7ShLog   & r3    & r2 & Func3SRL_SRA & r1 & OpReg;            
+                result := Func7ShLog   & r3    & r2 & Func3SRL_SRA & r1 & OpReg;
             when SRAr => 
-                return Func7ShArthm & r3    & r2 & Func3SRL_SRA & r1 & OpReg;            
+                result := Func7ShArthm & r3    & r2 & Func3SRL_SRA & r1 & OpReg;
             when SLLI => 
-                return Func7ShLog   & shamt & r2 & Func3SLL     & r1 & OpImm;
+                result := Func7ShLog   & shamt & r2 & Func3SLL     & r1 & OpImm;
             when SRLI => 
-                return Func7ShLog   & shamt & r2 & Func3SRL_SRA & r1 & OpImm;
+                result := Func7ShLog   & shamt & r2 & Func3SRL_SRA & r1 & OpImm;
             when SRAI => 
-                return Func7ShArthm & shamt & r2 & Func3SRL_SRA & r1 & OpImm;
+                result := Func7ShArthm & shamt & r2 & Func3SRL_SRA & r1 & OpImm;
             -- COMPAREs
             when SLT => 
-                return Func7Set & r3 & r2 & Func3SLT  & r1 & OpReg;
+                result := Func7Set & r3 & r2 & Func3SLT  & r1 & OpReg;
             when SLTU => 
-                return Func7Set & r3 & r2 & Func3SLTU & r1 & OpReg;
+                result := Func7Set & r3 & r2 & Func3SLTU & r1 & OpReg;
             when SLTI => 
-                return         imm12 & r2 & Func3SLT  & r1 & OpImm;
+                result :=         imm12 & r2 & Func3SLT  & r1 & OpImm;
             when SLTIU => 
-                return         imm12 & r2 & Func3SLTU & r1 & OpImm;
+                result :=         imm12 & r2 & Func3SLTU & r1 & OpImm;
             -- BRANCHes
-            when BEQ =>
-                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BEQ  & imm12(3 downto 0) & imm12(10) & OpBranch;
+            when BEQ => 
+                result := imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BEQ  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BNE => 
-                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BNE  & imm12(3 downto 0) & imm12(10) & OpBranch;
+                result := imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BNE  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BLT => 
-                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BLT  & imm12(3 downto 0) & imm12(10) & OpBranch;
+                result := imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BLT  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BGE => 
-                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BGE  & imm12(3 downto 0) & imm12(10) & OpBranch;
+                result := imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BGE  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BLTU => 
-                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BLTU & imm12(3 downto 0) & imm12(10) & OpBranch;
-            when BGEU => 
-                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BGEU & imm12(3 downto 0) & imm12(10) & OpBranch;
+                result := imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BLTU & imm12(3 downto 0) & imm12(10) & OpBranch;
+            when BGEU =>
+                result := imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BGEU & imm12(3 downto 0) & imm12(10) & OpBranch;
             -- JUMPs
             when JAL => 
-                return                  imm20 & r1 & OpJump;
+                result :=                  imm20 & r1 & OpJump;
             when JALR => 
-                return imm12 & r2 & Func3JALR & r1 & OpJumpReg;
-        end case;    
+                result := imm12 & r2 & Func3JALR & r1 & OpJumpReg;
+        end case;
+        return result;
     end toMemEntry;        
 
 
