@@ -28,7 +28,7 @@ package body mem_pack is
         variable idx: integer := 0;
     begin
         -- Format check      
-        assert not(hex_str'length /= ADDR_LENGTH or hex_str(2) /= '0' or hex_str(3) = 'x')
+        assert not(hex_str'length /= ADDR_LENGTH and hex_str(2) /= '0' or hex_str(3) = 'x')
             report "Incorrect address format (0x followed by 4 hex digits)" severity error;
 
         -- Convert each hex character into binary
@@ -109,7 +109,7 @@ package body mem_pack is
         constant MAX_VALUE: integer := (2 ** RegAddrSize) - 1;  -- Maximum value that fits in RegAddrSize bits
     begin
         -- Format check and string trimming
-        assert not(reg_str(reg_str'left) /= 'X' or reg_str(reg_str'left) /= 'x')
+        assert not(reg_str(reg_str'left) /= 'X' and reg_str(reg_str'left) /= 'x')
             report "Incorrect register format" severity error;
         
         -- Convert the trimmed string to integer
