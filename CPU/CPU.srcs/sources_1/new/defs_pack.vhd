@@ -32,7 +32,7 @@ package defs_pack is
     
     subtype BusDataType is bit_vector (BusDataSize-1 downto 0);
     subtype RegDataType is bit_vector (RegDataSize-1 downto 0);
-    subtype RegAddrType is bit_vector (0 to 2**RegAddrSize-1);
+    subtype RegAddrType is bit_vector (0 to RegAddrSize-1);
 
     type RegType is array (integer range 2**RegAddrSize-1    downto 0) of RegDataType;
     type MemType is array (integer range 2**MemoryAddrSize-1 downto 0) of BusDataType;
