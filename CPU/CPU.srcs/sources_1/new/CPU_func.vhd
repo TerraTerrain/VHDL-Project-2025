@@ -28,8 +28,8 @@ begin
                               : natural     := 0;
         variable imm12        : Imm12Type   := (others=>'0');
         variable imm20        : Imm20Type   := (others=>'0');
-        variable aImm         : bit_vector  := (others=>'0');
-        variable jimm20       : Imm20Type   := (others=>'0');
+        variable aImm         : bit_vector(15 downto 0);
+--        variable jimm20       : Imm20Type   := (others=>'0');
         variable bImm         : Imm12Type   := (others=>'0');
         variable sImm         : Imm12Type   := (others=>'0');
         variable Reg          : RegType     := (others=>(others=>'0'));
@@ -57,7 +57,7 @@ begin
         bImm   := Instr(31) & Instr(7) & Instr(30 downto 25) & Instr(11 downto  8);
                                                                  -- imm for branch
         sImm   := Instr(31 downto 25) & Instr(11 downto 7); -- imm for store
-        jimm20 := Instr(31) & Instr(19 downto 12) & Instr(20) & Instr(30 downto 21) & '0';
+--        jimm20 := Instr(31) & Instr(19 downto 12) & Instr(20) & Instr(30 downto 21);
                                                                           -- imm for jump
 
         -- Reg is indexed with integers
@@ -186,15 +186,17 @@ begin
                     end case;
                 when Func3SLT => --SLTI
                     if signed(Reg(int_rs1)) < signed(sign_extend(imm12)) then
-                        Reg(int_rd) := "1";
-                    else Reg(int_rd) := "0";
+                        Reg(int_rd) := X"00000001";
+                    else
+                        Reg(int_rd) := X"00000000";
                     end if;
                     write_param(l,rs2);
                     write_no_param1(l);
                 when Func3SLTU => --SLTIU
                     if unsigned(Reg(int_rs1)) < unsigned(sign_extend(imm12)) then
-                        Reg(int_rd) := "1";
-                    else Reg(int_rd) := "0";
+                        Reg(int_rd) := X"00000001";
+                    else
+                        Reg(int_rd) := X"00000000";
                     end if;
                     write_param(l,rs2);
                     write_no_param1(l);
@@ -227,6 +229,7 @@ begin
                             Reg(int_rd) := Reg(int_rs1) sll bv2int(Reg(int_rs2));
                         when others =>
                             assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
                 when Func3SRL_SRA =>
                     case func7 is
@@ -236,24 +239,31 @@ begin
                             Reg(int_rd) := Reg(int_rs1) sra bv2int(Reg(int_rs2));
                         when others =>
                             assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
                 when Func3SLT => --SLT
                     case func7 is
                         when Func7Set =>
                             if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
-                                Reg(int_rd) := "1";
-                            else Reg(int_rd) := "0";
+                                Reg(int_rd) := X"00000001";
+                            else
+                                Reg(int_rd) := X"00000000";
                             end if;
+                        when others =>
+                                assert FALSE report "Illegal instruction" severity error;
+                                write_no_param2(l);
                     end case;
                 when Func3SLTU => --SLTU
                     case func7 is
                         when Func7Set =>
                             if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
-                                Reg(int_rd) := "1";
-                            else Reg(int_rd) := "0";
+                                Reg(int_rd) := X"00000001";
+                            else
+                                Reg(int_rd) := X"00000000";
                             end if;
-                when others =>
-                    assert FALSE report "Illegal instruction" severity error;
+                        when others =>
+                            assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
                 when Func3Arthm => 
                     case func7 is
@@ -263,6 +273,7 @@ begin
                             Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) - signed(Reg(int_rs2)) ); -- SUB
                         when others   =>
                             assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
                 when Func3XOR  => 
                     case func7 is
@@ -270,6 +281,7 @@ begin
                             Reg(int_rd) := Reg(int_rs1) xor Reg(int_rs2); -- XOR
                         when others   =>
                             assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
                 when Func3OR   => 
                     case func7 is
@@ -277,6 +289,7 @@ begin
                             Reg(int_rd) := Reg(int_rs1) or Reg(int_rs2); -- OR
                         when others   =>
                             assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
                 when Func3AND  => 
                     case func7 is
@@ -284,10 +297,12 @@ begin
                             Reg(int_rd) := Reg(int_rs1) and Reg(int_rs2); -- AND
                         when others   =>
                             assert FALSE report "Illegal instruction" severity error;
+                            write_no_param2(l);
                     end case;
-            end case;
-            write_no_param2(l);
-                           
+                when others =>
+                    assert FALSE report "Illegal instruction" severity error;
+                    write_no_param2(l);
+            end case;                           
                     
         when OpLUI    =>  -- LUI        
                  Reg(int_rd) := imm20 & X"000";
@@ -348,16 +363,23 @@ begin
                     end if;
                     write_param(l,func7);
                     write_param(l,rd);
+                when others   =>
+                    assert FALSE report "Illegal instruction" severity error;
+                    write_no_param2(l);
             end case;
         when OpJump =>
             Reg(int_rd) := bit_vector(PC + 4); 
-            PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );  
-            write_param(l,jimm20); 
+            PC := TO_UNSIGNED( TO_INTEGER(PC) + TO_INTEGER(signed(imm20(15 downto 1)&'0')), AddrSize );  
+            write_param(l,imm20);
             write_no_param1(l);
         when OpJumpReg =>
             Reg(int_rd) := bit_vector(unsigned(PC) + 4);
-            PC := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );
+            PC := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) + TO_INTEGER(signed(imm20(15 downto 0))), AddrSize );
             PC(0) := '0';
+            write_param(l,imm20);
+            write_no_param1(l);
+        when others   =>
+            assert FALSE report "Illegal instruction" severity error;
             write_no_param2(l);
         end case;
         end loop;
