@@ -37,16 +37,21 @@ package defs_pack is
     type RegType is array (integer range 2**RegAddrSize-1    downto 0) of RegDataType;
     type MemType is array (integer range 2**MemoryAddrSize-1 downto 0) of BusDataType;
     
-    type MnemonicType is (EBREAK, LB, LBU, LH, LHU, LW, SB, SH, SW, LUI, AUIPC,
-                          ADD, SUB, ADDI, XORr, ORr, ANDr, XORI, ORI, ANDI,
-                          SLLr, SRLr, SRAr, SLLI, SRLI, SRAI,
-                          SLT, SLTU, SLTI, SLTIU, JAL, JALR,
-                          BEQ, BNE, BLT, BLTU, BGE, BGEU);
+    type MnemonicType is (
+        ADD,SUB,SLLr,SRLr,SRAr,XORr,ORr,ANDr,SLT,SLTU,
+        ADDI,SLLI,SRLI,SRAI,XORI,ORI,ANDI,SLTI,SLTIU,
+                     JALR,LB,LBU,LH,LHU,LW, SB,SH,SW,
+        BEQ,BNE,BLT,BLTU,BGE,BGEU,
+        LUI,AUIPC,
+        JAL,
+        EBREAK                                                                        
+    ); -- R-Type(0 to 9),I+S-Type(10 to 27),B-Type(28 to 33)
+       -- U+J-Type(34 to 36),EBREAK(37)
 
 -- Instruction constants
     -- EBREAK
     constant OpEBREAK : OpType := "1111111";
-
+    
     -- Imm/Reg Opcode
     constant OpImm : OpType := "0010011";
     constant OpReg : OpType := "0110011";
@@ -103,6 +108,5 @@ package defs_pack is
     constant OpJump    : OpType    := "1101111";
     constant OpJumpReg : OpType    := "1100111";
     constant Func3JALR : Func3Type := "000";
-
 
 end package;
