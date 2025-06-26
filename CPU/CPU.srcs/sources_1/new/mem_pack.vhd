@@ -52,7 +52,7 @@ package body mem_pack is
                 when 'F' | 'f' => addr_result(idx + 3 downto idx) := "1111";
                 when ' '       => null;
                 when others =>
-                    assert false report "Invalid character in hex string: " & clean_str(i) severity failure;
+                    assert false report "Invalid character in hex string: " & hex_str(i) severity failure;
             end case;
             idx := idx + 4; -- Move to the next set of 4 bits
         end loop;
@@ -251,17 +251,17 @@ package body mem_pack is
                 return         imm12 & r2 & Func3SLTU & r1 & OpImm;
             -- BRANCHes
             when BEQ =>
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BEQ  & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BEQ  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BNE => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BNE  & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BNE  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BLT => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BLT  & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BLT  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BGE => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BGE  & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BGE  & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BLTU => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BLTU & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BLTU & imm12(3 downto 0) & imm12(10) & OpBranch;
             when BGEU => 
-                return imm12(12) & imm12(10 downto 5) & r2 & r1 & Func3BGEU & imm12(4 downto 1) & imm12(11) & OpBranch;
+                return imm12(11) & imm12(9 downto 4) & r2 & r1 & Func3BGEU & imm12(3 downto 0) & imm12(10) & OpBranch;
             -- JUMPs
             when JAL => 
                 return                  imm20 & r1 & OpJump;
@@ -327,5 +327,3 @@ package body mem_pack is
     end init_memory;
     
 end mem_pack;
-
-
