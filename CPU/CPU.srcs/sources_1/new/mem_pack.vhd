@@ -10,7 +10,7 @@ use STD.TEXTIO.all;
 package mem_pack is
     function toAddrType  (hex_str: string)      return AddrType;
     function toConstant  (hex_str: string)      return integer;
-    function toRegAddrType(decimal_str: string) return RegAddrType;
+    function toRegAddrType(reg_str: string) return RegAddrType;
     function toMnemonic(mnemonic_str: string)   return MnemonicType;
     function toMemEntry (mn : MnemonicType; r1: RegAddrType; r2: RegAddrType; r3: RegAddrType; imm: integer)
         return BusDataType;
@@ -59,6 +59,7 @@ package body mem_pack is
                 when 'D' | 'd' => addr_result(idx + 3 downto idx) := "1101";
                 when 'E' | 'e' => addr_result(idx + 3 downto idx) := "1110";
                 when 'F' | 'f' => addr_result(idx + 3 downto idx) := "1111";
+                when ' '       => null;
                 when others =>
                     assert false report "Invalid character in hex string: " & clean_str(i) severity failure;
             end case;
@@ -75,10 +76,11 @@ package body mem_pack is
         variable result: integer := 0;
         variable hex_value: integer;
     begin
+        assert not(hex_str(1) /= '#') report "Incorrect immediate format" severity error;
         -- Iterate through each character in the string
-        for i in hex_str'range loop
+        for i in 2 to hex_str'right loop
             case hex_str(i) is
-                when '0'       => hex_value := 0;
+                when '0' | ' ' => hex_value := 0;
                 when '1'       => hex_value := 1;
                 when '2'       => hex_value := 2;
                 when '3'       => hex_value := 3;
@@ -108,13 +110,17 @@ package body mem_pack is
     
     
     -- Function to convert decimal string to RegAddrType (bit_vector size based on RegAddrSize)
-    function toRegAddrType(decimal_str: string) return RegAddrType is
+    function toRegAddrType(reg_str: string) return RegAddrType is
         variable result: RegAddrType := (others => '0');
         variable decimal_value: integer;
         constant MAX_VALUE: integer := (2 ** RegAddrSize) - 1;  -- Maximum value that fits in RegAddrSize bits
     begin
-        -- Convert the string to an integer
-        decimal_value := integer'VALUE(decimal_str);
+        -- Format check and string trimming
+        assert not(reg_str(1) /= 'X' or reg_str(1) /= 'x')
+            report "Incorrect register format" severity error;
+        
+        -- Convert the trimmed string to integer
+        decimal_value := integer'VALUE(reg_str(2 to reg_str'right));
 
         -- Check if the decimal value is within the valid range (0 to 2^RegAddrSize - 1)
         if decimal_value < 0 or decimal_value > MAX_VALUE then
@@ -123,7 +129,6 @@ package body mem_pack is
 
         -- Convert the integer to a RegAddrType (bit_vector with size RegAddrSize)
         result := RegAddrType(to_unsigned(decimal_value, RegAddrSize));
-
         return result;
     end toRegAddrType;
 
@@ -177,9 +182,9 @@ package body mem_pack is
     function toMemEntry (mn : MnemonicType; r1: RegAddrType; r2: RegAddrType; r3: RegAddrType; imm: integer)
         return BusDataType is
         variable result    : BusDataType := (others => '0');
-        variable imm12     : bit_vector  := (others => '0');
-        variable imm20     : bit_vector  := (others => '0');
-        variable shamt     : bit_vector  := (others => '0');
+        variable imm12     : bit_vector(11 downto 0);
+        variable imm20     : bit_vector(19 downto 0);
+        variable shamt     : bit_vector(4 downto 0);
     begin
         imm12 := bit_vector(TO_UNSIGNED(imm,12));
         imm20 := bit_vector(TO_UNSIGNED(imm,20));
@@ -279,7 +284,7 @@ package body mem_pack is
         file     f         : text is in filename;
         variable l         : line;
         variable addr      : AddrType := (others => '0');
-        variable v         : string(1 to 25) := (others => ' ');
+        variable v         : string(1 to 20) := (others => ' ');
         variable r1,r2,r3  : RegAddrType := (others => '0');
         variable mnemonic  : MnemonicType;
         variable mn_num    : integer range 0 to 37;
@@ -304,15 +309,21 @@ package body mem_pack is
             mnemonic := toMnemonic(v(1 to 6));
             mn_num   := MnemonicType'pos(mnemonic); -- position in type definition 
             if mn_num >= 0 or mn_num <= 9 then -- R-Type
-                null; -- r1 r2 r3 
+                r1 := toRegAddrType(v(8 to 10));
+                r2 := toRegAddrType(v(12 to 14));
+                r3 := toRegAddrType(v(16 to 18));
             elsif mn_num >= 10 or mn_num <= 27 then -- I+S-Type
-                null; -- r1 r2 imm
+                r1  := toRegAddrType(v(8 to 10));
+                r2  := toRegAddrType(v(12 to 14));
+                imm := toConstant(v(16 to 19));
             elsif mn_num >= 28 or mn_num <= 33 then -- B-Type
-                null; -- r1 r2
+                r1 := toRegAddrType(v(8 to 10));
+                r2 := toRegAddrType(v(12 to 14));
             elsif mn_num >= 34 or mn_num <= 36 then -- U+J-Type
-                null; -- r1 imm
+                r1  := toRegAddrType(v(8 to 10));
+                imm := toConstant(v(12 to 17));
             elsif mn_num = 37 then -- EBREAK
-                null; -- nothing???
+                null;
             else
                 assert FALSE report "Illegal mnemonic" severity failure;
             end if;
