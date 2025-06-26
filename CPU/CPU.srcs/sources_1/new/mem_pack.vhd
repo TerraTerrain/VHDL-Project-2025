@@ -23,26 +23,17 @@ package body mem_pack is
 
     -- Function to convert a hex string to AddrType (16 bits)
     function toAddrType(hex_str: string) return AddrType is
-        constant HEX_DIGITS: integer := 4; -- Expected number of hex digits
-        variable clean_str: string(hex_str'range);
+        constant ADDR_LENGTH: integer := 6;
         variable addr_result: AddrType := (others => '0'); -- Initialize as 16 bits of '0'
         variable idx: integer := 0;
     begin
-        -- Remove the "0x" prefix if it exists
-        if hex_str'length >= 2 and hex_str(1) = '0' and (hex_str(2) = 'x' or hex_str(2) = 'X') then
-            clean_str := hex_str(3 to hex_str'length);
-        else
-            clean_str := hex_str;
-        end if;
-
-        -- Check if the cleaned string length matches the expected number of hex digits
-        if clean_str'length /= HEX_DIGITS then
-            assert false report "Hex string must be exactly 4 hexadecimal digits." severity failure;
-        end if;
+        -- Format check      
+        assert not(hex_str'length /= ADDR_LENGTH or hex_str(1) /= '0' or hex_str(2) = 'x')
+            report "Incorrect address format (0x followed by 4 hex digits)" severity error;
 
         -- Convert each hex character into binary
-        for i in clean_str'range loop
-            case clean_str(i) is
+        for i in 3 to hex_str'right loop
+            case hex_str(i) is
                 when '0'       => addr_result(idx + 3 downto idx) := "0000";
                 when '1'       => addr_result(idx + 3 downto idx) := "0001";
                 when '2'       => addr_result(idx + 3 downto idx) := "0010";
@@ -76,7 +67,9 @@ package body mem_pack is
         variable result: integer := 0;
         variable hex_value: integer;
     begin
+        -- Format check
         assert not(hex_str(1) /= '#') report "Incorrect immediate format" severity error;
+        
         -- Iterate through each character in the string
         for i in 2 to hex_str'right loop
             case hex_str(i) is
@@ -99,7 +92,6 @@ package body mem_pack is
                 when others =>
                     assert false report "Invalid character in hex string: " & hex_str(i) severity failure;
             end case;
-
             -- Shift the current result and add the new hex value
             result := result * 16 + hex_value;
         end loop;
