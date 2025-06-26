@@ -4,6 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_bit.ALL;
 use work.defs_pack.all;
 use work.conversion_pack.all;
+use work.mem_pack.all;
 use work.trace_pack.all;
 
 entity RISCV is
@@ -38,10 +39,11 @@ begin
         variable load_address : AddrType    := (others=>'0');
         
     begin
+        init_memory("D:\program.mem", Mem);
         print_header( TraceFile );
         loop
         --cmd fetch
-        Instr  := Mem(TO_INTEGER(unsigned(PC)));
+        Instr  := Mem(TO_INTEGER(PC));
         OP     := Instr(6 downto 0);
         func3  := Instr(14 downto 12);
         func7  := Instr(31 downto 25);
@@ -98,7 +100,6 @@ begin
                         assert FALSE report "Illegal instruction" severity error;
                         write_no_param2(l);
                 end case;
-                PC := PC +4;
                     
             when OpStore  =>
                 store_address := TO_INTEGER( unsigned(Reg(int_rs1)(15 downto 0))) 
@@ -108,19 +109,19 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 => -- Lower byte
                                 Mem(store_address)(7 downto 0)   := Reg(int_rs2)(7 downto 0);
-                                write_param(l,sImm);
+                                write_param(l,func7);
                                 write_param(l,rd);
                             when 1 => -- Lower middle byte
                                 Mem(store_address)(15 downto 8)  := Reg(int_rs2)(7 downto 0);
-                                write_param(l,sImm);
+                                write_param(l,func7);
                                 write_param(l,rd);
                             when 2 => -- Upper middle byte 
                                 Mem(store_address)(23 downto 16) := Reg(int_rs2)(7 downto 0);
-                                write_param(l,sImm);
+                                write_param(l,func7);
                                 write_param(l,rd);
                             when 3 => -- Upper byte
                                 Mem(store_address)(31 downto 24) := Reg(int_rs2)(7 downto 0);
-                                write_param(l,sImm);
+                                write_param(l,func7);
                                 write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SB" severity error;
@@ -130,11 +131,11 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 => -- Lower half-word
                                 Mem(store_address)(15 downto 0)  := Reg(int_rs2)(15 downto 0);
-                                write_param(l,sImm);
+                                write_param(l,func7);
                                 write_param(l,rd);
                             when 2 => -- Upper half-word
                                 Mem(store_address)(31 downto 16) := Reg(int_rs2)(15 downto 0);
-                                write_param(l,sImm);
+                                write_param(l,func7);
                                 write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SH" severity error;
@@ -144,7 +145,7 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 =>
                                 Mem(store_address) := Reg(int_rs2);
-                                write_param(l,sImm);
+                                write_param(l,func7);
                                 write_param(l,rd);
                             when others =>
                                 assert FALSE report "Unaligned address for SW" severity error;
@@ -152,9 +153,8 @@ begin
                         end case;
                     when others  =>
                         assert FALSE report "Illegal instruction" severity error;
-                        write_no_param2(l);               
+                        write_no_param2(l);
                 end case;
-                PC := PC +4;
 
 
 
@@ -216,9 +216,8 @@ begin
                     write_no_param1(l);
                 when others =>
                     assert FALSE report "Illegal instruction" severity error;
-                    write_no_param2(l);                   
+                    write_no_param2(l);
             end case;
-            PC := PC +4;
                     
         when OpReg =>
             case func3 is
@@ -285,22 +284,20 @@ begin
                             Reg(int_rd) := Reg(int_rs1) and Reg(int_rs2); -- AND
                         when others   =>
                             assert FALSE report "Illegal instruction" severity error;
-                    end case;                   
+                    end case;
             end case;
-            PC := PC +4;
             write_no_param2(l);
                            
                     
         when OpLUI    =>  -- LUI        
                  Reg(int_rd) := imm20 & X"000";
                  write_param(l,imm20);
-                 write_no_param1(l);                
-                 PC := PC +4;
+                 write_no_param1(l);
         when OpAUIPC  =>  -- AUIPC, R[rd] := PC + imm20 & X"000"
                  Reg(int_rd) := bit_vector( PC + unsigned(aImm) );
                  write_param(l,aImm); -- do we need to see all 20 bits?
                  write_no_param1(l);
-                 PC := PC +4;
+
         when OpBranch =>
             case func3 is
                 when Func3BEQ =>
@@ -309,7 +306,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,bImm);
+                    write_param(l,func7);
                     write_param(l,rd);
                 when Func3BNE =>
                     if Reg(int_rs1) /= Reg(int_rs2) then
@@ -317,7 +314,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,bImm);
+                    write_param(l,func7);
                     write_param(l,rd);
                 when Func3BLT =>
                     if signed(Reg(int_rs1)) < signed(Reg(int_rs2)) then
@@ -325,7 +322,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,bImm);
+                    write_param(l,func7);
                     write_param(l,rd);
                 when Func3BLTU =>
                     if unsigned(Reg(int_rs1)) < unsigned(Reg(int_rs2)) then
@@ -333,7 +330,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,bImm);
+                    write_param(l,func7);
                     write_param(l,rd);
                 when Func3BGE =>
                     if signed(Reg(int_rs1)) >= signed(Reg(int_rs2)) then
@@ -341,7 +338,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,bImm);
+                    write_param(l,func7);
                     write_param(l,rd);
                 when Func3BGEU =>
                     if unsigned(Reg(int_rs1)) >= unsigned(Reg(int_rs2)) then
@@ -349,7 +346,7 @@ begin
                     else
                         PC := PC + 4;
                     end if;
-                    write_param(l,bImm);
+                    write_param(l,func7);
                     write_param(l,rd);
             end case;
         when OpJump =>
@@ -358,12 +355,10 @@ begin
             write_param(l,jimm20); 
             write_no_param1(l);
         when OpJumpReg =>
-            Reg(int_rd) := bit_vector(PC + 4);
+            Reg(int_rd) := bit_vector(unsigned(PC) + 4);
             PC := TO_UNSIGNED( TO_INTEGER(unsigned(Reg(int_rs1)(15 downto 0))) + TO_INTEGER(signed(jimm20(15 downto 0))), AddrSize );
             PC(0) := '0';
             write_no_param2(l);
-        when others   =>
-            assert FALSE report "Illegal instruction" severity error;
         end case;
         end loop;
     end process;
