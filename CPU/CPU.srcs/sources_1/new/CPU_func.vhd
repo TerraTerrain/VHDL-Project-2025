@@ -39,7 +39,7 @@ begin
         variable load_address : AddrType    := (others=>'0');
         
     begin
-        init_memory("D:\program.mem", Mem);
+        init_memory("program1.mem", Mem);
         print_header( TraceFile );
         loop
         --cmd fetch
