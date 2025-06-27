@@ -110,18 +110,22 @@ begin
                         case store_address mod 4 is -- check the last 2 bits of address
                             when 0 => -- Lower byte
                                 Mem(store_address)(7 downto 0)   := Reg(int_rs2)(7 downto 0);
+--                                report integer'image(to_integer(unsigned(Mem(store_address))));
                                 write_param(l,func7);
                                 write_param(l,rd);
                             when 1 => -- Lower middle byte
                                 Mem(store_address)(15 downto 8)  := Reg(int_rs2)(7 downto 0);
+--                                report integer'image(to_integer(unsigned(Mem(store_address))));
                                 write_param(l,func7);
                                 write_param(l,rd);
                             when 2 => -- Upper middle byte 
                                 Mem(store_address)(23 downto 16) := Reg(int_rs2)(7 downto 0);
+--                                report integer'image(to_integer(unsigned(Mem(store_address))));
                                 write_param(l,func7);
                                 write_param(l,rd);
                             when 3 => -- Upper byte
                                 Mem(store_address)(31 downto 24) := Reg(int_rs2)(7 downto 0);
+--                                report integer'image(to_integer(unsigned(Mem(store_address))));
                                 write_param(l,func7);
                                 write_param(l,rd);
                             when others =>
@@ -202,6 +206,7 @@ begin
                     write_no_param1(l);
                 when Func3Arthm     =>
                     Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) + signed(sign_extend(imm12)) ); -- ADDI
+--                    report integer'image(to_integer(unsigned(Reg(int_rd))));
                     write_param(l,imm12);
                     write_no_param1(l);
                 when Func3XOR       =>
