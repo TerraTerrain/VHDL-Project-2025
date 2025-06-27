@@ -8,10 +8,10 @@ use STD.TEXTIO.all;
 
 
 package mem_pack is
-    function toAddrType  (hex_str: string)      return AddrType;
-    function toConstant  (hex_str: string)      return integer;
-    function toRegAddrType(reg_str: string) return RegAddrType;
-    function toMnemonic(mnemonic_str: string)   return MnemonicType;
+    function toAddrType     (hex_str: string) return AddrType;
+    function toConstant     (hex_str: string) return integer;
+    function toRegAddrType  (reg_str: string) return RegAddrType;
+    function toMnemonic(mnemonic_str: string) return MnemonicType;
     function toMemEntry (mn : MnemonicType; r1: RegAddrType; r2: RegAddrType; r3: RegAddrType; imm: integer)
         return BusDataType;
     procedure init_memory (filename: in string; Mem : out MemType);
@@ -23,12 +23,12 @@ package body mem_pack is
 
     -- Function to convert a hex string to AddrType (16 bits)
     function toAddrType(hex_str: string) return AddrType is
-        constant ADDR_LENGTH: integer := 6;
-        variable addr_result: AddrType := (others => '0'); -- Initialize as 16 bits of '0'
-        variable idx: integer := 0;
+        constant ADDR_LENGTH : integer  := 6;
+        variable addr_result : AddrType := (others => '0'); -- Initialize as 16 bits of '0'
+        variable idx         : integer := 0;
     begin
         -- Format check      
-        assert not(hex_str'length /= ADDR_LENGTH and hex_str(2) /= '0' or hex_str(3) = 'x')
+        assert not(hex_str'length /= ADDR_LENGTH and hex_str(2) /= '0' and hex_str(3) = 'x')
             report "Incorrect address format (0x followed by 4 hex digits)" severity error;
 
         -- Convert each hex character into binary
@@ -64,8 +64,8 @@ package body mem_pack is
     
     -- Function to convert a hexadecimal string to an integer
     function toConstant(hex_str: string) return integer is
-        variable result: integer := 0;
-        variable hex_value: integer;
+        variable result    : integer := 0;
+        variable hex_value : integer;
     begin
         -- Format check
         assert not(hex_str(hex_str'left) /= '#')
@@ -104,13 +104,13 @@ package body mem_pack is
     
     -- Function to convert decimal string to RegAddrType (bit_vector size based on RegAddrSize)
     function toRegAddrType(reg_str: string) return RegAddrType is
-        variable result: RegAddrType := (others => '0');
+        variable result       : RegAddrType := (others => '0');
         variable decimal_value: integer;
-        constant MAX_VALUE: integer := (2 ** RegAddrSize) - 1;  -- Maximum value that fits in RegAddrSize bits
+        constant MAX_VALUE    : integer := (2 ** RegAddrSize) - 1;  -- Maximum value that fits in RegAddrSize bits
     begin
         -- Format check and string trimming
         assert not(reg_str(reg_str'left) /= 'X' and reg_str(reg_str'left) /= 'x')
-            report "Incorrect register format" severity error;
+            report "Incorrect register format: " & reg_str severity error;
         
         -- Convert the trimmed string to integer
         decimal_value := integer'VALUE(reg_str(reg_str'left+1 to reg_str'right));
@@ -275,14 +275,14 @@ package body mem_pack is
 
 
     procedure init_memory (filename: string; Mem : out MemType) is
-        file     f         : text is in filename;
+        file     f         : text open read_mode is filename;
         variable l         : line;
-        variable addr      : AddrType := (others => '0');
+        variable addr      : AddrType        := (others => '0');
         variable v         : string(1 to 20) := (others => ' ');
-        variable r1,r2,r3  : RegAddrType := (others => '0');
+        variable r1,r2,r3  : RegAddrType     := (others => '0');
         variable mnemonic  : MnemonicType;
         variable mn_num    : integer range 0 to 37;
-        variable imm       : integer := 0;
+        variable imm       : integer         := 0;
         
     begin
     line_loop : while not endfile(f) loop
@@ -297,23 +297,25 @@ package body mem_pack is
         end if;
               
         v(1 to l'length) := l.all(1 to l'length); -- copy line to string
+        report v;
         if v(1) = '@' then
             addr := toAddrType(v(2 to 7)); -- 0x0000 to 0xFFFF
         else 
             mnemonic := toMnemonic(v(1 to 6));
-            mn_num   := MnemonicType'pos(mnemonic); -- position in type definition 
-            if mn_num >= 0 or mn_num <= 9 then -- R-Type
+            mn_num   := MnemonicType'pos(mnemonic); -- position in type definition
+            report "Mnemonic number: " & integer'image(mn_num); 
+            if mn_num >= 0 and mn_num <= 9 then -- R-Type
                 r1 := toRegAddrType(v(8 to 10));
                 r2 := toRegAddrType(v(12 to 14));
                 r3 := toRegAddrType(v(16 to 18));
-            elsif mn_num >= 10 or mn_num <= 27 then -- I+S-Type
+            elsif mn_num >= 10 and mn_num <= 27 then -- I+S-Type
                 r1  := toRegAddrType(v(8 to 10));
                 r2  := toRegAddrType(v(12 to 14));
                 imm := toConstant(v(16 to 19));
-            elsif mn_num >= 28 or mn_num <= 33 then -- B-Type
+            elsif mn_num >= 28 and mn_num <= 33 then -- B-Type
                 r1 := toRegAddrType(v(8 to 10));
                 r2 := toRegAddrType(v(12 to 14));
-            elsif mn_num >= 34 or mn_num <= 36 then -- U+J-Type
+            elsif mn_num >= 34 and mn_num <= 36 then -- U+J-Type
                 r1  := toRegAddrType(v(8 to 10));
                 imm := toConstant(v(12 to 17));
             elsif mn_num = 37 then -- EBREAK
@@ -322,10 +324,13 @@ package body mem_pack is
                 assert FALSE report "Illegal mnemonic" severity failure;
             end if;
             Mem (to_integer(addr)):= toMemEntry(mnemonic, r1, r2, r3, imm);
+            report "Current address: " & integer'image(to_integer(addr));
             exit line_loop when addr = 2**MemoryAddrSize - 4; -- last address, word-aligned
             addr := addr + 4; -- next address
         end if;
+        deallocate(l);
     end loop line_loop;
+    report "Loop exited, endfile(f) reached";
     end init_memory;
     
 end mem_pack;
