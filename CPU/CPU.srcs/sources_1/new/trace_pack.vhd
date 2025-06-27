@@ -11,25 +11,26 @@ package trace_pack is
     --procedures for tracing
     procedure print_header(variable f : out text);
     procedure print_tail(variable f : out text);
-    procedure write_pc_cmd(variable l : inout line;
+    procedure write_pc_cmd(variable l : in line;
                             constant PC : in AddrType;
                             constant OP : in OpType;
                             constant func3 : in Func3Type;
                             constant func7 : in Func7Type;
                             constant rd,rs1,rs2 : in RegAddrType);--X:rd;Y:rs1;Z:rs2
                             
-    procedure write_param(variable l : inout line;
+    procedure write_param(variable l : in line;
                             constant param : in bit_vector);
                             
-    procedure write_no_param1(variable l : inout line);
+    procedure write_no_param1(variable l : in line);
                             
-    procedure write_no_param2(variable l : inout line);
-    procedure write_regs(variable l : inout line;
+    procedure write_no_param2(variable l : in line);
+    procedure write_regs(variable l : in line;
                             constant reg : in regtype);--stored value in registers
     
     --conversion functions for tracing
     function bv2int(input: bit_vector) return integer;
     function bv2hex(bv : bit_vector) return string; --from bit_vector to hex
+    function zero_extend4x(imm : bit_vector; ext: integer) return bit_vector;
     function bool_character(b : boolean) return character;
     function cmd_image(op : optype; func3 : Func3Type; func7 : Func7Type) return string; --op = cmd
     
@@ -54,16 +55,23 @@ package body trace_pack is
         constant hex_table : string := "0123456789ABCDEF";
         variable length_hex : integer := (bv'length+3)/4; --calculate how many hex do we need
         variable result : string(1 to length_hex);
-        variable bv_4 : bit_vector(length_hex * 4 - 1 downto 0);        
-       
+        variable bv_4 : bit_vector(length_hex * 4 - 1 downto 0);
     begin
-        bv_4 := (others => '0');
-        bv_4(bv_4'length-1 downto 0) := bv;
+        bv_4(bv_4'length-1 downto 0) := zero_extend4x(bv, length_hex*4);
         for i in 0 to length_hex -1 loop
             result(i+1) := hex_table(bv2int(bv_4(4*i+3 downto 4*i))+1);
         end loop;
         return result;
     end;
+    
+    function zero_extend4x(imm : bit_vector; ext : integer) return bit_vector is
+        constant extend_length : integer := ext - imm'length;
+        variable extended_imm : bit_vector(ext-1 downto 0);
+    begin
+        -- Extend input with '0' bits
+        extended_imm := (extend_length - 1 downto 0 => '0') & imm;
+        return extended_imm;
+    end function;
     
     function bool_character(b : boolean) return character is
     begin
@@ -277,51 +285,61 @@ package body trace_pack is
     end;
     
     --procedure write_pc_cmd
-    procedure write_pc_cmd(variable l : inout line;
+    procedure write_pc_cmd(variable l : in line;
                             constant PC : in AddrType;
                             constant OP : in OpType;
                             constant func3 : in Func3Type;
                             constant func7 : in Func7Type;
                             constant rd,rs1,rs2 : in RegAddrType) is
+        variable l_internal : line;
     begin
-        write(l, bv2hex(bit_vector(PC)), left, 3);--PC
-        write(l, string'("|"));
-        write(l, cmd_image(op,func3, func7), left, 5);--CMD
-        write(l, string'("|"));
-        write(l, rd, left, 3);
-        write(l, string'("|"));
-        write(l, rs1, left, 3);
-        write(l, string'("|"));
-        write(l, rs2, left, 3);
-        write(l, string'("|"));
+        l_internal := l;
+        write(l_internal, bv2hex(bit_vector(PC)), left, 3);--PC
+        write(l_internal, string'("|"));
+        write(l_internal, cmd_image(op,func3, func7), left, 5);--CMD
+        write(l_internal, string'("|"));
+        write(l_internal, rd, left, 3);
+        write(l_internal, string'("|"));
+        write(l_internal, rs1, left, 3);
+        write(l_internal, string'("|"));
+        write(l_internal, rs2, left, 3);
+        write(l_internal, string'("|"));
     end;
     
     --procedure write_param
-    procedure write_param(variable l : inout line;
+    procedure write_param(variable l : in line;
                           constant param : bit_vector) is
+        variable l_internal : line;
     begin
-        write(l, bv2hex(param), left, 5);
-        write(l, string'("|"));
+        l_internal := l;
+        write(l_internal, bv2hex(param), left, 5);
+        write(l_internal, string'("|"));
     end;
     
     
-    procedure write_no_param1(variable l : inout line) is
+    procedure write_no_param1(variable l : in line) is
+        variable l_internal : line;
     begin
-        write(l, string'("---|"));
+        l_internal := l;
+        write(l_internal, string'("---|"));
     end;
     --procedure write_no_param2
-    procedure write_no_param2(variable l : inout line) is
+    procedure write_no_param2(variable l : in line) is
+        variable l_internal : line;
     begin
-        write(l, string'("-----|---|"));
+        l_internal := l;
+        write(l_internal, string'("-----|---|"));
     end;
     
     --procedure write_regs
-    procedure write_regs(variable l : inout line;
+    procedure write_regs(variable l : in line;
                          constant Reg : in RegType) is
+        variable l_internal : line;
     begin
+        l_internal := l;
         for i in 0 to 3 loop
-            write(l, bv2hex(Reg(i)), left, 3);
-            write(l, string'("|"));
+            write(l_internal, bv2hex(Reg(i)), left, 3);
+            write(l_internal, string'("|"));
         end loop;
     end;
     
