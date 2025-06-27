@@ -65,7 +65,7 @@ begin
         int_rs2 := TO_INTEGER(unsigned(rs2));
         int_rd  := TO_INTEGER(unsigned(rd));
 
-        write_pc_cmd(l , PC , OP , func3 , func7 , rd , rs1 , rs2);
+        --write_pc_cmd(l , PC , OP , func3 , func7 , rd , rs1 , rs2);
         
         case OP is
             when OpEBREAK =>
@@ -97,9 +97,10 @@ begin
                         write_param(l,imm12);
                         write_no_param1(l);
                     when others   =>
-                        assert FALSE report "Illegal instruction" severity error;
+                        assert FALSE report "Illegal load func3" severity error;
                         write_no_param2(l);
                 end case;
+                PC := PC + 4;
                     
             when OpStore  =>
                 store_address := TO_INTEGER( unsigned(Reg(int_rs1)(15 downto 0))) 
@@ -152,11 +153,10 @@ begin
                                 write_no_param2(l);
                         end case;
                     when others  =>
-                        assert FALSE report "Illegal instruction" severity error;
+                        assert FALSE report "Illegal store func3" severity error;
                         write_no_param2(l);
                 end case;
-
-
+                PC := PC + 4;
 
         when OpImm =>
             case func3 is
@@ -167,7 +167,7 @@ begin
                             write_param(l,rs2);
                             write_no_param1(l);
                         when others =>
-                           assert FALSE report "Illegal instruction" severity error;
+                           assert FALSE report "Illegal shift func7" severity error;
                            write_no_param2(l);
                     end case;
                 when Func3SRL_SRA =>
@@ -181,7 +181,7 @@ begin
                             write_param(l,rs2);
                             write_no_param1(l);
                         when others =>
-                            assert FALSE report "Illegal instruction" severity error;
+                            assert FALSE report "Illegal shift func7" severity error;
                             write_no_param2(l);
                     end case;
                 when Func3SLT => --SLTI
@@ -217,9 +217,10 @@ begin
                     write_param(l,imm12);
                     write_no_param1(l);
                 when others =>
-                    assert FALSE report "Illegal instruction" severity error;
+                    assert FALSE report "Illegal imm func3" severity error;
                     write_no_param2(l);
             end case;
+            PC := PC + 4;
                     
         when OpReg =>
             case func3 is
@@ -250,7 +251,7 @@ begin
                                 Reg(int_rd) := X"00000000";
                             end if;
                         when others =>
-                                assert FALSE report "Illegal instruction" severity error;
+                                assert FALSE report "Illegal compare func7" severity error;
                                 write_no_param2(l);
                     end case;
                 when Func3SLTU => --SLTU
@@ -262,7 +263,7 @@ begin
                                 Reg(int_rd) := X"00000000";
                             end if;
                         when others =>
-                            assert FALSE report "Illegal instruction" severity error;
+                            assert FALSE report "Illegal compare func7" severity error;
                             write_no_param2(l);
                     end case;
                 when Func3Arthm => 
@@ -272,7 +273,7 @@ begin
                         when Func7SUB =>
                             Reg(int_rd) := bit_vector( signed(Reg(int_rs1)) - signed(Reg(int_rs2)) ); -- SUB
                         when others   =>
-                            assert FALSE report "Illegal instruction" severity error;
+                            assert FALSE report "Illegal arthm func7" severity error;
                             write_no_param2(l);
                     end case;
                 when Func3XOR  => 
@@ -280,7 +281,7 @@ begin
                         when Func7Log =>
                             Reg(int_rd) := Reg(int_rs1) xor Reg(int_rs2); -- XOR
                         when others   =>
-                            assert FALSE report "Illegal instruction" severity error;
+                            assert FALSE report "Illegal log func7" severity error;
                             write_no_param2(l);
                     end case;
                 when Func3OR   => 
@@ -288,7 +289,7 @@ begin
                         when Func7Log =>
                             Reg(int_rd) := Reg(int_rs1) or Reg(int_rs2); -- OR
                         when others   =>
-                            assert FALSE report "Illegal instruction" severity error;
+                            assert FALSE report "Illegal log func7" severity error;
                             write_no_param2(l);
                     end case;
                 when Func3AND  => 
@@ -296,22 +297,25 @@ begin
                         when Func7Log =>
                             Reg(int_rd) := Reg(int_rs1) and Reg(int_rs2); -- AND
                         when others   =>
-                            assert FALSE report "Illegal instruction" severity error;
+                            assert FALSE report "Illegal log func7" severity error;
                             write_no_param2(l);
                     end case;
                 when others =>
-                    assert FALSE report "Illegal instruction" severity error;
+                    assert FALSE report "Illegal reg func3" severity error;
                     write_no_param2(l);
-            end case;                           
+            end case;
+            PC := PC + 4;
                     
         when OpLUI    =>  -- LUI        
-                 Reg(int_rd) := imm20 & X"000";
-                 write_param(l,imm20);
-                 write_no_param1(l);
+            Reg(int_rd) := imm20 & X"000";
+            write_param(l,imm20);
+            write_no_param1(l);
+            PC := PC + 4;
         when OpAUIPC  =>  -- AUIPC, R[rd] := PC + imm20 & X"000"
-                 Reg(int_rd) := bit_vector( PC + unsigned(aImm) );
-                 write_param(l,aImm); -- do we need to see all 20 bits?
-                 write_no_param1(l);
+            Reg(int_rd) := bit_vector( PC + unsigned(aImm) );
+            write_param(l,aImm); -- do we need to see all 20 bits?
+            write_no_param1(l);
+            PC := PC + 4;
 
         when OpBranch =>
             case func3 is
@@ -364,7 +368,7 @@ begin
                     write_param(l,func7);
                     write_param(l,rd);
                 when others   =>
-                    assert FALSE report "Illegal instruction" severity error;
+                    assert FALSE report "Illegal branch func3" severity error;
                     write_no_param2(l);
             end case;
         when OpJump =>
@@ -379,7 +383,7 @@ begin
             write_param(l,imm20);
             write_no_param1(l);
         when others   =>
-            assert FALSE report "Illegal instruction" severity error;
+            assert FALSE report "Illegal opcode" severity error;
             write_no_param2(l);
         end case;
         end loop;
