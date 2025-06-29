@@ -251,27 +251,27 @@ package body trace_pack is
     procedure print_header(variable f : out text) is
         variable l : line;
     begin
-        write(l,string'("PC "),left,3);
+        write(l,string'("PC "),left,4);
         write(l,string'("|"));
         write(l,string'("CMD"),left,5);
         write(l,string'("|"));
-        write(l,string'("rd"),left,3);
+        write(l,string'("rd"),left,5);
         write(l,string'("|"));
-        write(l,string'("rs1"),left,3);
+        write(l,string'("rs1"),left,5);
         write(l,string'("|"));
-        write(l,string'("rs2"),left,3);
+        write(l,string'("rs2"),left,5);
         write(l,string'("|"));
         write(l,string'("P1"),left,5);--first imm.part for branches and stores or imm.part for shift
         write(l,string'("|"));
-        write(l,string'("P2"),left,3);--second imm.part for branches and stores
+        write(l,string'("P2"),left,5);--second imm.part for branches and stores
         write(l,string'("|"));
-        write(l,string'("R0"),left,3);
+        write(l,string'("R0"),left,8);
         write(l,string'("|"));
-        write(l,string'("R1"),left,3);
+        write(l,string'("R1"),left,8);
         write(l,string'("|"));
-        write(l,string'("R2"),left,3);
+        write(l,string'("R2"),left,8);
         write(l,string'("|"));
-        write(l,string'("R3"),left,3);
+        write(l,string'("R3"),left,8);
 
         writeline(f,l);
     end;
@@ -280,7 +280,7 @@ package body trace_pack is
     procedure print_tail(variable f : out text) is
         variable l : line;
     begin
-        write(l,string'("-------------------------------------------"));
+        write(l,string'("-----------------------------------------------------------------------------"));
         writeline(f,l);
     end;
     
@@ -315,12 +315,12 @@ package body trace_pack is
     
     procedure write_no_param1(variable l : inout line) is
     begin
-        write(l, string'("---|"));
+        write(l, string'("-----|"));
     end;
     --procedure write_no_param2
     procedure write_no_param2(variable l : inout line) is
     begin
-        write(l, string'("-----|---|"));
+        write(l, string'("-----|-----|"));
     end;
     
     --procedure write_regs
