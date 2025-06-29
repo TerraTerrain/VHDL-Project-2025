@@ -323,8 +323,9 @@ package body mem_pack is
             else
                 assert FALSE report "Illegal mnemonic" severity failure;
             end if;
-            Mem (to_integer(addr)):= toMemEntry(mnemonic, r1, r2, r3, imm);
-            report "Current address: " & integer'image(to_integer(addr));
+            Mem(TO_INTEGER(addr)):= toMemEntry(mnemonic, r1, r2, r3, imm);
+            report "Mem(" & integer'image(TO_INTEGER(addr)) & "):" &
+                bv2str(Mem(TO_INTEGER(addr)));
             exit line_loop when addr = 2**MemoryAddrSize - 4; -- last address, word-aligned
             addr := addr + 4; -- next address
         end if;
