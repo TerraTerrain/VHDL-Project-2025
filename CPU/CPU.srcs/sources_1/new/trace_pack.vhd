@@ -11,21 +11,21 @@ package trace_pack is
     --procedures for tracing
     procedure print_header(variable f : out text);
     procedure print_tail(variable f : out text);
-    procedure write_pc_cmd(variable l : in line;
-                            constant PC : in AddrType;
-                            constant OP : in OpType;
-                            constant func3 : in Func3Type;
-                            constant func7 : in Func7Type;
-                            constant rd,rs1,rs2 : in RegAddrType);--X:rd;Y:rs1;Z:rs2
+    procedure write_pc_cmd(variable l :     inout line;
+                           constant PC :    in AddrType;
+                           constant OP :    in OpType;
+                           constant func3 : in Func3Type;
+                           constant func7 : in Func7Type;
+                           constant rd,rs1,rs2 : in RegAddrType);--X:rd;Y:rs1;Z:rs2
                             
-    procedure write_param(variable l : in line;
-                            constant param : in bit_vector);
+    procedure write_param(variable l :     inout line;
+                          constant param : in bit_vector);
                             
-    procedure write_no_param1(variable l : in line);
+    procedure write_no_param1(variable l : inout line);
                             
-    procedure write_no_param2(variable l : in line);
-    procedure write_regs(variable l : in line;
-                            constant reg : in regtype);--stored value in registers
+    procedure write_no_param2(variable l : inout line);
+    procedure write_regs(variable l   : inout line;
+                         constant reg : in RegType);--stored value in registers
     
     --conversion functions for tracing
     function bv2int(input: bit_vector) return integer;
@@ -285,61 +285,51 @@ package body trace_pack is
     end;
     
     --procedure write_pc_cmd
-    procedure write_pc_cmd(variable l : in line;
-                            constant PC : in AddrType;
-                            constant OP : in OpType;
-                            constant func3 : in Func3Type;
-                            constant func7 : in Func7Type;
-                            constant rd,rs1,rs2 : in RegAddrType) is
-        variable l_internal : line;
+    procedure write_pc_cmd(variable l     : inout line;
+                           constant PC    : in AddrType;
+                           constant OP    : in OpType;
+                           constant func3 : in Func3Type;
+                           constant func7 : in Func7Type;
+                           constant rd,rs1,rs2 : in RegAddrType) is
     begin
-        l_internal := l;
-        write(l_internal, bv2hex(bit_vector(PC)), left, 3);--PC
-        write(l_internal, string'("|"));
-        write(l_internal, cmd_image(op,func3, func7), left, 5);--CMD
-        write(l_internal, string'("|"));
-        write(l_internal, rd, left, 3);
-        write(l_internal, string'("|"));
-        write(l_internal, rs1, left, 3);
-        write(l_internal, string'("|"));
-        write(l_internal, rs2, left, 3);
-        write(l_internal, string'("|"));
+        write(l, bv2hex(bit_vector(PC)), left, 3);--PC
+        write(l, string'("|"));
+        write(l, cmd_image(op,func3, func7), left, 5);--CMD
+        write(l, string'("|"));
+        write(l, rd, left, 3);
+        write(l, string'("|"));
+        write(l, rs1, left, 3);
+        write(l, string'("|"));
+        write(l, rs2, left, 3);
+        write(l, string'("|"));
     end;
     
     --procedure write_param
-    procedure write_param(variable l : in line;
+    procedure write_param(variable l     : inout line;
                           constant param : bit_vector) is
-        variable l_internal : line;
     begin
-        l_internal := l;
-        write(l_internal, bv2hex(param), left, 5);
-        write(l_internal, string'("|"));
+        write(l, bv2hex(param), left, 5);
+        write(l, string'("|"));
     end;
     
     
-    procedure write_no_param1(variable l : in line) is
-        variable l_internal : line;
+    procedure write_no_param1(variable l : inout line) is
     begin
-        l_internal := l;
-        write(l_internal, string'("---|"));
+        write(l, string'("---|"));
     end;
     --procedure write_no_param2
-    procedure write_no_param2(variable l : in line) is
-        variable l_internal : line;
+    procedure write_no_param2(variable l : inout line) is
     begin
-        l_internal := l;
-        write(l_internal, string'("-----|---|"));
+        write(l, string'("-----|---|"));
     end;
     
     --procedure write_regs
-    procedure write_regs(variable l : in line;
+    procedure write_regs(variable l   : inout line;
                          constant Reg : in RegType) is
-        variable l_internal : line;
     begin
-        l_internal := l;
         for i in 0 to 3 loop
-            write(l_internal, bv2hex(Reg(i)), left, 3);
-            write(l_internal, string'("|"));
+            write(l, bv2hex(Reg(i)), left, 3);
+            write(l, string'("|"));
         end loop;
     end;
     
