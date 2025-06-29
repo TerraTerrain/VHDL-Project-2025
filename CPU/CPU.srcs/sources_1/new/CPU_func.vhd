@@ -391,6 +391,7 @@ begin
             assert FALSE report "Illegal opcode" severity error;
             write_no_param2(l);
         end case;
+        writeline(TraceFile, l);
         end loop;
     end process;
 end Functional;
