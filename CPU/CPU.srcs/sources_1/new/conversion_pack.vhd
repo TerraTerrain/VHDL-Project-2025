@@ -4,6 +4,7 @@ use WORK.defs_pack.all;
 use IEEE.numeric_bit.ALL;
 
 package conversion_pack is
+    function bv2str(bv : bit_vector) return string;
     function sign_extend(imm : bit_vector) return bit_vector;
     function zero_extend(imm : bit_vector) return bit_vector;
     function loadMem32(Mem: MemType; address: unsigned) return BusDataType;
@@ -18,6 +19,15 @@ end conversion_pack;
 
 package body conversion_pack is
 
+    function bv2str(bv : bit_vector) return string is
+        variable result : string(1 to bv'length);
+    begin
+        for i in 0 to bv'length - 1 loop
+            result(i + 1) := character'value(bit'image(bv(bv'left - i)));
+        end loop;
+        return result;
+    end function;
+    
     function sign_extend(imm : bit_vector) return bit_vector is
         constant extend_length : integer := 32 - imm'length;
         variable extended_imm : bit_vector(31 downto 0);
