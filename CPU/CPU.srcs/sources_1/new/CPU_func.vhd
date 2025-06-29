@@ -15,7 +15,7 @@ begin
     process
         -- for tracing
         use std.textio.all;
-        file TraceFile : Text is out "Trace";
+        file TraceFile : Text is out "Trace.txt";
         variable l : line;
         -- cpu objects
         variable PC           : AddrType    := X"0000";
@@ -65,7 +65,7 @@ begin
         int_rs2 := TO_INTEGER(unsigned(rs2));
         int_rd  := TO_INTEGER(unsigned(rd));
 
-        --write_pc_cmd(l , PC , OP , func3 , func7 , rd , rs1 , rs2);
+        write_pc_cmd(l , PC , OP , func3 , func7 , rd , rs1 , rs2);
         
         case OP is
             when OpEBREAK =>
@@ -391,7 +391,8 @@ begin
             assert FALSE report "Illegal opcode" severity error;
             write_no_param2(l);
         end case;
+        write_regs(l,Reg);
         writeline(TraceFile, l);
-        end loop;
+        end loop;     
     end process;
 end Functional;
