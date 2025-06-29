@@ -1,7 +1,7 @@
 library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL;
---use ieee.numeric_bit.all;
-use ieee.numeric_std.all;
+use ieee.numeric_bit.all;
+--use ieee.numeric_std.all;
 use std.textio.all;
 use ieee.std_logic_textio.all;
 use work.defs_pack.all;
@@ -28,6 +28,7 @@ package trace_pack is
                          constant reg : in RegType);--stored value in registers
     
     --conversion functions for tracing
+    function unsigned2hex(un : unsigned) return string;
     function bv2int(input: bit_vector) return integer;
     function bv2hex(bv : bit_vector) return string; --from bit_vector to hex
     function zero_extend4x(imm : bit_vector; ext: integer) return bit_vector;
@@ -39,6 +40,20 @@ end trace_pack;
 package body trace_pack is
     
     --conversion functions
+    --for PC: from unsigned to string(hex)Add commentMore actions
+    function unsigned2hex(un : unsigned) return string is
+        constant hex_table : string := "0123456789ABCDEF";
+
+        variable result : string(1 to 4);
+        variable nibble : unsigned(3 downto 0);
+    begin
+        for i in 0 to 3 loop 
+            nibble := un(i*4+3 downto i*4);
+            result(4-i) := hex_table(to_integer(nibble)+1); 
+        end loop;
+        return result;
+    end;
+    
     function bv2int(input: bit_vector) return integer is
         variable result : integer := 0;
         variable bit_length : integer := input'length;
@@ -50,19 +65,6 @@ package body trace_pack is
         end loop;
     return result;
     end function;
-    --from bv to string
-    function bv2hex(bv : bit_vector) return string is
-        constant hex_table : string := "0123456789ABCDEF";
-        variable length_hex : integer := (bv'length+3)/4; --calculate how many hex do we need
-        variable result : string(1 to length_hex);
-        variable bv_4 : bit_vector(length_hex * 4 - 1 downto 0);
-    begin
-        bv_4(bv_4'length-1 downto 0) := zero_extend4x(bv, length_hex*4);
-        for i in 0 to length_hex -1 loop
-            result(i+1) := hex_table(bv2int(bv_4(4*i+3 downto 4*i))+1);
-        end loop;
-        return result;
-    end;
     
     function zero_extend4x(imm : bit_vector; ext : integer) return bit_vector is
         constant extend_length : integer := ext - imm'length;
@@ -72,6 +74,23 @@ package body trace_pack is
         extended_imm := (extend_length - 1 downto 0 => '0') & imm;
         return extended_imm;
     end function;
+    
+    --from bv to string
+    function bv2hex(bv : bit_vector) return string is
+        constant hex_table : string := "0123456789ABCDEF";
+        variable length_hex : integer := (bv'length+3)/4; --calculate how many hex do we need
+        variable result : string(1 to length_hex);
+        variable bv_4 : bit_vector(length_hex * 4 - 1 downto 0);
+    begin
+        bv_4(bv_4'length-1 downto 0) := zero_extend4x(bv, length_hex*4);
+        for i in 0 to length_hex -1 loop
+            --result(i+1) := hex_table(bv2int(bv_4(4*i+3 downto 4*i))+1);
+            result(i+1) := hex_table(bv2int(bv_4(bv_4'high - i*4 downto bv_4'high - i*4 - 3)) + 1);
+        end loop;
+        return result;
+    end;
+    
+    
     
     function bool_character(b : boolean) return character is
     begin
@@ -292,7 +311,7 @@ package body trace_pack is
                            constant func7 : in Func7Type;
                            constant rd,rs1,rs2 : in RegAddrType) is
     begin
-        write(l, bv2hex(bit_vector(PC)), left, 3);--PC
+        write(l, unsigned2hex(unsigned(PC)), left, 3);--PC
         write(l, string'("|"));
         write(l, cmd_image(op,func3, func7), left, 5);--CMD
         write(l, string'("|"));
