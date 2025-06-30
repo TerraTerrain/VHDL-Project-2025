@@ -65,6 +65,7 @@ package body mem_pack is
         variable result      : integer := 0;
         variable hex_value   : integer := 0;
         variable first_index : integer := 0;
+        variable last_index  : integer := 0;
         variable neg_flag    : boolean := FALSE;
     begin
         -- Format check
@@ -73,15 +74,17 @@ package body mem_pack is
         
         -- Sign check
         if hex_str(hex_str'left+1) = '-' then
-            first_index := hex_str'left+2;
+            first_index := hex_str'left+2; -- ignore '#' and '-'
+            last_index := hex_str'right; -- to the end
             neg_flag := TRUE;
         else
-            first_index := hex_str'left+1;
+            first_index := hex_str'left+1; -- ignore '#'
+            last_index := hex_str'right-1; -- to the end without ' '
             neg_flag := FALSE;
         end if;
         
         -- Iterate through each character in the string
-        for i in first_index to hex_str'right loop
+        for i in first_index to last_index loop
             case hex_str(i) is
                 when '0' | ' ' => hex_value := 0;
                 when '1'       => hex_value := 1;
@@ -312,7 +315,8 @@ package body mem_pack is
                 next; -- comment line
             end if;
         end if;
-              
+        
+        v := (others => ' ');
         v(1 to l'length) := l.all(1 to l'length); -- copy line to string
         report v(1 to l'length);
         if v(1) = '@' then
@@ -328,13 +332,13 @@ package body mem_pack is
             elsif mn_num >= 10 and mn_num <= 27 then -- I+S-Type
                 r1  := toRegAddrType(v(8 to 10));
                 r2  := toRegAddrType(v(12 to 14));
-                imm := toConstant(v(16 to 19));
+                imm := toConstant(v(16 to 20));
             elsif mn_num >= 28 and mn_num <= 33 then -- B-Type
                 r1 := toRegAddrType(v(8 to 10));
                 r2 := toRegAddrType(v(12 to 14));
             elsif mn_num >= 34 and mn_num <= 36 then -- U+J-Type
                 r1  := toRegAddrType(v(8 to 10));
-                imm := toConstant(v(12 to 17));
+                imm := toConstant(v(12 to 18));
             elsif mn_num = 37 then -- EBREAK
                 null;
             else
