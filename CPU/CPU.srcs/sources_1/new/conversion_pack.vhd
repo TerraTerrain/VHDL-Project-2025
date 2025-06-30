@@ -10,9 +10,9 @@ package conversion_pack is
     function loadMem32(Mem: MemType; address: unsigned) return BusDataType;
     function loadMem16(Mem: MemType; address: unsigned) return bit_vector;
     function loadMem8 (Mem: MemType; address: unsigned) return bit_vector;
-    procedure storeMem32(Mem: out MemType; address: integer; Reg: RegType; rs2: integer);
-    procedure storeMem16(Mem: out MemType; address: integer; Reg: RegType; rs2: integer);
-    procedure storeMem8 (Mem: out MemType; address: integer; Reg: RegType; rs2: integer);
+    procedure storeMem32(Mem: inout MemType; address: integer; Reg: RegType; rs2: integer);
+    procedure storeMem16(Mem: inout MemType; address: integer; Reg: RegType; rs2: integer);
+    procedure storeMem8 (Mem: inout MemType; address: integer; Reg: RegType; rs2: integer);
 end conversion_pack;
 
 
@@ -92,7 +92,7 @@ package body conversion_pack is
         return result;
     end function;
     
-    procedure storeMem32(Mem: out MemType; address: integer; Reg: RegType; rs2: integer) is
+    procedure storeMem32(Mem: inout MemType; address: integer; Reg: RegType; rs2: integer) is
     begin
         case address mod 4 is -- check the last 2 bits of address
             when 0 =>
@@ -102,7 +102,7 @@ package body conversion_pack is
         end case;
     end procedure;
     
-    procedure storeMem16(Mem: out MemType; address: integer; Reg: RegType; rs2: integer) is
+    procedure storeMem16(Mem: inout MemType; address: integer; Reg: RegType; rs2: integer) is
     begin
         case address mod 4 is -- check the last 2 bits of address
             when 0 => -- Lower half-word
@@ -114,7 +114,7 @@ package body conversion_pack is
         end case;
     end procedure;
 
-    procedure storeMem8 (Mem: out MemType; address: integer; Reg: RegType; rs2: integer) is
+    procedure storeMem8 (Mem: inout MemType; address: integer; Reg: RegType; rs2: integer) is
     begin
         case address mod 4 is -- check the last 2 bits of address
             when 0 => -- Lower byte

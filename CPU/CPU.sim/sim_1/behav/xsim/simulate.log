@@ -1,0 +1,51 @@
+Time resolution is 1 ps
+Note: @0x0000
+                                                        
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #001
+                                            
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(0):00000000000100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #000
+                                            
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(4):00000000101000001000000000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #080
+                                            
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(8):00001000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #001
+                                            
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(12):00000000101000001000000010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+                                            
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(16):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #002
+                                            
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(20):00000000101000001000000100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #0FF
+                                            
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_fun

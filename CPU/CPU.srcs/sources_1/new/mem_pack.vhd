@@ -14,7 +14,7 @@ package mem_pack is
     function toMnemonic(mnemonic_str: string) return MnemonicType;
     function toMemEntry (mn : MnemonicType; r1: RegAddrType; r2: RegAddrType; r3: RegAddrType; imm: integer)
         return BusDataType;
-    procedure init_memory (filename: in string; Mem : out MemType);
+    procedure init_memory (filename: in string; Mem : inout MemType);
 end mem_pack;
 
 
@@ -274,11 +274,11 @@ package body mem_pack is
 
 
 
-    procedure init_memory (filename: string; Mem : out MemType) is
+    procedure init_memory (filename: string; Mem : inout MemType) is
         file     f         : text open read_mode is filename;
         variable l         : line;
         variable addr      : AddrType        := (others => '0');
-        variable v         : string(1 to 20) := (others => ' ');
+        variable v         : string(1 to 64) := (others => ' ');
         variable r1,r2,r3  : RegAddrType     := (others => '0');
         variable mnemonic  : MnemonicType;
         variable mn_num    : integer range 0 to 37;
