@@ -5,8 +5,6 @@ use WORK.defs_pack.all;
 use WORK.conversion_pack.all;
 use STD.TEXTIO.all;
 
-
-
 package mem_pack is
     function toAddrType     (hex_str: string) return AddrType;
     function toConstant     (hex_str: string) return integer;
@@ -64,15 +62,26 @@ package body mem_pack is
     
     -- Function to convert a hexadecimal string to an integer
     function toConstant(hex_str: string) return integer is
-        variable result    : integer := 0;
-        variable hex_value : integer;
+        variable result      : integer := 0;
+        variable hex_value   : integer := 0;
+        variable first_index : integer := 0;
+        variable neg_flag    : boolean := FALSE;
     begin
         -- Format check
         assert not(hex_str(hex_str'left) /= '#')
             report "Incorrect immediate format" severity error;
         
+        -- Sign check
+        if hex_str(hex_str'left+1) = '-' then
+            first_index := hex_str'left+2;
+            neg_flag := TRUE;
+        else
+            first_index := hex_str'left+1;
+            neg_flag := FALSE;
+        end if;
+        
         -- Iterate through each character in the string
-        for i in hex_str'left+1 to hex_str'right loop
+        for i in first_index to hex_str'right loop
             case hex_str(i) is
                 when '0' | ' ' => hex_value := 0;
                 when '1'       => hex_value := 1;
@@ -96,8 +105,12 @@ package body mem_pack is
             -- Shift the current result and add the new hex value
             result := result * 16 + hex_value;
         end loop;
-
-        return result;
+        
+        if neg_flag then
+            return -result;
+        else 
+            return result;
+        end if;
     end toConstant;
     
     
@@ -179,9 +192,15 @@ package body mem_pack is
         variable imm20     : bit_vector(19 downto 0);
         variable shamt     : bit_vector(4 downto 0);
     begin
-        imm12 := bit_vector(TO_UNSIGNED(imm,12));
-        imm20 := bit_vector(TO_UNSIGNED(imm,20));
+        if imm < 0 then
+            imm12 := bit_vector(TO_SIGNED(imm,12));
+            imm20 := bit_vector(TO_SIGNED(imm,20));
+        else 
+            imm12 := bit_vector(TO_UNSIGNED(imm,12));
+            imm20 := bit_vector(TO_UNSIGNED(imm,20));
+        end if;
         shamt := bit_vector(TO_UNSIGNED(imm,5));
+        
         case mn is
             when EBREAK =>
                 result := zero_extend(OpEBREAK);
@@ -274,11 +293,11 @@ package body mem_pack is
 
 
 
-    procedure init_memory (filename: string; Mem : inout MemType) is
+    procedure init_memory (filename: in string; Mem : inout MemType) is
         file     f         : text open read_mode is filename;
         variable l         : line;
         variable addr      : AddrType        := (others => '0');
-        variable v         : string(1 to 64) := (others => ' ');
+        variable v         : string(1 to 25) := (others => ' ');
         variable r1,r2,r3  : RegAddrType     := (others => '0');
         variable mnemonic  : MnemonicType;
         variable mn_num    : integer range 0 to 37;
@@ -287,17 +306,15 @@ package body mem_pack is
     begin
     line_loop : while not endfile(f) loop
         readline (f, l);
-        if l'length = 0 then
-            next; -- empty line
-        end if;
         if l'length >= 2 then
             if l.all(1) = '-' and l.all(2) = '-' then
+                deallocate(l);
                 next; -- comment line
             end if;
         end if;
               
         v(1 to l'length) := l.all(1 to l'length); -- copy line to string
-        report v;
+        report v(1 to l'length);
         if v(1) = '@' then
             addr := toAddrType(v(2 to 7)); -- 0x0000 to 0xFFFF
         else 
