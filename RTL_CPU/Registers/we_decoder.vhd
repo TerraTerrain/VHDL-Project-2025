@@ -1,25 +1,23 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_BIT.ALL;
 use WORK.defs_pack.ALL;
 
-entity reg32 is
+entity we_decoder is
     port (
-        clk, rst, en : in bit;
-        d_in  : in  DataType;
-        d_out : out DataType
+        we        : in bit;
+        w_addr    : in RegAddrType;
+        we_vector : out bit_vector(2**RegAddrSize-1 downto 0)
     );
-end reg32;
+end we_decoder;
 
-architecture Behavioral of reg32 is 
+architecture Behavioral of we_decoder is
 begin
-    process (clk)
+    process(we, w_addr)
+        variable tmp : bit_vector(2**RegAddrSize-1 downto 0);
     begin
-        if clk = '1' and clk'event then
-            if rst = '1' then
-                d_out <= (others => '0');
-            elsif en = '1' then
-                d_out <= d_in;
-            end if;
-        end if;
+        tmp := (others => '0');
+        tmp(TO_INTEGER(unsigned(w_addr))) := we;
+        we_vector <= tmp;
     end process;
 end Behavioral;
