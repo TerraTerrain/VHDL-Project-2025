@@ -14,9 +14,10 @@ entity reg_file is
 end reg_file;
 
 architecture Behavioral of reg_file is
-    signal we_vector_sig : bit_vector(2**RegAddrSize-1 downto 0);
-    signal regs_in_sig   : RegType;
-    signal r_data_sig    : DataType;
+    signal we_vector_sig : bit_vector(2**RegAddrSize-1 downto 0)
+        := (others => '0');
+    signal regs_in_sig   : RegType := (others => (others => '0'));
+    signal r_data_sig    : DataType := (others => '0');
 begin
     decoder: entity WORK.we_decoder(Behavioral)
         port map(
