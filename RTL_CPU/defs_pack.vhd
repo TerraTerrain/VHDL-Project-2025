@@ -83,6 +83,9 @@ package defs_pack is
     -- Shift instructions
     constant Func3SLL     : Func3Type := "001";
     constant Func3SRL_SRA : Func3Type := "101";
+    constant Func7SLL     : Func7Type := "0010100";
+    constant Func7SRL     : Func7Type := "0010101";
+    constant Func7SRA     : Func7Type := "0010110";
     constant Func7ShLog   : Func7Type := "0000000"; 
     constant Func7ShArthm : Func7Type := "0100000";  
     
