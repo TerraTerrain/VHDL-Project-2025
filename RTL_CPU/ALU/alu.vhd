@@ -39,4 +39,32 @@ begin
         overflow => test_overflow
         );
     
+    comp: entity work.comparator(Behavioral)
+    port map(
+        data_in1 => operand1,
+        data_in2 => operand2,
+        opcode => operation,
+        data_out => result
+    );
+    
+    shift: entity work.shift(Behavioral)
+    port map(  
+        data_in => operand1,
+        opcode => operation,
+        data_out => out_shifter
+    );      
+    
+    ALU: process(operation, out_add, out_sub, out_logic_unit, out_shifter)
+    case operation is
+        when OpAdd =>
+            result <= out_add;
+        when OpSub =>
+            result <= out_sub;
+        when Func3XOR or Func3OR or Func3AND =>
+            result <= out_logic_unit;
+        when Func7SLL or Func7SRL or Func7SRA =>
+            result <= out_shifter;
+        when others =>
+            result <= (others => '0');
+    end case;
 end Behavioral;
