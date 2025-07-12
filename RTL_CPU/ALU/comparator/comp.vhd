@@ -5,34 +5,40 @@ use work.cpu_defs_pack.all;
 
 entity comparator is 
     Port (
-        data_in1    : in  data_type;
-        data_in2    : in  data_type;
-        opcode      : in  opcode_type;
-        data_out    : out data_type
+        a, b             : in  data_type;
+        func3            : in  Func3Type;
+        out_comp         : out bit;
+        branch_comp      : out bit
     );
 end comparator;
 
 architecture Behavioral of comparator is
 begin
-    process(data_in1, data_in2, opcode)
-        variable temp : data_type := (others => '0');
+    process(a, b, func3)
     begin
-        case opcode is
-            when code_slt =>
-                if signed(data_in1) < signed(data_in2) then
-                    temp := (others => '1');
-                else
-                    temp := (others => '0');
-                end if;
-            when code_sltu => 
-                if unsigned(data_in1) < unsigned(data_in2) then
-                    temp := (others => '1');
-                else
-                    temp := (others => '0');
-                end if;
+        case func3 is
+                out_comp <= '0';
+                branch_comp <= '0';
+            when Func3SLT =>
+                out_comp <= '1' when signed(a) < signed(b) else '0';
+            when Func3SLTU =>
+                out_comp <= '1' when unsigned(a) < unsigned(b) else '0';
+            when Func3BEQ =>
+                branch_comp <= '1' when a = b else '0';
+            when Func3BNE =>
+                branch_comp <= '1' when a /= b else '0';
+            when Func3BLT =>
+                    branch_comp <= '1' when signed(a) < signed(b) else '0';
+            when Func3BGE =>
+                branch_comp <= '1' when signed(a) >= signed(b) else '0';   
+            when Func3BLTU =>
+                branch_comp <= '1' when unsigned(a) < unsigned(b) else '0'; 
+            when Func3BGEU =>
+                branch_comp <= '1' when unsigned(a) >= unsigned(b) else '0';    
             when others =>
-                temp := (others => '0');
-        end case;
-        data_out <= temp;
+                out_comp <= '0';
+                branch_comp <= '0';
+        end case;       
+
     end process;
 end Behavioral;

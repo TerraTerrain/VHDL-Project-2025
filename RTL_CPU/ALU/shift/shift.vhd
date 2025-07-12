@@ -5,10 +5,10 @@ use WORK.defs_pack.ALL;
 
 entity shift is
     Port (
-        data_in  : in  DataType;
-        func3    : in  Func3Type;
-        func7    : in  Func7Type;
-        data_out : out DataType
+        data_in   : in  DataType;
+        func3     : in  Func3Type;
+        func7     : in  Func7Type;
+        out_shift : out DataType
     );
 end shift;
 
@@ -20,16 +20,16 @@ begin
         case func7 is
             when Func7ShLog =>
                 case func3 is
-                    when "001" => -- SLL
+                    when Func3SLL => 
                         temp := data_in sll 1;
-                    when "101" => -- SRL
+                    when Func3SRL_SRA => 
                         temp := data_in srl 1;                
                     when others =>
                         temp := (others => '0');
                 end case;
             when Func7ShArthm =>
                 case func3 is
-                    when "101" => -- SRA
+                    when Func3SRL_SRA => 
                         temp := data_in sra 1;              
                     when others =>
                         temp := (others => '0');
@@ -37,6 +37,6 @@ begin
             when others =>
                 temp := (others => '0'); -- Default
         end case;
-        data_out <= temp;
+        out_shift <= temp;
     end process;
 end Behavioral;

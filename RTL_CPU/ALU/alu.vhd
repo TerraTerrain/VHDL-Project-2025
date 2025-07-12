@@ -7,18 +7,18 @@ entity alu is
     Port (
             operand1       :       in      datatype;--a
             operand2       :       in      datatype;--b
-            operation      :       in	   optype;--f
-            result         :       out     datatype--output
+            func3          :       in	   Func3Type;
+            func7          :       in      Func7Type;
+            result         :       out     datatype;
+            branch         :       out     bit
      );
 end alu;
 
 architecture Behavioral of alu is
-    signal out_add: datatype := (others =>'0');   
-    signal out_sub: datatype := (others =>'0');   
-    signal out_logic_unit: datatype := (others =>'0');
-    signal out_shifter: datatype := (others =>'0');
-    signal test_carryout : bit;
-    signal test_overflow : bit;
+    signal out_add, out_sub, out_shift, out_logic : datatype := (others => '0');
+    signal test_carryout, test_overflow : bit;
+    signal out_comp  : bit := '0';
+    signal br.      : bit := '0';
 begin
     add: entity work.adder(Behavioral)
     port map(
@@ -39,32 +39,58 @@ begin
         overflow => test_overflow
         );
     
+    logic_unit: entity work.logic_unit(Behavioral)
+        port map(
+            a     => operand1,
+            b     => operand2,
+            func3 => func3,
+            s     => out_logic_unit
+        );
+    
     comp: entity work.comparator(Behavioral)
     port map(
-        data_in1 => operand1,
-        data_in2 => operand2,
-        opcode => operation,
-        data_out => result
+        a => operand1,
+        b => operand2,
+        func3 => func3,
+        out_comp => out_comp,
+        branch_comp => br
     );
     
     shift: entity work.shift(Behavioral)
     port map(  
         data_in => operand1,
-        opcode => operation,
-        data_out => out_shifter
+        func3 => func3,
+        func7 => func7,
+        out_shift => out_shift
     );      
     
-    ALU: process(operation, out_add, out_sub, out_logic_unit, out_shifter)
-    case operation is
-        when OpAdd =>
-            result <= out_add;
-        when OpSub =>
-            result <= out_sub;
-        when Func3XOR or Func3OR or Func3AND =>
-            result <= out_logic_unit;
-        when Func7SLL or Func7SRL or Func7SRA =>
-            result <= out_shifter;
-        when others =>
-            result <= (others => '0');
-    end case;
+    ALU: process(operand1, operand2, out_add, out_sub, out_logic_unit, out_shift, br)
+    begin
+        result <= (others => '0');
+        branch <= '0';
+
+        case func3 is
+            when Func3ADD =>
+                if func7 = Func7SUB then
+                    result <= out_sub;
+                else
+                    result <= out_add;
+                end if;
+            when Func3SLT =>
+                result <= (others => '0');
+                result(0) <= out_comp;
+            when Func3SLTU =>
+                result <= (others => '0');
+                result(0) <= out_comp;           
+            when Func3XOR or Func3OR or Func3AND =>
+                result <= out_logic_unit;
+            when Func3SLL or Func3SRL_SRA =>
+                result <= out_shift;
+            when Func3BEQ or Func3BNE or Func3BLT or Func3BGE or Func3BLTU or Func3BGEU =>
+                branch <= out_branch;
+            when others =>
+                result <= (others => '0');
+                branch <= '0';
+        end case;
+    end process;
 end Behavioral;
