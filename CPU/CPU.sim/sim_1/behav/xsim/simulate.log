@@ -1,0 +1,1151 @@
+Time resolution is 1 ps
+Note: @0x0000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(0):00000000000100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(4):00000000101000001000000000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #080
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(8):00001000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(12):00000000101000001000000010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(16):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(20):00000000101000001000000100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #0FF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(24):00001111111100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #003
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(28):00000000101000001000000110100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(32):00000000000100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #004
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(36):00000000101000001000001000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(40):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #005
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(44):00000000101000001000001010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #0FF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(48):00001111111100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #006
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(52):00000000101000001000001100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #07F
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(56):00000111111100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #007
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(60):00000000101000001000001110100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(64):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #008
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(68):00000000101000001000010000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #080
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(72):00001000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #009
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(76):00000000101000001000010010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(80):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #010
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(84):00000000101000001000100000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #011
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(88):00000000101000001000100010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #0FF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(92):00001111111100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #012
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(96):00000000101000001000100100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #013
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(100):00000000101000001000100110100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(104):00000000000100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #014
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(108):00000000101000001000101000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(112):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #015
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(116):00000000101000001000101010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(120):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #016
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(124):00000000101000001000101100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #017
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(128):00000000101000001000101110100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #078
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(132):00000111100000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #018
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(136):00000000101000001000110000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #056
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(140):00000101011000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #019
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(144):00000000101000001000110010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #034
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(148):00000011010000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #020
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(152):00000010101000001000000000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #012
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(156):00000001001000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #021
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(160):00000010101000001000000010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #0FF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(164):00001111111100000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #022
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(168):00000010101000001000000100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #023
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(172):00000010101000001000000110100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #024
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(176):00000010101000001000001000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #025
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(180):00000010101000001000001010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X01 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(184):00000000000000000000000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #026
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(188):00000010101000001000001100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #027
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(192):00000010101000001000001110100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #028
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(196):00000010101000001000010000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #029
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(200):00000010101000001000010010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LB     X01 X10 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 20
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(204):00000000000001010000000010000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LB     X02 X10 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 20
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(208):00000000000101010000000100000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LB     X03 X10 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 20
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(212):00000000001001010000000110000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LBU    X04 X10 #003
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 21
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(216):00000000001101010100001000000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LBU    X05 X10 #004
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 21
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(220):00000000010001010100001010000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LBU    X06 X10 #005
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 21
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(224):00000000010101010100001100000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LH     X07 X10 #006
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 22
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(228):00000000011001010001001110000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LH     X08 X10 #008
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 22
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(232):00000000100001010001010000000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LH     X09 X10 #010
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 22
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(236):00000001000001010001010010000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LHU    X11 X10 #012
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 23
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(240):00000001001001010101010110000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LHU    X12 X10 #014
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 23
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(244):00000001010001010101011000000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LHU    X13 X10 #016
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 23
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(248):00000001011001010101011010000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LW     X14 X10 #018
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 24
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(252):00000001100001010010011100000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LW     X15 X10 #022
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 24
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(256):00000010001001010010011110000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LW     X16 X10 #026
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 24
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(260):00000010011001010010100000000011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X01 X10 #030
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(264):00000010101000001000100000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X02 X10 #031
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(268):00000010101000010000100010100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SB     X03 X10 #032
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 25
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(272):00000010101000011000100100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SH     X04 X10 #034
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 26
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(276):00000010101000100001101000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SH     X05 X10 #036
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 26
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(280):00000010101000101001101100100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SH     X06 X10 #038
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 26
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(284):00000010101000110001110000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SW     X07 X10 #040
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 27
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(288):00000100101000111010000000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SW     X08 X10 #044
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 27
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(292):00000100101001000010001000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SW     X09 X10 #048
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 27
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(296):00000100101001001010010000100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADD    X17 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 0
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(300):00000000111101110000100010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADD    X18 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 0
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(304):00000001000001110000100100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADD    X19 X15 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 0
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(308):00000000111101111000100110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SUB    X20 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 1
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(312):01000000111101110000101000110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SUB    X21 X16 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 1
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(316):01000001000010000000101010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SUB    X22 X15 X14
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 1
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(320):01000000111001111000101100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X23 X16 #-001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(324):11111111111110000000101110010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X24 X16 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(328):00000000000110000000110000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X25 X16 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(332):00000000000010000000110010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LUI    X26 #01100
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 34
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(336):00000001000100000000110100110111
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LUI    X27 #00101
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 34
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(340):00000000000100000001110110110111
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: LUI    X28 #00000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 34
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(344):00000000000000000000111000110111
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: AUIPC  X29 #00010
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 35
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(348):00000000000000010000111010010111
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: AUIPC  X30 #00000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 35
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(352):00000000000000000000111100010111
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: AUIPC  X31 #FFFFF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 35
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(356):11111111111111111111111110010111
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: XOR    X01 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 5
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(360):00000000111101110100000010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: XOR    X02 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 5
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(364):00000001000001110100000100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: XOR    X03 X15 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 5
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(368):00000000111101111100000110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: OR     X04 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 6
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(372):00000000111101110110001000110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: OR     X05 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 6
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(376):00000001000001110110001010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: OR     X06 X16 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 6
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(380):00000001000010000110001100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: AND    X07 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 7
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(384):00000000111101110111001110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: AND    X08 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 7
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(388):00000001000001110111010000110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: AND    X09 X16 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 7
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(392):00000001000010000111010010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: XORI   X10 X14 #0FF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 14
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(396):00001111111101110100010100010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: XORI   X11 X14 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 14
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(400):00000000000001110100010110010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: XORI   X12 X14 #FFF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 14
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(404):11111111111101110100011000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ORI    X13 X14 #00F
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 15
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(408):00000000111101110110011010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ORI    X14 X16 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 15
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(412):00000000000110000110011100010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ORI    X15 X15 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 15
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(416):00000000000001111110011110010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ANDI   X16 X14 #0F0
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 16
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(420):00001111000001110111100000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ANDI   X17 X14 #0FF
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 16
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(424):00001111111101110111100010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ANDI   X18 X16 #00F
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 16
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(428):00000000111110000111100100010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLL    X19 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 2
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(432):00000001000001110001100110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLL    X20 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 2
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(436):00000000111101110001101000110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLL    X21 X14 X14
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 2
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(440):00000000111001110001101010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRL    X22 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 3
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(444):00000001000001110101101100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRL    X23 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 3
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(448):00000000111101110101101110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRL    X24 X14 X14
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 3
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(452):00000000111001110101110000110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRA    X25 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 4
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(456):01000001000001110101110010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRA    X26 X15 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 4
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(460):01000000111101111101110100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRA    X27 X15 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 4
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(464):01000001000001111101110110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLLI   X01 X14 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 11
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(468):00000000000101110001000010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLLI   X02 X14 #004
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 11
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(472):00000000010001110001000100010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLLI   X03 X14 #031
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 11
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(476):00000001000101110001000110010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRLI   X04 X14 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 12
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(480):00000000000101110101001000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRLI   X05 X14 #004
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 12
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(484):00000000010001110101001010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRLI   X06 X14 #031
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 12
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(488):00000001000101110101001100010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRAI   X07 X15 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 13
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(492):01000000000101111101001110010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRAI   X08 X15 #031
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 13
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Warning: NUMERIC_BIT.TO_UNSIGNED: vector truncated
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(496):01000001000101111101010000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SRAI   X09 X14 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 13
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(500):01000000000101110101010010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLT    X10 X16 X14
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 8
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(504):00000000111010000010010100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLT    X11 X14 X15
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 8
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(508):00000000111101110010010110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLT    X12 X14 X14
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 8
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(512):00000000111001110010011000110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTU   X13 X14 X16
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 9
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(516):00000001000001110011011010110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTU   X14 X16 X14
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 9
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(520):00000000111010000011011100110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTU   X15 X14 X14
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 9
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(524):00000000111001110011011110110011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTI   X16 X16 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 17
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(528):00000000000110000010100000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTI   X17 X16 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 17
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(532):00000000000010000010100010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTI   X18 X16 #-001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 17
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(536):11111111111110000010100100010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTIU  X19 X16 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 18
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(540):00000000000010000011100110010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTIU  X20 X16 #001
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 18
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(544):00000000000110000011101000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: SLTIU  X21 X16 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 18
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(548):00000000001010000011101010010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: BEQ    X16 X16 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 28
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(552):00000001000010000000001001100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X00 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(556):00000000000000000000000000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: BEQ    X16 X14 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 28
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(560):00000000111010000000000001100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: BNE    X16 X14 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 29
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(564):00000000111010000001000001100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: ADDI   X00 X00 #000
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 10
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(568):00000000000000000000000000010011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: BNE    X16 X16 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 29
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mem(572):00000001000010000001000001100011
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: BLT    X16 X14 #002
+
+Time: 0 ps  Iteration: 0  Process: /RISCV/line__15  File: C:/Users/Liudkevych/Desktop/VHDL-Project-2025/CPU/CPU.srcs/sources_1/new/CPU_func.vhd
+Note: Mnemonic number: 30
+Time: 0 ps  I

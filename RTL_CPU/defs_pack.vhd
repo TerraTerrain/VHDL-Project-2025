@@ -1,25 +1,22 @@
+
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+--use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_bit.all;
 
 package defs_pack is
 -- Basic constants and types
-    --PC, addr wire of bus, memory depth
-    constant AddrSize       : integer := 16;
-    constant ByteAddrSize   : integer := 2;
-    constant MemoryAddrSize : integer := AddrSize - ByteAddrSize;
+    constant AddrSize       : natural  := 16; -- PC
+    constant ByteAddrSize   : natural := 2; -- offset
+    constant MemoryAddrSize : natural := AddrSize - ByteAddrSize;
   
-
-    --instruction, opcode size
-    constant InstrSize : integer := 32;
-    constant OpSize    : integer := 7;
+    constant InstrSize : natural := 32;
+    constant OpSize    : natural := 7;
     
-    --data wire of bus, memory width
-    constant BusDataSize : integer := 32;
+    -- bus, memory and register width
+    constant DataSize : natural := 32;
     
-    --register sizes
-    constant RegDataSize: integer := 32;
-    constant RegAddrSize: integer := 5;
+    -- registers amount
+    constant RegAddrSize: natural := 5;
     
     subtype AddrType  is unsigned   (AddrSize-1 downto 0); 
     subtype InstrType is bit_vector (InstrSize-1 downto 0);
@@ -30,12 +27,11 @@ package defs_pack is
     subtype Imm12Type is bit_vector (11 downto 0);
     subtype Imm20Type is bit_vector (19 downto 0);
     
-    subtype BusDataType is bit_vector (BusDataSize-1 downto 0);
-    subtype RegDataType is bit_vector (RegDataSize-1 downto 0);
-    subtype RegAddrType is bit_vector (0 to RegAddrSize-1);
+    subtype DataType is bit_vector (DataSize-1 downto 0);
+    subtype RegAddrType is bit_vector (RegAddrSize-1 downto 0);
 
-    type RegType is array (integer range 2**RegAddrSize-1    downto 0) of RegDataType;
-    type MemType is array (integer range 2**MemoryAddrSize-1 downto 0) of BusDataType;
+    type RegType is array (integer range 0 to 2**RegAddrSize-1) of DataType;
+    type MemType is array (integer range 0 to 2**AddrSize-1) of DataType;
     
     type MnemonicType is (
         ADD,SUB,SLLr,SRLr,SRAr,XORr,ORr,ANDr,SLT,SLTU,

@@ -1,7 +1,7 @@
 library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL;
---use ieee.numeric_bit.all;
-use ieee.numeric_std.all;
+use ieee.numeric_bit.all;
+--use ieee.numeric_std.all;
 use std.textio.all;
 use ieee.std_logic_textio.all;
 use work.defs_pack.all;
@@ -11,25 +11,27 @@ package trace_pack is
     --procedures for tracing
     procedure print_header(variable f : out text);
     procedure print_tail(variable f : out text);
-    procedure write_pc_cmd(variable l : inout line;
-                            constant PC : in AddrType;
-                            constant OP : in OpType;
-                            constant func3 : in Func3Type;
-                            constant func7 : in Func7Type;
-                            constant rd,rs1,rs2 : in RegAddrType);--X:rd;Y:rs1;Z:rs2
+    procedure write_pc_cmd(variable l :     inout line;
+                           constant PC :    in AddrType;
+                           constant OP :    in OpType;
+                           constant func3 : in Func3Type;
+                           constant func7 : in Func7Type;
+                           constant rd,rs1,rs2 : in RegAddrType);--X:rd;Y:rs1;Z:rs2
                             
-    procedure write_param(variable l : inout line;
-                            constant param : in RegAddrType);
+    procedure write_param(variable l :     inout line;
+                          constant param : in bit_vector);
                             
     procedure write_no_param1(variable l : inout line);
                             
     procedure write_no_param2(variable l : inout line);
-    procedure write_regs(variable l : inout line;
-                            constant reg : in regtype);--stored value in registers
+    procedure write_regs(variable l   : inout line;
+                         constant reg : in RegType);--stored value in registers
     
     --conversion functions for tracing
+    function unsigned2hex(un : unsigned) return string;
     function bv2int(input: bit_vector) return integer;
     function bv2hex(bv : bit_vector) return string; --from bit_vector to hex
+    function zero_extend4x(imm : bit_vector; ext: integer) return bit_vector;
     function bool_character(b : boolean) return character;
     function cmd_image(op : optype; func3 : Func3Type; func7 : Func7Type) return string; --op = cmd
     
@@ -38,6 +40,20 @@ end trace_pack;
 package body trace_pack is
     
     --conversion functions
+    --for PC: from unsigned to string(hex)Add commentMore actions
+    function unsigned2hex(un : unsigned) return string is
+        constant hex_table : string := "0123456789ABCDEF";
+
+        variable result : string(1 to 4);
+        variable nibble : unsigned(3 downto 0);
+    begin
+        for i in 0 to 3 loop 
+            nibble := un(i*4+3 downto i*4);
+            result(4-i) := hex_table(to_integer(nibble)+1); 
+        end loop;
+        return result;
+    end;
+    
     function bv2int(input: bit_vector) return integer is
         variable result : integer := 0;
         variable bit_length : integer := input'length;
@@ -49,21 +65,32 @@ package body trace_pack is
         end loop;
     return result;
     end function;
+    
+    function zero_extend4x(imm : bit_vector; ext : integer) return bit_vector is
+        constant extend_length : integer := ext - imm'length;
+        variable extended_imm : bit_vector(ext-1 downto 0);
+    begin
+        -- Extend input with '0' bits
+        extended_imm := (extend_length - 1 downto 0 => '0') & imm;
+        return extended_imm;
+    end function;
+    
     --from bv to string
     function bv2hex(bv : bit_vector) return string is
         constant hex_table : string := "0123456789ABCDEF";
         variable length_hex : integer := (bv'length+3)/4; --calculate how many hex do we need
         variable result : string(1 to length_hex);
-        variable bv_4 : bit_vector(length_hex * 4 - 1 downto 0);        
-       
+        variable bv_4 : bit_vector(length_hex * 4 - 1 downto 0);
     begin
-        bv_4 := (others => '0');
-        bv_4(bv_4'length-1 downto 0) := bv;
+        bv_4(bv_4'length-1 downto 0) := zero_extend4x(bv, length_hex*4);
         for i in 0 to length_hex -1 loop
-            result(i+1) := hex_table(bv2int(bv_4(4*i+3 downto 4*i))+1);
+            --result(i+1) := hex_table(bv2int(bv_4(4*i+3 downto 4*i))+1);
+            result(i+1) := hex_table(bv2int(bv_4(bv_4'high - i*4 downto bv_4'high - i*4 - 3)) + 1);
         end loop;
         return result;
     end;
+    
+    
     
     function bool_character(b : boolean) return character is
     begin
@@ -234,6 +261,8 @@ package body trace_pack is
             return "JAL  ";
         when OpJumpReg =>
             return "JALR ";
+        when OpEBREAK =>
+            return "STOP ";
         end case;
     end;
     
@@ -241,27 +270,27 @@ package body trace_pack is
     procedure print_header(variable f : out text) is
         variable l : line;
     begin
-        write(l,string'("PC "),left,3);
+        write(l,string'("PC "),left,4);
         write(l,string'("|"));
         write(l,string'("CMD"),left,5);
         write(l,string'("|"));
-        write(l,string'("rd"),left,3);
+        write(l,string'("rd"),left,5);
         write(l,string'("|"));
-        write(l,string'("rs1"),left,3);
+        write(l,string'("rs1"),left,5);
         write(l,string'("|"));
-        write(l,string'("rs2"),left,3);
+        write(l,string'("rs2"),left,5);
         write(l,string'("|"));
-        write(l,string'("P1"),left,3);--first imm.part for branches and stores or imm.part for shift
+        write(l,string'("P1"),left,5);--first imm.part for branches and stores or imm.part for shift
         write(l,string'("|"));
-        write(l,string'("P2"),left,3);--second imm.part for branches and stores
+        write(l,string'("P2"),left,5);--second imm.part for branches and stores
         write(l,string'("|"));
-        write(l,string'("R0"),left,3);
+        write(l,string'("R0"),left,8);
         write(l,string'("|"));
-        write(l,string'("R1"),left,3);
+        write(l,string'("R1"),left,8);
         write(l,string'("|"));
-        write(l,string'("R2"),left,3);
+        write(l,string'("R2"),left,8);
         write(l,string'("|"));
-        write(l,string'("R3"),left,3);
+        write(l,string'("R3"),left,8);
 
         writeline(f,l);
     end;
@@ -270,19 +299,19 @@ package body trace_pack is
     procedure print_tail(variable f : out text) is
         variable l : line;
     begin
-        write(l,string'("-----------------------------------------"));
+        write(l,string'("-----------------------------------------------------------------------------"));
         writeline(f,l);
     end;
     
     --procedure write_pc_cmd
-    procedure write_pc_cmd(variable l : inout line;
-                            constant PC : in AddrType;
-                            constant OP : in OpType;
-                            constant func3 : in Func3Type;
-                            constant func7 : in Func7Type;
-                            constant rd,rs1,rs2 : in RegAddrType) is
+    procedure write_pc_cmd(variable l     : inout line;
+                           constant PC    : in AddrType;
+                           constant OP    : in OpType;
+                           constant func3 : in Func3Type;
+                           constant func7 : in Func7Type;
+                           constant rd,rs1,rs2 : in RegAddrType) is
     begin
-        write(l, bv2hex(PC), left, 3);--PC
+        write(l, unsigned2hex(unsigned(PC)), left, 3);--PC
         write(l, string'("|"));
         write(l, cmd_image(op,func3, func7), left, 5);--CMD
         write(l, string'("|"));
@@ -295,26 +324,26 @@ package body trace_pack is
     end;
     
     --procedure write_param
-    procedure write_param(variable l : inout line;
-                          constant param : in RegAddrType) is
+    procedure write_param(variable l     : inout line;
+                          constant param : bit_vector) is
     begin
-        write(l, bv2hex(param), left, 3);
+        write(l, bv2hex(param), left, 5);
         write(l, string'("|"));
     end;
     
     
     procedure write_no_param1(variable l : inout line) is
     begin
-        write(l, string'("---|"));
+        write(l, string'("-----|"));
     end;
     --procedure write_no_param2
     procedure write_no_param2(variable l : inout line) is
     begin
-        write(l, string'("---|---|"));
+        write(l, string'("-----|-----|"));
     end;
     
     --procedure write_regs
-    procedure write_regs(variable l : inout line;
+    procedure write_regs(variable l   : inout line;
                          constant Reg : in RegType) is
     begin
         for i in 0 to 3 loop
@@ -322,5 +351,5 @@ package body trace_pack is
             write(l, string'("|"));
         end loop;
     end;
-     
+    
 end trace_pack;
