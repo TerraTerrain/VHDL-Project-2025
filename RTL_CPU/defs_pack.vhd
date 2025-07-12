@@ -5,7 +5,7 @@ use IEEE.numeric_bit.all;
 
 package defs_pack is
 -- Basic constants and types
-    constant AddrSize       : natural  := 16; -- PC
+    constant AddrSize       : natural  := 32; -- PC
     constant ByteAddrSize   : natural := 2; -- offset
     constant MemoryAddrSize : natural := AddrSize - ByteAddrSize;
   
@@ -18,7 +18,7 @@ package defs_pack is
     -- registers amount
     constant RegAddrSize: natural := 5;
     
-    subtype AddrType  is unsigned   (AddrSize-1 downto 0); 
+    subtype AddrType  is bit_vector (AddrSize-1 downto 0); 
     subtype InstrType is bit_vector (InstrSize-1 downto 0);
     
     subtype OpType    is bit_vector (OpSize-1 downto 0);
