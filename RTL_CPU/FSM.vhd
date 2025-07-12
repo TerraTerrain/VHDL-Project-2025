@@ -57,7 +57,7 @@ begin
                    if CMD_LOAD = '1' then REG_EN <= '1'; end if;
                    if CMD_STORE= '1' then WEN <= '1'; end if;
                    MEMSIGNED <= MEMCODE(2);
-                   MEMACCESS <= MEMCODE(1 downto 9);
+                   MEMACCESS <= MEMCODE(1 downto 0);
                    
     end case;
 end process;
