@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
+use WORK.defs_pack.ALL;
 
 entity shift is
     Port (
@@ -26,7 +27,7 @@ begin
                     when others =>
                         temp := (others => '0');
                 end case;
-            when Func7ShArith =>
+            when Func7ShArthm =>
                 case func3 is
                     when "101" => -- SRA
                         temp := data_in sra 1;              
