@@ -16,9 +16,9 @@ architecture Behavioral of comparator is
 begin
     process(a, b, func3)
     begin
+        out_comp <= '0';
+        branch_comp <= '0';
         case func3 is
-                out_comp <= '0';
-                branch_comp <= '0';
             when Func3SLT =>
                 out_comp <= '1' when signed(a) < signed(b) else '0';
             when Func3SLTU =>
