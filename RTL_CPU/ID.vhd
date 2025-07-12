@@ -8,7 +8,8 @@ entity ID is
     
     BRANCH   : in bit;
     --- control signals for datapath
-    OP       : out bit_vector(6 downto 0);
+    func3       : out bit_vector(2 downto 0);
+    func7       : out bit_vector(6 downto 0);
     IMM      : out bit_vector(31 downto 0);
     RD       : out bit_vector(4 downto 0);
     RS1      : out bit_vector(4 downto 0);
@@ -17,7 +18,9 @@ entity ID is
     REGSRC   : out bit_vector(1 downto 0);
     ALUSrc1  : out bit;
     ALUSrc2  : out bit;
+
     
+        
     MEMCODE: out bit_vector(2 downto 0);
 
 
