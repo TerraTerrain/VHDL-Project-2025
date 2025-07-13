@@ -64,7 +64,7 @@ begin
         out_shift => out_shift
     );      
     
-    ALU: process(operand1, operand2, func3, func7, out_add, out_sub, out_logic, out_comp, out_shift, br)
+    ALU: process(operand1, operand2, func3, func7)
     begin
         result <= (others => '0');
         branch <= '0';
