@@ -9,6 +9,7 @@ entity alu is
             operand2       :       in      datatype;--b
             func3          :       in	   Func3Type;
             func7          :       in      Func7Type;
+            alu_op         :       in      bit_vector(2 downto 0); -- Operation type from ID
             result         :       out     datatype;
             branch         :       out     bit
      );
@@ -64,46 +65,76 @@ begin
         out_shift => out_shift
     );      
     
-    ALU: process(operand1, operand2, out_add, out_sub, out_logic, out_shift, br)
+    ALU: process(operand1, operand2, out_add, out_sub, out_logic, out_shift, out_comp, br, func3, func7, alu_op)
     begin
         result <= (others => '0');
         branch <= '0';
 
-        case func3 is
-            when Func3Arthm =>
-                if func7 = Func7SUB then
-                    result <= out_sub;
-                else
-                    result <= out_add;
-                end if;
-            when Func3SLT =>
-                result <= (others => '0');
-                result(0) <= out_comp;
-            when Func3SLTU =>
-                result <= (others => '0');
-                result(0) <= out_comp;           
-            when Func3XOR =>
-                result <= out_logic;
-            when Func3or =>
-                result <= out_logic;
-            when Func3AND =>
-                result <= out_logic;
-            when Func3SLL =>
-                result <= out_shift;
-            when func3srl_sra =>
-                result <= out_shift;
-            when Func3BEQ =>
-                branch <= br;
-            when Func3BNE => 
-                branch <= br;
-            when Func3BLT => 
-                branch <= br;
-            when Func3BGE => 
-                branch <= br;
-            when Func3BLTU =>
-                branch <= br;
-            when Func3BGEU =>
-                branch <= br;
+        case alu_op is
+            when "000" => 
+                case func3 is
+                    when Func3Arthm =>  
+                        if func7 = Func7SUB then
+                            result <= out_sub;
+                        else  
+                            result <= out_add;
+                        end if;
+                    when others =>
+                        result <= (others => '0');
+                end case;
+                
+            when "001" =>  
+                case func3 is
+                    when Func3XOR =>
+                        result <= out_logic;
+                    when Func3OR =>
+                        result <= out_logic;
+                    when Func3AND =>
+                        result <= out_logic;
+                    when others =>
+                        result <= (others => '0');
+                end case;
+                
+            when "010" => 
+                case func3 is 
+                    when Func3SLL =>
+                        result <= out_shift;
+                    when Func3SRL_SRA => 
+                        result <= out_shift;
+                    when others =>
+                        result <= (others => '0');
+                end case;
+                
+            when "011" =>  -- compare
+                case func3 is
+                    when Func3SLT =>
+                        result <= (others => '0');
+                        result(0) <= out_comp;
+                    when Func3SLTU =>
+                        result <= (others => '0');
+                        result(0) <= out_comp;
+                    when others =>
+                        result <= (others => '0');
+                end case;
+                
+            when "100" =>  -- branch
+                case func3 is
+                    when Func3BEQ =>    
+                        branch <= br;
+                    when Func3BNE =>
+                        branch <= br;
+                    when Func3BLT =>
+                        branch <= br;
+                    when Func3BGE =>
+                        branch <= br;
+                    when Func3BLTU =>
+                        branch <= br;
+                    when Func3BGEU =>
+                        branch <= br;
+                    when others =>
+                        branch <= '0';
+                end case;
+                
             when others =>
                 result <= (others => '0');
                 branch <= '0';
