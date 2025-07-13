@@ -70,7 +70,7 @@ begin
         branch <= '0';
 
         case func3 is
-            when Func3ADD =>
+            when Func3Arthm =>
                 if func7 = Func7SUB then
                     result <= out_sub;
                 else
@@ -82,11 +82,27 @@ begin
             when Func3SLTU =>
                 result <= (others => '0');
                 result(0) <= out_comp;           
-            when Func3XOR or Func3OR or Func3AND =>
+            when Func3XOR =>
                 result <= out_logic;
-            when Func3SLL or Func3SRL_SRA =>
+            when Func3or =>
+                result <= out_logic;
+            when Func3AND =>
+                result <= out_logic;
+            when Func3SLL =>
                 result <= out_shift;
-            when Func3BEQ or Func3BNE or Func3BLT or Func3BGE or Func3BLTU or Func3BGEU =>
+            when func3srl_sra =>
+                result <= out_shift;
+            when Func3BEQ =>
+                branch <= br;
+            when Func3BNE => 
+                branch <= br;
+            when Func3BLT => 
+                branch <= br;
+            when Func3BGE => 
+                branch <= br;
+            when Func3BLTU =>
+                branch <= br;
+            when Func3BGEU =>
                 branch <= br;
             when others =>
                 result <= (others => '0');
