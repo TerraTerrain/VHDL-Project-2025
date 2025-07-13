@@ -17,12 +17,6 @@ constant period : time := 20 ns;
     signal result_s     : datatype;
     signal branch_s     : bit;
 
-    -- Debug signals for direct adder testing
-    signal debug_a, debug_b : datatype := (others => '0');
-    signal debug_o_mode : bit := '0';
-    signal debug_s : datatype;
-    signal debug_carry_out, debug_overflow : bit;
-
     --bit_vector to string for output in tcl console
     function to_string(bv: bit_vector) return string is
         variable result : string(1 to bv'length);
@@ -46,209 +40,319 @@ begin
         branch   => branch_s
     );
 
-    -- Direct adder test for debugging
-    debug_adder: entity work.adder(Behavioral)
-    port map(
-        a => debug_a,
-        b => debug_b,
-        o_mode => debug_o_mode,
-        s => debug_s,
-        carry_out => debug_carry_out,
-        overflow => debug_overflow
-    );
-
     stim: process
     begin
-        -- ADD Test 1
+        report "=== Starting Comprehensive ALU Tests ===";
+        
+        -- ============ ADD Tests (3 cases) ============
+        report "--- ADD Test 1: Small positive numbers ---";
         operand1_s <= B"00000000000000000000000000000101"; -- 5
         operand2_s <= B"00000000000000000000000000000011"; -- 3
         func3_s <= Func3Arthm;            -- "000"
         func7_s <= Func7ADD;              -- "0000000"
         wait for 0 ns;
         wait for 10 * period;
-        report "ADD: operand1 = " & to_string(operand1_s) & " (5)";
-        report "     operand2 = " & to_string(operand2_s) & " (3)";
-        report "     result   = " & to_string(result_s) & " (expected: 8)";
-        report "     branch   = " & bit'image(branch_s);
+        report "ADD1: " & to_string(operand1_s) & " + " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 8)";
 
-        -- ADD Test 2 - larger values
+        report "--- ADD Test 2: Large numbers ---";
         operand1_s <= B"00000000000000000000000001111111"; -- 127
         operand2_s <= B"00000000000000000000000000000001"; -- 1
         func3_s <= Func3Arthm;
         func7_s <= Func7ADD;
         wait for 0 ns;
         wait for 10 * period;
-        report "ADD: operand1 = " & to_string(operand1_s) & " (127)";
-        report "     operand2 = " & to_string(operand2_s) & " (1)";
-        report "     result   = " & to_string(result_s) & " (expected: 128)";
+        report "ADD2: " & to_string(operand1_s) & " + " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 128)";
 
-        -- DIRECT ADDER DEBUG TEST: 3 - 10
-        report "=== DIRECT ADDER DEBUG TEST ===";
-        debug_a <= B"00000000000000000000000000000011"; -- 3
-        debug_b <= B"00000000000000000000000000001010"; -- 10
-        debug_o_mode <= '1'; -- subtraction
+        report "--- ADD Test 3: Zero and number ---";
+        operand1_s <= B"00000000000000000000000000000000"; -- 0
+        operand2_s <= B"00000000000000000000000000101010"; -- 42
+        func3_s <= Func3Arthm;
+        func7_s <= Func7ADD;
         wait for 0 ns;
         wait for 10 * period;
-        report "DIRECT ADDER: a = " & to_string(debug_a) & " (3)";
-        report "              b = " & to_string(debug_b) & " (10)";
-        report "              o_mode = " & bit'image(debug_o_mode) & " (1=sub)";
-        report "              result = " & to_string(debug_s) & " (expected: -7)";
-        report "              carry_out = " & bit'image(debug_carry_out);
-        report "=== END DIRECT ADDER DEBUG ===";
+        report "ADD3: " & to_string(operand1_s) & " + " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 42)";
 
-        -- SUB Test 1
+        -- ============ SUB Tests (3 cases) ============
+        report "--- SUB Test 1: Positive result ---";
         operand1_s <= B"00000000000000000000000000001010"; -- 10
         operand2_s <= B"00000000000000000000000000000011"; -- 3
         func3_s <= Func3Arthm;            -- "000"
         func7_s <= Func7SUB;              -- "0100000"
         wait for 0 ns;
         wait for 10 * period;
-        report "SUB: operand1 = " & to_string(operand1_s) & " (10)";
-        report "     operand2 = " & to_string(operand2_s) & " (3)";
-        report "     result   = " & to_string(result_s) & " (expected: 7)";
+        report "SUB1: " & to_string(operand1_s) & " - " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 7)";
 
-        -- SUB Test 2 - negative result
+        report "--- SUB Test 2: Negative result ---";
         operand1_s <= B"00000000000000000000000000000011"; -- 3
         operand2_s <= B"00000000000000000000000000001010"; -- 10
         func3_s <= Func3Arthm;
         func7_s <= Func7SUB;
         wait for 0 ns;
         wait for 10 * period;
-        report "SUB: operand1 = " & to_string(operand1_s) & " (3)";
-        report "     operand2 = " & to_string(operand2_s) & " (10)";
-        report "     result   = " & to_string(result_s) & " (expected: -7)";
+        report "SUB2: " & to_string(operand1_s) & " - " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: -7)";
 
-        -- XOR Test
-        operand1_s <= B"00000000000000000000000011110000"; -- 0xF0
-        operand2_s <= B"00000000000000000000000010101010"; -- 0xAA
+        report "--- SUB Test 3: Zero result ---";
+        operand1_s <= B"00000000000000000000000000101010"; -- 42
+        operand2_s <= B"00000000000000000000000000101010"; -- 42
+        func3_s <= Func3Arthm;
+        func7_s <= Func7SUB;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SUB3: " & to_string(operand1_s) & " - " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 0)";
+
+        -- ============ XOR Tests (3 cases) ============
+        report "--- XOR Test 1: Different bit patterns ---";
+        operand1_s <= B"00000000000000000000000011110000"; -- 0xF0 = 240
+        operand2_s <= B"00000000000000000000000010101010"; -- 0xAA = 170
         func3_s <= Func3XOR;              -- "100"
         func7_s <= Func7ADD;              -- don't care
         wait for 0 ns;
         wait for 10 * period;
-        report "XOR: operand1 = " & to_string(operand1_s) & " (240)";
-        report "     operand2 = " & to_string(operand2_s) & " (170)";
-        report "     result   = " & to_string(result_s) & " (expected: 90)";
+        report "XOR1: " & to_string(operand1_s) & " XOR " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 90)";
 
-        -- OR Test
-        operand1_s <= B"00000000000000000000000011110000"; -- 0xF0
-        operand2_s <= B"00000000000000000000000000001111"; -- 0x0F
+        report "--- XOR Test 2: All ones with pattern ---";
+        operand1_s <= B"00000000000000000000000011111111"; -- 0xFF = 255
+        operand2_s <= B"00000000000000000000000001010101"; -- 0x55 = 85
+        func3_s <= Func3XOR;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "XOR2: " & to_string(operand1_s) & " XOR " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 170)";
+
+        report "--- XOR Test 3: Same values (should be 0) ---";
+        operand1_s <= B"00000000000000000000000011001100"; -- 0xCC = 204
+        operand2_s <= B"00000000000000000000000011001100"; -- 0xCC = 204
+        func3_s <= Func3XOR;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "XOR3: " & to_string(operand1_s) & " XOR " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 0)";
+
+        -- ============ OR Tests (3 cases) ============
+        report "--- OR Test 1: Non-overlapping bits ---";
+        operand1_s <= B"00000000000000000000000011110000"; -- 0xF0 = 240
+        operand2_s <= B"00000000000000000000000000001111"; -- 0x0F = 15
         func3_s <= Func3OR;               -- "110"
         func7_s <= Func7ADD;              -- don't care
         wait for 0 ns;
         wait for 10 * period;
-        report "OR:  operand1 = " & to_string(operand1_s) & " (240)";
-        report "     operand2 = " & to_string(operand2_s) & " (15)";
-        report "     result   = " & to_string(result_s) & " (expected: 255)";
+        report "OR1:  " & to_string(operand1_s) & " OR " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 255)";
 
-        -- AND Test
-        operand1_s <= B"00000000000000000000000011111111"; -- 0xFF
-        operand2_s <= B"00000000000000000000000011110000"; -- 0xF0
+        report "--- OR Test 2: Overlapping bits ---";
+        operand1_s <= B"00000000000000000000000010101010"; -- 0xAA = 170
+        operand2_s <= B"00000000000000000000000001010101"; -- 0x55 = 85
+        func3_s <= Func3OR;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "OR2:  " & to_string(operand1_s) & " OR " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 255)";
+
+        report "--- OR Test 3: One operand zero ---";
+        operand1_s <= B"00000000000000000000000000000000"; -- 0
+        operand2_s <= B"00000000000000000000000001111000"; -- 120
+        func3_s <= Func3OR;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "OR3:  " & to_string(operand1_s) & " OR " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 120)";
+
+        -- ============ AND Tests (3 cases) ============
+        report "--- AND Test 1: Simple mask ---";
+        operand1_s <= B"00000000000000000000000011111111"; -- 0xFF = 255
+        operand2_s <= B"00000000000000000000000011110000"; -- 0xF0 = 240
         func3_s <= Func3AND;              -- "111"
         func7_s <= Func7ADD;              -- don't care
         wait for 0 ns;
         wait for 10 * period;
-        report "AND: operand1 = " & to_string(operand1_s) & " (255)";
-        report "     operand2 = " & to_string(operand2_s) & " (240)";
-        report "     result   = " & to_string(result_s) & " (expected: 240)";
+        report "AND1: " & to_string(operand1_s) & " AND " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 240)";
 
-        -- SLT Test 1 - operand1 < operand2
+        report "--- AND Test 2: Partial overlap ---";
+        operand1_s <= B"00000000000000000000000010101010"; -- 0xAA = 170
+        operand2_s <= B"00000000000000000000000001010101"; -- 0x55 = 85
+        func3_s <= Func3AND;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "AND2: " & to_string(operand1_s) & " AND " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 0)";
+
+        report "--- AND Test 3: Large numbers (from original test) ---";
+        operand1_s <= B"00010010001101000101011001111000"; -- 0x12345678 = 305419896
+        operand2_s <= B"10000111011001010100001100100001"; -- 0x87654321 = 2271560481 (signed: -2023406815)
+        func3_s <= Func3AND;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "AND3: " & to_string(operand1_s) & " AND " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 35848736)";
+
+        -- ============ SLT Tests (3 cases) ============
+        report "--- SLT Test 1: First < Second ---";
         operand1_s <= B"00000000000000000000000000000101"; -- 5
         operand2_s <= B"00000000000000000000000000001010"; -- 10
         func3_s <= Func3SLT;              -- "010"
         func7_s <= Func7ADD;              -- don't care
         wait for 0 ns;
         wait for 10 * period;
-        report "SLT: operand1 = " & to_string(operand1_s) & " (5)";
-        report "     operand2 = " & to_string(operand2_s) & " (10)";
-        report "     result   = " & to_string(result_s) & " (expected: 1)";
+        report "SLT1: " & to_string(operand1_s) & " < " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 1)";
 
-        -- SLT Test 2 - operand1 > operand2
+        report "--- SLT Test 2: First > Second ---";
         operand1_s <= B"00000000000000000000000000001010"; -- 10
         operand2_s <= B"00000000000000000000000000000101"; -- 5
         func3_s <= Func3SLT;
         func7_s <= Func7ADD;
         wait for 0 ns;
         wait for 10 * period;
-        report "SLT: operand1 = " & to_string(operand1_s) & " (10)";
-        report "     operand2 = " & to_string(operand2_s) & " (5)";
-        report "     result   = " & to_string(result_s) & " (expected: 0)";
+        report "SLT2: " & to_string(operand1_s) & " < " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 0)";
 
-        -- SLTU Test - unsigned comparison
-        operand1_s <= B"11111111111111111111111111111111"; -- 0xFFFFFFFF (large unsigned)
+        report "--- SLT Test 3: Negative vs Positive ---";
+        operand1_s <= B"11111111111111111111111111111111"; -- -1
         operand2_s <= B"00000000000000000000000000000001"; -- 1
+        func3_s <= Func3SLT;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SLT3: " & to_string(operand1_s) & " < " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 1)";
+
+        -- ============ SLTU Tests (3 cases) ============
+        report "--- SLTU Test 1: Small unsigned comparison ---";
+        operand1_s <= B"00000000000000000000000000000101"; -- 5
+        operand2_s <= B"00000000000000000000000000001010"; -- 10
         func3_s <= Func3SLTU;             -- "011"
         func7_s <= Func7ADD;
         wait for 0 ns;
         wait for 10 * period;
-        report "SLTU: operand1 = " & to_string(operand1_s) & " (4294967295)";
-        report "      operand2 = " & to_string(operand2_s) & " (1)";
-        report "      result   = " & to_string(result_s) & " (expected: 0)";
+        report "SLTU1: " & to_string(operand1_s) & " <u " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 1)";
 
-        -- SLL Test
+        report "--- SLTU Test 2: Large unsigned vs small ---";
+        operand1_s <= B"11111111111111111111111111111111"; -- 0xFFFFFFFF (large unsigned)
+        operand2_s <= B"00000000000000000000000000000001"; -- 1
+        func3_s <= Func3SLTU;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SLTU2: " & to_string(operand1_s) & " <u " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 0)";
+
+        report "--- SLTU Test 3: Equal values ---";
+        operand1_s <= B"00000000000000000000000001111111"; -- 127
+        operand2_s <= B"00000000000000000000000001111111"; -- 127
+        func3_s <= Func3SLTU;
+        func7_s <= Func7ADD;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SLTU3: " & to_string(operand1_s) & " <u " & to_string(operand2_s) & " = " & to_string(result_s) & " (expected: 0)";
+
+        -- ============ SLL Tests (3 cases) ============
+        report "--- SLL Test 1: Shift 1 by 1 position ---";
         operand1_s <= B"00000000000000000000000000000001"; -- 1
         operand2_s <= B"00000000000000000000000000000000"; -- don't care for shift
         func3_s <= Func3SLL;              -- "001"
         func7_s <= Func7ShLog;            -- "0000000"
         wait for 0 ns;
         wait for 10 * period;
-        report "SLL: operand1 = " & to_string(operand1_s) & " (1)";
-        report "     result   = " & to_string(result_s) & " (expected: 2)";
+        report "SLL1: " & to_string(operand1_s) & " << 1 = " & to_string(result_s) & " (expected: 2)";
 
-        -- SRL Test
+        report "--- SLL Test 2: Shift larger number ---";
+        operand1_s <= B"00000000000000000000000000000011"; -- 3
+        operand2_s <= B"00000000000000000000000000000000"; -- don't care
+        func3_s <= Func3SLL;
+        func7_s <= Func7ShLog;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SLL2: " & to_string(operand1_s) & " << 1 = " & to_string(result_s) & " (expected: 6)";
+
+        report "--- SLL Test 3: Shift zero ---";
+        operand1_s <= B"00000000000000000000000000000000"; -- 0
+        operand2_s <= B"00000000000000000000000000000000"; -- don't care
+        func3_s <= Func3SLL;
+        func7_s <= Func7ShLog;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SLL3: " & to_string(operand1_s) & " << 1 = " & to_string(result_s) & " (expected: 0)";
+
+        -- ============ SRL Tests (3 cases) ============
+        report "--- SRL Test 1: Shift 16 right ---";
         operand1_s <= B"00000000000000000000000000010000"; -- 16
         operand2_s <= B"00000000000000000000000000000000"; -- don't care
         func3_s <= Func3SRL_SRA;          -- "101"
         func7_s <= Func7ShLog;            -- "0000000"
         wait for 0 ns;
         wait for 10 * period;
-        report "SRL: operand1 = " & to_string(operand1_s) & " (16)";
-        report "     result   = " & to_string(result_s) & " (expected: 8)";
+        report "SRL1: " & to_string(operand1_s) & " >> 1 = " & to_string(result_s) & " (expected: 8)";
 
-        -- SRA Test
-        operand1_s <= B"11110000000000000000000000000000"; -- negative
+        report "--- SRL Test 2: Shift larger number ---";
+        operand1_s <= B"00000000000000000000000001000000"; -- 64
+        operand2_s <= B"00000000000000000000000000000000"; -- don't care
+        func3_s <= Func3SRL_SRA;
+        func7_s <= Func7ShLog;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SRL2: " & to_string(operand1_s) & " >> 1 = " & to_string(result_s) & " (expected: 32)";
+
+        report "--- SRL Test 3: Shift odd number ---";
+        operand1_s <= B"00000000000000000000000000000111"; -- 7
+        operand2_s <= B"00000000000000000000000000000000"; -- don't care
+        func3_s <= Func3SRL_SRA;
+        func7_s <= Func7ShLog;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SRL3: " & to_string(operand1_s) & " >> 1 = " & to_string(result_s) & " (expected: 3)";
+
+        -- ============ SRA Tests (3 cases) ============
+        report "--- SRA Test 1: Positive number ---";
+        operand1_s <= B"00000000000000000000000001000000"; -- 64 (positive)
         operand2_s <= B"00000000000000000000000000000000"; -- don't care
         func3_s <= Func3SRL_SRA;          -- "101"
         func7_s <= Func7ShArthm;          -- "0100000"
         wait for 0 ns;
         wait for 10 * period;
-        report "SRA: operand1 = " & to_string(operand1_s) & " (negative)";
-        report "     result   = " & to_string(result_s) & " (expected: sign-extended)";
+        report "SRA1: " & to_string(operand1_s) & " >>> 1 = " & to_string(result_s) & " (expected: 32)";
 
-        -- BEQ Test 1 - equal values
+        report "--- SRA Test 2: Negative number ---";
+        operand1_s <= B"11110000000000000000000000000000"; -- negative
+        operand2_s <= B"00000000000000000000000000000000"; -- don't care
+        func3_s <= Func3SRL_SRA;
+        func7_s <= Func7ShArthm;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SRA2: " & to_string(operand1_s) & " >>> 1 = " & to_string(result_s) & " (expected: sign-extended)";
+
+        report "--- SRA Test 3: -1 (all ones) ---";
+        operand1_s <= B"11111111111111111111111111111111"; -- -1
+        operand2_s <= B"00000000000000000000000000000000"; -- don't care
+        func3_s <= Func3SRL_SRA;
+        func7_s <= Func7ShArthm;
+        wait for 0 ns;
+        wait for 10 * period;
+        report "SRA3: " & to_string(operand1_s) & " >>> 1 = " & to_string(result_s) & " (expected: -1)";
+
+        -- ============ Branch Tests (BEQ) ============
+        report "--- BEQ Test 1: Equal values ---";
         operand1_s <= B"00000000000000000000000000000101"; -- 5
         operand2_s <= B"00000000000000000000000000000101"; -- 5
         func3_s <= Func3BEQ;              -- "000"
         func7_s <= Func7ADD;              -- don't care
         wait for 0 ns;
         wait for 10 * period;
-        report "BEQ: operand1 = " & to_string(operand1_s) & " (5)";
-        report "     operand2 = " & to_string(operand2_s) & " (5)";
-        report "     result   = " & to_string(result_s);
-        report "     branch   = " & bit'image(branch_s) & " (expected: 1)";
+        report "BEQ1: " & to_string(operand1_s) & " == " & to_string(operand2_s) & " -> branch = " & bit'image(branch_s) & " (expected: 1)";
 
-        -- BEQ Test 2 - not equal values
+        report "--- BEQ Test 2: Not equal values ---";
         operand1_s <= B"00000000000000000000000000000101"; -- 5
         operand2_s <= B"00000000000000000000000000001010"; -- 10
         func3_s <= Func3BEQ;
         func7_s <= Func7ADD;
         wait for 0 ns;
         wait for 10 * period;
-        report "BEQ: operand1 = " & to_string(operand1_s) & " (5)";
-        report "     operand2 = " & to_string(operand2_s) & " (10)";
-        report "     result   = " & to_string(result_s);
-        report "     branch   = " & bit'image(branch_s) & " (expected: 0)";
+        report "BEQ2: " & to_string(operand1_s) & " == " & to_string(operand2_s) & " -> branch = " & bit'image(branch_s) & " (expected: 0)";
 
-        -- Invalid func3 test
-        operand1_s <= B"00010010001101000101011001111000"; -- 0x12345678
-        operand2_s <= B"10000111011001010100001100100001"; -- 0x87654321
-        func3_s <= "111";                 -- might conflict with AND, but test edge case
-        func7_s <= "1111111";             -- invalid func7
+        report "--- BEQ Test 3: Zero values ---";
+        operand1_s <= B"00000000000000000000000000000000"; -- 0
+        operand2_s <= B"00000000000000000000000000000000"; -- 0
+        func3_s <= Func3BEQ;
+        func7_s <= Func7ADD;
         wait for 0 ns;
         wait for 10 * period;
-        report "EDGE: operand1 = " & to_string(operand1_s);
-        report "      operand2 = " & to_string(operand2_s);
-        report "      result   = " & to_string(result_s);
-        report "      branch   = " & bit'image(branch_s);
+        report "BEQ3: " & to_string(operand1_s) & " == " & to_string(operand2_s) & " -> branch = " & bit'image(branch_s) & " (expected: 1)";
+
+        report "=== All ALU Tests Completed ===";
         
         wait;
     end process;

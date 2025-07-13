@@ -45,7 +45,7 @@ begin
         b => out_not
     );
     
-    process(func3)
+    process(func3, out_xor, out_or, out_and)
     begin
     case func3 is
         when Func3XOR => s <= out_xor;
