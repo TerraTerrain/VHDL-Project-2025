@@ -1,5 +1,4 @@
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_BIT.ALL;
 use WORK.defs_pack.ALL;
 
@@ -76,6 +75,8 @@ begin
                 else
                     result <= out_add;
                 end if;
+                -- Also handle branch equal (same func3 value)
+                branch <= br;
             when Func3SLT =>
                 result <= (others => '0');
                 result(0) <= out_comp;
@@ -84,25 +85,23 @@ begin
                 result(0) <= out_comp;           
             when Func3XOR =>
                 result <= out_logic;
+                -- Also handle branch less than (same func3 value)
+                branch <= br;
             when Func3OR =>
                 result <= out_logic;
+                -- Also handle branch less than unsigned (same func3 value)
+                branch <= br;
             when Func3AND =>
                 result <= out_logic;
+                -- Also handle branch greater equal unsigned (same func3 value)
+                branch <= br;
             when Func3SLL =>
                 result <= out_shift;
+                -- Also handle branch not equal (same func3 value)
+                branch <= br;
             when Func3SRL_SRA =>
                 result <= out_shift;
-            when Func3BEQ =>
-                branch <= br;
-            when Func3BNE => 
-                branch <= br;
-            when Func3BLT => 
-                branch <= br;
-            when Func3BGE => 
-                branch <= br;
-            when Func3BLTU =>
-                branch <= br;
-            when Func3BGEU =>
+                -- Also handle branch greater equal (same func3 value)
                 branch <= br;
             when others =>
                 result <= (others => '0');

@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_BIT.ALL;
 use WORK.defs_pack.ALL;
-
+-- commented out line 34 in defs_pack.vhd for testing
 entity tb_shift is
 --  Port ( );
 end tb_shift;
