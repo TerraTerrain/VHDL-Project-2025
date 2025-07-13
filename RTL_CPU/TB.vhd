@@ -8,12 +8,12 @@ entity TB is
   PC    : in  bit_vector (15 downto 0);
   Instr : in  InstrType;  
   addr  : in  bit_vector (15 downto 0);
-  wdata : in  BusDataType;
+  wdata : in  DataType;
   rdwr  : in  bit;
   Acc  : in bit_vector(1 downto 0);
   sign : in bit;
   
-  rdata : out BusDataType );
+  rdata : out DataType );
 end TB;
 
 architecture Functional of TB is
