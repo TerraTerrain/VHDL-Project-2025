@@ -14,7 +14,8 @@ entity datapath is
         reg_src            : in  bit_vector(1 downto 0);
         rd, rs1, rs2       : in  RegAddrType;
         reg_en             : in  bit;
-        alu_result         : out DataType
+        alu_result         : out DataType;
+        reg_data2          : out DataType
     );
 end datapath;
 
@@ -36,6 +37,7 @@ begin
             r_data1 => r_data1_TO_mux2x1,
             r_data2 => r_data2_TO_mux2x1
         );
+    reg_data2 <= r_data2_TO_mux2x1;
         
     mux2x1_alu1 : entity WORK.mux32_2x1(RTL)
         port map (
