@@ -6,7 +6,7 @@ entity TLE_RISCV is
     port (
         clk, rst  : in  bit;
         mem_data  : in  DataType;
-        pc        : out AddrType;
+        pc        : out bit_vector(15 downto 0);
         instr     : out DataType;
         reg_data2 : out DataType;
         w_en      : out bit;
@@ -52,7 +52,7 @@ begin
             reg_data2  => reg_data2_sig
         );
     reg_data2 <= reg_data2_sig;
-    pc <= pc_sig;
+    pc <= pc_sig(15 downto 0);
     instr <= instr_sig;
     
     controller_block : entity WORK.controller(Structural)
