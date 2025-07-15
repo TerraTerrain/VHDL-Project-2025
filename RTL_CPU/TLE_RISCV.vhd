@@ -6,16 +6,19 @@ entity TLE_RISCV is
     port (
         clk, rst  : in  bit;
         mem_data  : in  DataType;
+        pc        : out AddrType;
+        instr     : out DataType;
         reg_data2 : out DataType;
         w_en      : out bit;
         memsigned : out bit;
         memaccess : out bit_vector(1 downto 0);
-        address   : out AddrType
+        address   : out bit_vector(15 downto 0)
     );
 end TLE_RISCV;
 
 architecture Structural of TLE_RISCV is
-    signal imm_sig, alu_result_sig, reg_data2_sig : DataType := (others => '0');
+    signal imm_sig, alu_result_sig, reg_data2_sig,
+           instr_sig : DataType := (others => '0');
     signal inc_pc_sig, pc_sig : AddrType := (others => '0');
     signal alu_src1_sig, alu_src2_sig, branch_sig, reg_en_sig : bit := '0';
     signal func3_sig : Func3Type := (others => '0');
@@ -49,6 +52,8 @@ begin
             reg_data2  => reg_data2_sig
         );
     reg_data2 <= reg_data2_sig;
+    pc <= pc_sig;
+    instr <= instr_sig;
     
     controller_block : entity WORK.controller(Structural)
         port map (
@@ -58,6 +63,7 @@ begin
             imm        => imm_sig,
             inc_pc     => inc_pc_sig,
             pc         => pc_sig,
+            instr      => instr_sig,
             alu_src1   => alu_src1_sig,
             alu_src2   => alu_src2_sig,
             func3      => func3_sig,
@@ -78,6 +84,6 @@ begin
     w_en      <= w_en_sig;
     memsigned <= memsigned_sig;
     memaccess <= memaccess_sig;
-    address   <= address_sig;
+    address   <= address_sig(15 downto 0); -- trimming for the TB memory
 
 end Structural;
