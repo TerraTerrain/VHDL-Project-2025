@@ -54,7 +54,7 @@ begin
         when OpImm => CMD_CALC <= '1'; ALUSrc2 <= '1'; RD <= INSTR(11 downto 7); RS1 <= INSTR(19 downto 15);
                 func3 <= INSTR(14 downto 12);
                 if INSTR(14 downto 12) = Func3SLL or INSTR(14 downto 12) = Func3SRL_SRA 
-                        then IMM(4 downto 0) <= INSTR(24 downto 0);
+                        then IMM(4 downto 0) <= INSTR(24 downto 20);
                 else                
                     IMM(11 downto 0) <= INSTR(31 downto 20);                
                     if INSTR(31) = '1' then IMM(31 downto 12) <= (others => '1'); end if;
@@ -92,6 +92,7 @@ begin
                         IMM(12) <= INSTR(31); IMM(11) <= INSTR(07); 
                         if BRANCH = '1' then PCSRC <= "01"; end if;
                         func3 <= INSTR(14 downto 12);
+        when others => null;
         end case;
 end process;
 end RTL;
