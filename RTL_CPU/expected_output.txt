@@ -1,0 +1,60 @@
+# After initialization:
+x1 = 1
+x2 = 2
+x3 = 3
+x4 = 4
+x5 = 32
+
+# After storing to memory:
+mem[32]  = 1
+mem[36]  = 2
+mem[40]  = 3
+mem[44]  = 4
+mem[48]  = 32
+
+# After addi/andi/ori:
+x1 = (1 + 10) & 0xF = 11 & 0xF = 0xB
+x2 = (2 + 20) | 0xA = 22 | 0xA = 0x1E
+x3 = (3 + 30) | 0xA = 33 | 0xA = 0x2B
+x4 = (4 & 0xF) | 0xA = 4 | 0xA = 0xE
+x5 = (32 & 0xF) = 0x0
+
+# After add/sub/and:
+x5 = x1 + x2 = 0xB + 0x1E = 0x29
+x1 = x3 + x4 = 0x2B + 0xE = 0x39
+x2 = x5 + x1 = 0x29 + 0x39 = 0x62
+x3 = x2 - x1 = 0x62 - 0x39 = 0x29
+x4 = x3 - x2 = 0x29 - 0x62 = -0x39 (two's complement)
+x5 = x4 - x3 = (-0x39) - 0x29 = -0x62 (two's complement)
+x1 = x1 & x2 = 0x39 & 0x62 = 0x20
+x2 = x2 & x3 = 0x62 & 0x29 = 0x20
+x3 = x3 & x4 = 0x29 & (-0x39) = result depends on bit width
+
+# After shift operations:
+x4 = x1 << x2
+x5 = x3 << x4
+x1 = x5 << x2
+x2 = x3 >> x1
+x3 = x4 >> x2
+x4 = x5 >> x3
+x5 = x1 >>> x2
+x1 = x3 >>> x4
+x2 = x5 >>> x1
+
+# After loads:
+x3 = mem[32]
+x4 = mem[36]
+x5 = mem[40]
+
+# After stores:
+mem[44] = x1
+mem[48] = x2
+mem[52] = x3
+
+# After branches and jumps:
+x1 = 1 (after label1)
+x2 = 2 (after label2)
+x3 = 3 (after label3)
+x4 = (return address after jal)
+x5 = 0 (skipped by jal)
+x1 = (return address after jalr)
