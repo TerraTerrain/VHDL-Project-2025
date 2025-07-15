@@ -10,8 +10,8 @@ entity TB is
   addr  : in  bit_vector (15 downto 0);
   wdata : in  DataType;
   rdwr  : in  bit;
-  Acc  : in bit_vector(1 downto 0);
-  sign : in bit;
+  Acc   : in bit_vector(1 downto 0);
+  sign  : in bit;
   
   rdata : out DataType );
 end TB;
@@ -55,6 +55,7 @@ begin
                             end case;
             when "10" =>
                     Mem(wordaddr) := wdata; 
+            when others => null;
             end case;       
     else 
         case Acc is
@@ -91,6 +92,7 @@ begin
                             end case;
             when "10" =>
                     rdata <= Mem(wordaddr);
+            when others => null;
             end case;     
     end if;
 
