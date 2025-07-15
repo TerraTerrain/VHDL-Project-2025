@@ -58,7 +58,7 @@ begin
                    if CMD_STORE= '1' then WEN <= '1'; end if;
                    MEMSIGNED <= MEMCODE(2);
                    MEMACCESS <= MEMCODE(1 downto 0);
-                   
+    when s_STOP => null;
     end case;
 end process;
 end Behavioral;
