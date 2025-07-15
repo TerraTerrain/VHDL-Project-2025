@@ -25,8 +25,8 @@ begin
         b	=>	operand2,
         o_mode	=>	'0',
         s	=>	out_add,
-        carry_out => test_carryout,
-        overflow => test_overflow
+        carry_out => open,
+        overflow => open
     );
     sub: entity work.adder(Behavioral)
     port map(
@@ -34,8 +34,8 @@ begin
         b => operand2,
         o_mode => '1',
         s => out_sub,
-        carry_out => test_carryout,
-        overflow => test_overflow
+        carry_out => open,
+        overflow => open
         );
     
     logic_unit: entity work.logic_unit(Behavioral)
