@@ -8,6 +8,7 @@ entity controller is
         mem_data           : in  DataType;
         imm                : out DataType;
         inc_pc, pc         : out AddrType;
+        instr              : out DataType;
         alu_src1, alu_src2 : out bit;
         func3              : out Func3Type;
         func7              : out Func7Type;
@@ -16,7 +17,6 @@ entity controller is
         rd, rs1, rs2       : out RegAddrType;
         reg_en             : out bit;
         alu_result         : in  DataType;
-        
         w_en               : out bit;
         memsigned          : out bit;
         memaccess          : out bit_vector(1 downto 0);
@@ -25,7 +25,7 @@ entity controller is
 end controller;
 
 architecture Structural of controller is
-    signal instr_TO_id, imm_TO_add, add_TO_mux4x1, inc_out,
+    signal instr_out, imm_TO_add, add_TO_mux4x1, inc_out,
            mux4x1_TO_pc, pc_out : DataType := (others => '0');
     signal pcsrc_TO_mux4x1 : bit_vector(1 downto 0) := "00";
     signal instr_en_sig, pc_en_sig, addrsrc_sig, reg_en_sig,
@@ -44,12 +44,12 @@ architecture Structural of controller is
     signal MEMCODE_sig : bit_vector(2 downto 0) := "000";
     
 begin
-    inc_pc   <= inc_out;
-    pc       <= pc_out;
+    inc_pc   <= inc_out; -- AddrType <= DataType; same subtype
+    pc       <= pc_out;  -- AddrType <= DataType; same subtype
     
     id_block : entity WORK.ID(RTL)
         port map(
-            INSTR      => instr_TO_id,
+            INSTR      => instr_out,
             BRANCH     => branch,
             func3      => func3_sig,
             func7      => func7_sig,
@@ -92,7 +92,7 @@ begin
             INSTR_EN   => instr_en_sig,
             PC_EN      => pc_en_sig,
             ADDRSrc    => addrsrc_sig,
-            W_EN       => w_en_sig,
+            WEN       => w_en_sig,
             MEMSIGNED  => memsigned_sig,
             MEMACCESS  => memaccess_sig
         );
@@ -107,8 +107,9 @@ begin
             rst   => rst,
             en    => instr_en_sig,
             d_in  => mem_data,
-            d_out => instr_TO_id
+            d_out => instr_out
         );
+    instr <= instr_out;
         
     pc_reg : entity WORK.reg32(Behavioral)
         port map (
@@ -139,7 +140,7 @@ begin
             overflow  => open
         );
 
-    mux4x1_reg : entity WORK.mux32_4x1(RTL)
+    mux4x1_pc : entity WORK.mux32_4x1(RTL)
         port map (
             selector => pcsrc_TO_mux4x1,
             d_in_a   => inc_out,
