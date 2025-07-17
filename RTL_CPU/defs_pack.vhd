@@ -6,8 +6,10 @@ use IEEE.numeric_bit.all;
 package defs_pack is
 -- Basic constants and types
     constant AddrSize       : natural  := 32; -- PC
+    constant Memsize        : natural  := 16;
     constant ByteAddrSize   : natural := 2; -- offset
-    constant MemoryAddrSize : natural := AddrSize - ByteAddrSize;
+    constant MemoryAddrSize : natural := Memsize - ByteAddrSize;
+    
   
     constant InstrSize : natural := 32;
     constant OpSize    : natural := 7;
@@ -31,7 +33,7 @@ package defs_pack is
     subtype RegAddrType is bit_vector (RegAddrSize-1 downto 0);
 
     type RegType is array (integer range 0 to 2**RegAddrSize-1) of DataType;
-    type MemType is array (integer range 0 to 2**AddrSize-1) of DataType;
+    type MemType is array (integer range 0 to 2**MemoryAddrSize-1) of DataType;
     
     type MnemonicType is (
         ADD,SUB,SLLr,SRLr,SRAr,XORr,ORr,ANDr,SLT,SLTU,

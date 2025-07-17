@@ -13,6 +13,7 @@ entity reg_file is
     );
 end reg_file;
 
+
 architecture Behavioral of reg_file is
     signal we_vector_sig : bit_vector(2**RegAddrSize-1 downto 0)
         := (others => '0');

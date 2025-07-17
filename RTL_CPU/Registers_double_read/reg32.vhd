@@ -10,6 +10,7 @@ entity reg32 is
     );
 end reg32;
 
+
 architecture Behavioral of reg32 is 
 begin
     process (clk)

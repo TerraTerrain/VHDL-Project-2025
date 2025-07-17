@@ -9,7 +9,8 @@ architecture Structural of TB_TLE is
     signal mem_data_sig, instr_sig, reg_data2_sig : DataType;
     signal clk_sig, rst_sig, w_en_sig, memsigned_sig : bit;
     signal memaccess_sig : bit_vector(1 downto 0);
-    signal pc_sig, address_sig : bit_vector(15 downto 0);
+    signal next_pc_sig, inc_pc_sig ,pc_sig, address_sig : bit_vector(15 downto 0);
+    signal ALU_sig : bit_vector(31 downto 0);
 begin
     clk_process : process
     begin
@@ -40,19 +41,21 @@ begin
             w_en      => w_en_sig,
             memsigned => memsigned_sig,
             memaccess => memaccess_sig,
-            address   => address_sig
+            address   => address_sig,
+            ALU       => ALU_sig,
+            inc_pc    => inc_pc_sig,
+            next_pc   => next_pc_sig
         );
 
     TB : entity WORK.TB(Functional)
         port map(
             rdata => mem_data_sig,
-            PC    => pc_sig,
-            Instr => instr_sig,
             wdata => reg_data2_sig,
             rdwr  => w_en_sig,
             sign  => memsigned_sig,
             Acc   => memaccess_sig,
-            addr  => address_sig
+            addr  => address_sig,
+            clock => clk_sig
         );
 
 end Structural;

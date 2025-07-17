@@ -4,26 +4,25 @@ use work.defs_pack.ALL;
 use IEEE.numeric_bit.ALL;
 
 entity TB is
-  Port(
-  PC    : in  bit_vector (15 downto 0);
-  Instr : in  InstrType;  
+  Port( 
   addr  : in  bit_vector (15 downto 0);
   wdata : in  DataType;
   rdwr  : in  bit;
   Acc   : in bit_vector(1 downto 0);
   sign  : in bit;
+  clock : in bit;
   
   rdata : out DataType );
 end TB;
 
 architecture Functional of TB is
 begin
-    process(PC, addr, wdata, rdwr)
-        variable Mem          : MemType     := (others=>(others=>'0'));
+    process(addr, wdata, rdwr, clock)
+        variable Mem          : MemType     := (0 => "11111111111111111111100010010111", 1 => "11111111111111111111100100010111",2 => x"00130313",others=>(others=>'0'));
         variable wordaddr     : integer := 0;
     begin
     rdata <= (others => '0');
-    wordaddr := TO_INTEGER(unsigned(addr and "00"));
+    wordaddr := TO_INTEGER(unsigned(addr(15 downto 2)));
     if rdwr = '1' then
         case Acc is
             when "00" =>  --byte access

@@ -27,7 +27,7 @@ architecture Behavioral of FSM is
     signal state : state_type;
 begin
 nextstate_proc: process (CLK, RST) begin
-    if RST = '0' then
+    if RST = '1' then
         state <= s_IF;
     elsif CLK = '1' and CLK'event then
         case state is

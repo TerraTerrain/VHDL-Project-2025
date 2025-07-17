@@ -20,7 +20,8 @@ entity controller is
         w_en               : out bit;
         memsigned          : out bit;
         memaccess          : out bit_vector(1 downto 0);
-        address            : out AddrType
+        address            : out AddrType;
+        Next_pc            : out AddrType
     );
 end controller;
 
@@ -100,7 +101,7 @@ begin
     w_en      <= w_en_sig;
     memsigned <= memsigned_sig;
     memaccess <= memaccess_sig;
-     
+    next_pc <=mux4x1_TO_pc; 
     instr_reg : entity WORK.reg32(Behavioral)
         port map (
             clk   => clk,
@@ -153,8 +154,8 @@ begin
     mux2x1_address : entity WORK.mux32_2x1(RTL)
         port map (
             selector => addrsrc_sig,
-            d_in_a   => alu_result,
-            d_in_b   => pc_out,
+            d_in_a   => pc_out,
+            d_in_b   => alu_result,
             d_out    => address_sig
         );
     address <= address_sig;

@@ -25,7 +25,7 @@ architecture Structural of datapath is
            DataType := (others => '0');
     signal branch_sig : bit := '0';
 begin
-    reg_block : entity WORK.reg_file(Structural)
+    reg_block : entity WORK.reg_file(Behavioral)
         port map (
             clk => clk,
             rst => rst,
