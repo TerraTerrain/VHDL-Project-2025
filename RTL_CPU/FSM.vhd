@@ -43,7 +43,7 @@ nextstate_proc: process (CLK, RST) begin
     end if;
 end process;
 
-output_proc: process (state, CMD_STOP, CMD_CALC, CMD_LOAD, CMD_STORE, CMD_BRANCH)
+output_proc: process (state, CMD_STOP, CMD_CALC, CMD_LOAD, CMD_STORE, CMD_BRANCH, MEMCODE)
 
 begin
     REG_EN <= '0'; INSTR_EN <= '0'; PC_EN <= '0'; ADDRSrc <= '0';

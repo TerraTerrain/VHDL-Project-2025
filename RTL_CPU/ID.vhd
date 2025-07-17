@@ -41,7 +41,7 @@ begin
     process(Instr, BRANCH)
     begin
     -- default assignemnt
-        CMD_CALC <= '0'; CMD_LOAD <= '0'; CMD_STORE <= '0'; CMD_STOP <= '0';        
+        CMD_CALC <= '0'; CMD_LOAD <= '0'; CMD_STORE <= '0'; CMD_STOP <= '0'; CMD_BRANCH <= '0';       
         RD <= (others => '0'); RS1 <= (others => '0'); RS2 <= (others => '0');
         PCSRC <= (others => '0'); REGSRC <= (others => '0');
         ALUSrc1 <= '0'; ALUSrc2 <= '0';
@@ -80,16 +80,19 @@ begin
             
             
         when OpJump => ALUSrc2 <= '1'; ALUSrc1 <= '1'; RD <= INSTR(11 downto 7); REGSRC <= "10"; PCSRC <= "10";
+                    CMD_CALC <= '1';
                     IMM(20) <= INSTR(31);    IMM(10 downto 1) <= INSTR(30 downto 21); IMM(11) <= INSTR(20);    IMM(19 downto 12) <= INSTR(19 downto 12);           
                     if INSTR(31) = '1' then IMM(31 downto 21) <= (others => '1'); end if;
                     
         when OpJumpReg =>  ALUSrc2 <= '1'; RD <= INSTR(11 downto 7); RS1 <= INSTR(19 downto 15); REGSRC <= "10"; PCSRC <= "10";
+                    CMD_CALC <= '1';
                     IMM(11 downto 0) <= INSTR(31 downto 20);            
                     if INSTR(31) = '1' then IMM(31 downto 12) <= (others => '1'); end if;
         
         when OpBranch => RS1 <= INSTR(19 downto 15); RS2 <= INSTR(24 downto 20);
                         IMM(10 downto 5) <= INSTR(30 downto 25);    IMM(4 downto 1) <= INSTR(11 downto 8); 
                         IMM(12) <= INSTR(31); IMM(11) <= INSTR(07); 
+                        CMD_BRANCH <= '1';
                         if BRANCH = '1' then PCSRC <= "01"; end if;
                         func3 <= INSTR(14 downto 12);
         when others => null;
